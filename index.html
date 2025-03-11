@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Santelices</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+    <!-- Tilt.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP for Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<!-- Typed.js for Typing Effect -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+</head>
+<body>
+
+    <!-- particle bckground -->
+    <div id="particles-js"></div>
+
+    <!-- Desktop nav-->
+    <nav id="desktop-nav">
+        <div class="logo">Joshua Santelices</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- mobile nav hamborger-->
+    <nav id="hamburger-nav">
+        <div class="logo">Joshua Santelices</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="menu-links">
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+                <li><a href="#education" onclick="toggleMenu()">Education</a></li>
+                <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero d-flex flex-column align-items-center justify-content-center text-center">
+        <div class="profile-pic-container">
+            <img src="assets/profile.jpg" alt="Joshua Santelices Profile Picture" class="profile-pic">
+        </div>
+        
+        <h1 class="neon-text">Yo, I'm Joshua</h1>
+        <p class="glitch"><span class="typed-text"></span><span class="cursor">_</span></p>
+        <div class="glitch-container">
+            <span class="glitch"></span> 
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/joshua-santelices-b81714292?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app&fbclid=IwZXh0bgNhZW0CMTEAAR2UFdXv5zx1xEUoGGSA3Bnx-7pqSu5rJHBiRou5lxRzdtLzz2BXLzBL1r8_aem_wdguIdmNGGPr075U7X_v_A" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/shanti-ryuu" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>        
+    </header>
+
+    <!-- About Me -->
+    <section id="about" class="animate-section">
+        <h2 class="neon-text">About Me</h2>
+        <p class="about-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore molestias facere ipsum accusantium placeat facilis ipsam, vero eum temporibus hic quia a, quaerat reprehenderit voluptas animi dignissimos dolor ratione unde?</p>
+    </section>
+    
+
+    <!-- Skills -->
+    <section id="skills" class="animate-section">
+        <h2 class="neon-text">Skills</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius architecto quod facere, vitae, hic nam tempore perspiciatis aperiam quae maiores cum possimus officia iure reiciendis earum alias minima nulla at?</p>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="animate-section">
+        <h2 class="neon-text">Education</h2>
+        <div class="education-card">
+            <h3 class="neon-text">St. Dominic College of Asia</h3>
+            <p>BS in Information Technology</p>
+            <p>2023 - Present</p>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="animate-section">
+        <h2 class="text-center neon-text">Projects</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="project-card" data-tilt>
+                    <img src="assets/project1.jpg" class="img-fluid" alt="Project 1">
+                    <h3 class="neon-text">Project 1</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="animate-section">
+        <h2 class="neon-text">Contact</h2>
+        <p>Want to work together? Hit me up!</p>
+        <p class="glitch"><span class="typed-text"></span><span class="cursor">_</span></p>
+<div class="social-icons">
+    <a href="https://www.linkedin.com/in/joshua-santelices-b81714292" target="_blank">
+        <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://github.com/shanti-ryuu" target="_blank">
+        <i class="fab fa-github"></i>
+    </a>
+</div>
+
+    </section>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
