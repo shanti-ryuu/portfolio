@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* typed.js for Dynamic Text Effect*/
     new Typed(".glitch", {
-        strings: ["bsit", "Tech Enthusiast", "Aspiring IT Professional"],
+        strings: ["bsit", "BSIT", "Aspiring IT Professional"],
         typeSpeed: 80,
         backSpeed: 50,
         loop: true
