@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="assets/js/particles.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+       <!-- Particles.js container -->
+<div id="particles-js"></div>
+<!-- Include Particles.js -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<!-- Include Stats.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+
+    <div id="particles-js"></div>
+    <div id="navbar-container"></div>
+
+    <script>
+        // load the navbar dynamically
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-container").innerHTML = data;
+            });
+    </script>
+    
+
+    <section class="card-container">
+        <div class="card">
+            <h3>Experience</h3>
+            <p>Currently building my portfolio and working on exciting projects!</p>
+           
+        </div>
+    </section>
+    
+</body>
+</html>
