@@ -3,41 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Stack</title>
+    <meta name="description" content="Joshua Santelices - Technical Skills and Technology Stack">
+    <title>Tech Stack | Joshua's Portfolio</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="assets/js/particles.js" defer></script>
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/cursor.js" defer></script>
 </head>
 <body>
-       <!-- Particles.js container -->
-<div id="particles-js"></div>
-<!-- Include Particles.js -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<!-- Include Stats.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
-
-    <div id="particles-js"></div>
+    <div id="particles-js" aria-hidden="true"></div>
     <div id="navbar-container"></div>
 
+    <main class="tech-stack-page">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="glitch-text" data-text="Tech Stack">Tech Stack</h1>
+                <p class="hero-subtitle">My tools and technologies</p>
+            </div>
+        </section>
 
-<script>
-    // load the navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("navbar-container").innerHTML = data;
-        });
-</script>
+        <section class="skills-section">
+            <!-- Programming Languages -->
+            <div class="skill-category">
+                <h2>Programming Languages</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <i class="devicon-dart-plain colored skill-icon"></i>
+                        <h3 class="skill-name">Dart</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-java-plain colored skill-icon"></i>
+                        <h3 class="skill-name">Java</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-cplusplus-plain colored skill-icon"></i>
+                        <h3 class="skill-name">C++</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Web Technologies -->
+            <div class="skill-category">
+                <h2>Web Development</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <i class="devicon-html5-plain colored skill-icon"></i>
+                        <h3 class="skill-name">HTML5</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-css3-plain colored skill-icon"></i>
+                        <h3 class="skill-name">CSS3</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-javascript-plain colored skill-icon"></i>
+                        <h3 class="skill-name">JavaScript</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                </div>
+            </div>
 
-    <section class="card-container">
-        <div class="card">
-            <h3>Tech Stack</h3>
-            <p>🛠 HTML, CSS, JavaScript, Flutter, Git, Github</p>
-        </div>
-    </section>
-    
+            <!-- Development Tools -->
+            <div class="skill-category">
+                <h2>Development Tools</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <i class="devicon-git-plain colored skill-icon"></i>
+                        <h3 class="skill-name">Git</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-github-plain colored skill-icon"></i>
+                        <h3 class="skill-name">GitHub</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                    <div class="skill-card fade-in">
+                        <i class="devicon-vscode-plain colored skill-icon"></i>
+                        <h3 class="skill-name">VS Code</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Databases -->
+            <div class="skill-category">
+                <h2>Databases</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in">
+                        <i class="devicon-oracle-plain colored skill-icon"></i>
+                        <h3 class="skill-name">Apex Oracle</h3>
+                        <p class="skill-level">Learning</p>
+                    </div>
+                </div>
+            </div>
+                <div class="skill-card fade-in">
+                    <i class="devicon-c-plain colored skill-icon"></i>
+                    <h3 class="skill-name">C</h3>
+                </div>
+
+                <!-- Frameworks & Tools -->
+                <div class="skill-card fade-in">
+                    <i class="devicon-flutter-plain colored skill-icon"></i>
+                    <h3 class="skill-name">Flutter</h3>
+                </div>
+                <div class="skill-card fade-in">
+                    <i class="devicon-android-plain colored skill-icon"></i>
+                    <h3 class="skill-name">Android Studio</h3>
+                </div>
+                <div class="skill-card fade-in">
+                    <i class="devicon-github-original colored skill-icon"></i>
+                    <h3 class="skill-name">GitHub</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-details">
+            <div class="detail-cards">
+                <div class="detail-card fade-in">
+                    <h2>Frontend Development</h2>
+                    <ul class="tech-list">
+                        <li>Responsive Web Design</li>
+                        <li>Modern UI/UX Principles</li>
+                        <li>Cross-browser Compatibility</li>
+                    </ul>
+                </div>
+                <div class="detail-card fade-in">
+                    <h2>Mobile Development</h2>
+                    <ul class="tech-list">
+                        <li>Flutter Framework</li>
+                        <li>Android Development</li>
+                        <li>Cross-platform Apps</li>
+                    </ul>
+                </div>
+                <div class="detail-card fade-in">
+                    <h2>Tools & Version Control</h2>
+                    <ul class="tech-list">
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>Android Studio</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

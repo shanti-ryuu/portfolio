@@ -1,0 +1,75 @@
+/* Remove unnecessary body and canvas styles as they're handled in style.css */
+
+/* Hide default cursor on interactive elements */
+a, button, input[type="submit"], input[type="button"] {
+    cursor: none;
+}
+
+.cursor-dot,
+.cursor-dot-outline,
+.cursor-trail {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    z-index: 9999;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cursor-trail {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(2px);
+    transition: opacity 0.2s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-primary),
+                0 0 20px var(--color-primary),
+                0 0 30px var(--color-primary);
+    transition: width 0.3s ease-in-out,
+                height 0.3s ease-in-out,
+                background-color 0.3s ease-in-out;
+}
+
+.cursor-dot-outline {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: width 0.3s ease-in-out,
+                height 0.3s ease-in-out,
+                border-color 0.3s ease-in-out,
+                opacity 0.3s ease-in-out;
+}
+
+.cursor-hover.cursor-dot {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(102, 252, 241, 0.5);
+}
+
+.cursor-hover.cursor-dot-outline {
+    width: 50px;
+    height: 50px;
+    border-color: rgba(102, 252, 241, 0.7);
+    opacity: 0.3;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .cursor-dot,
+    .cursor-dot-outline {
+        display: none;
+    }
+}

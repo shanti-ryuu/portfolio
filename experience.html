@@ -5,39 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experience</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="assets/js/particles.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/cursor.js" defer></script>
 </head>
 <body>
-       <!-- Particles.js container -->
-<div id="particles-js"></div>
-<!-- Include Particles.js -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<!-- Include Stats.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
-
+    <!-- Particles.js container -->
     <div id="particles-js"></div>
     <div id="navbar-container"></div>
 
-    <script>
-        // load the navbar dynamically
-        fetch("navbar.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("navbar-container").innerHTML = data;
-            });
-    </script>
-    
+    <main class="experience-section fade-in">
+        <h1 class="section-title">My Experience & Projects</h1>
 
-    <section class="card-container">
-        <div class="card">
-            <h3>Experience</h3>
-            <p>Currently building my portfolio and working on exciting projects!</p>
-           
-        </div>
-    </section>
-    
+        <!-- Projects Section -->
+        <section class="projects-container">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="assets/images/portfolio.png" alt="Portfolio Website" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio Website</h3>
+                        <p>My student portfolio website showcasing my skills and academic projects. Features a modern design with particle.js animations, responsive layout, and dynamic content loading.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Particles.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shanti-ryuu/Portfolio" target="_blank" class="btn">View Code</a>
+                            <a href="#" class="btn">Live Demo</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-track">
+                                <!-- Add your project images here -->
+                                <div class="carousel-slide">
+                                    <img src="assets/images/project1.png" alt="School Activity 1" loading="lazy">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/images/project2.png" alt="School Activity 2" loading="lazy">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/images/project.png" alt="School Activity 3" loading="lazy">
+                                </div>
+                            </div>
+                            <button class="carousel-button prev" aria-label="Previous slide">&lt;</button>
+                            <button class="carousel-button next" aria-label="Next slide">&gt;</button>
+                            <div class="carousel-dots"></div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Academic Projects</h3>
+                        <p>Collection of programming activities and assignments completed during my BSIT coursework. Includes various programming exercises and small applications.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn">View Projects</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Academic Progress Section -->
+        <section class="experience-container">
+            <h2>Academic Progress</h2>
+            <div class="timeline">
+                <!-- Current -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Present</div>
+                        <h3>BSIT Student</h3>
+                        <h4>Bachelor of Science in Information Technology</h4>
+                        <ul class="experience-details">
+                            <li>Currently pursuing my degree in Information Technology</li>
+                            <li>Learning programming fundamentals and web development</li>
+                            <li>Working on various coding projects and assignments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Activities -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Ongoing</div>
+                        <h3>Academic Activities</h3>
+                        <h4>Programming & Development</h4>
+                        <ul class="experience-details">
+                            <li>Completing programming exercises and assignments</li>
+                            <li>Building small applications as part of coursework</li>
+                            <li>Learning new technologies and programming languages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li>Dart</li>
+                        <li>JavaScript</li>
+                        <li>Java</li>
+                        <li>C++</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Technologies</h3>
+                    <ul>
+                        <li>HTML5 & CSS3</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>MySQL</li>
+                        <li>Linux</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add carousel script -->
+    <script src="assets/js/carousel.js"></script>
 </body>
 </html>

@@ -5,38 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="assets/js/particles.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/cursor.js" defer></script>
 </head>
 <body>
-       <!-- Particles.js container -->
-<div id="particles-js"></div>
-<!-- Include Particles.js -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<!-- Include Stats.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
-
+    <!-- Particles.js container -->
     <div id="particles-js"></div>
     <div id="navbar-container"></div>
 
-<script>
-    // load the navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("navbar-container").innerHTML = data;
+    <main class="contact-section fade-in">
+        <div class="contact-container">
+            <h1>Get In Touch</h1>
+            <p class="contact-description">Feel free to reach out to me for any questions or opportunities!</p>
+            
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required>
+                    <label for="name">Your Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Your Email</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="subject">Subject</label>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="message" name="message" required></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <div class="social-links">
+                <h2>Or connect with me on:</h2>
+                <div class="social-icons">
+                    <a href="https://github.com/shanti-ryuu" target="_blank" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/joshua-santelices-b81714292" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:joshuacarlosantelices@gmail.com" class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <script>
+        // load the navbar dynamically
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar-container").innerHTML = data;
+            });
+
+        // Handle form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Thanks for your message! I\'ll get back to you soon.');
+            this.reset();
         });
-</script>
+    </script>
 
 
-    <section class="card-container">
-        <div class="card">
-        <h2>Contact Me</h2>
-        <p>🔗 <a href="https://github.com/shanti-ryuu" target="_blank">GitHub</a></p>
-        <p>🔗 <a href="https://www.linkedin.com/in/joshua-santelices-b81714292/?original_referer=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2F&originalSubdomain=ph" target="_blank">LinkedIn</a></p>
-   </div>
-    </section>
-</body>
-</html>

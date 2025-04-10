@@ -3,51 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua Santelices</title>
+    <meta name="description" content="Joshua Santelices - BSIT Student and Aspiring IT Programmer">
+    <title>Joshua Santelices | Portfolio</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="assets/js/particles.js" defer></script>
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/theme.js" defer></script>
 </head>
 <body>
-    <!-- Particles.js container -->
-<div id="particles-js"></div>
-<!-- Include Particles.js -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<!-- Include Stats.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <div id="particles-js" aria-hidden="true"></div>
+    <div id="navbar-container"></div>
 
-    <div id="particles-js"></div>
+    <main>
+        <header class="hero">
+            <div class="hero-content">
+                <img src="assets/images/profile.jpg" alt="Joshua Santelices" class="profile-pic floating">
+                <h1 class="glitch-hover" data-text="Hello, I'm Joshua_">Hello, I'm Joshua_</h1>
+                <div id="typed-wrapper">
+                    <span id="typed-text"></span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="about.html" class="btn glow-border">About Me</a>
+                    <a href="contact.html" class="btn glow-border">Get in Touch</a>
+                </div>
+            </div>
+        </header>
 
-    <nav class="navbar">
-        <div class="logo">Joshua Santelices</div>
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="techstack.html" class="nav-link">Tech Stack</a>
-        <a href="experience.html" class="nav-link">Experience</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-        <div class="underline"></div>
-        <button id="theme-toggle">🌙</button>
-    </nav>
-    
+        <section class="quick-links">
+            <div class="link-card">
+                <h2>Tech Stack</h2>
+                <p>Explore my technical skills and tools</p>
+                <a href="techstack.html" class="link-btn">View Stack</a>
+            </div>
+            <div class="link-card">
+                <h2>Experience</h2>
+                <p>Check out my projects and work</p>
+                <a href="experience.html" class="link-btn">See Work</a>
+            </div>
+        </section>
+    </main>
 
-    <header class="hero">
-        <img src="assets/images/profile.jpg" alt="Joshua Santelices" class="profile-pic">
-        <h1 class="glitch-hover" data-text="Hello, I'm Joshua_">Hello, I'm Joshua_</h1>
-        <p class="glitch-hover floating" data-text="Aspiring IT Programmer | BSIT">
-            Aspiring IT Programmer | BSIT
-        </p>
-        <a href="about.html" class="btn glow-border">Explore</a>
-    </header>
-    
-    <script>
-        var typed = new Typed("#typed-text", {
-            strings: ["Hello, I'm Joshua_"],
-            typeSpeed: 100,
-            backSpeed: 50,
-            loop: false
-        });
-    </script>
+
 </body>
 </html>
+            

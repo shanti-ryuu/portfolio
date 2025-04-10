@@ -1,137 +1,149 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const textElement = document.getElementById("glitch-text");
-    if (!textElement) return; // Prevents errors if the element is missing
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize navbar
+    loadNavbar();
 
-    const words = ["Hi, I'm Joshua_", "BSIT_", "Aspiring Developer_"];
-    let wordIndex = 0;
-    let letterIndex = 0;
-    let currentText = "";
-    let deleting = false;
+    // Initialize page transitions
+    initializePageTransitions();
 
-    function typeEffect() {
-        if (deleting) {
-            currentText = words[wordIndex].substring(0, letterIndex--);
+    // Initialize particles.js with default config
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#66FCF1' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: false },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#66FCF1',
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: { enable: true, mode: 'repulse' },
+                onclick: { enable: true, mode: 'push' },
+                resize: true
+            }
+        },
+        retina_detect: true
+    });
+
+    // Initialize Typed.js
+    new Typed('#typed-text', {
+        strings: ['Aspiring IT Programmer', 'BSIT Student', 'Web Developer'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+    });
+
+    // Navbar functionality
+    const navbar = document.querySelector('.navbar');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Handle navbar background on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
         } else {
-            currentText = words[wordIndex].substring(0, letterIndex++);
+            navbar.classList.remove('scrolled');
         }
+    });
 
-        textElement.innerHTML = `<span class="glitch">${currentText}</span>`;
+    // Mobile menu toggle
+    navToggle?.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
 
-        let speed = deleting ? 50 : 100;
-        if (!deleting && letterIndex === words[wordIndex].length) {
-            speed = 1200; // Wait before deleting
-            deleting = true;
-        } else if (deleting && letterIndex === 0) {
-            deleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            speed = 500;
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && navLinks.classList.contains('active')) {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
         }
+    });
 
-        setTimeout(typeEffect, speed);
+    // Handle active nav link
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+});
+
+function loadNavbar() {
+    const navbarContainer = document.getElementById('navbar-container');
+    if (navbarContainer) {
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                navbarContainer.innerHTML = data;
+                setupNavbarInteractions();
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    }
+}
+
+function setupNavbarInteractions() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            navToggle.classList.toggle('active');
+        });
     }
 
-    typeEffect();
-});
+    // Add active class to current page link
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const activeLink = document.querySelector(`a[href="${currentPage}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+}
 
-// Cursor trail effect
-document.addEventListener("mousemove", (e) => {
-    let trail = document.createElement("div");
-    trail.className = "cursor-trail";
-    document.body.appendChild(trail);
-
-    // Set initial position
-    trail.style.left = `${e.clientX}px`;
-    trail.style.top = `${e.clientY}px`;
-
-    // Smooth animation
-    trail.animate(
-        [
-            { transform: "scale(1)", opacity: 1 },
-            { transform: "scale(2)", opacity: 0 }
-        ],
-        { duration: 500, easing: "ease-out" }
-    );
-
-    // Remove the trail after animation
-    setTimeout(() => {
-        trail.remove();
-    }, 500);
-});
-
-// Smooth Scroll Effect
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
+function initializePageTransitions() {
+    document.querySelectorAll('a').forEach(link => {
+        if (link.href.includes(window.location.origin)) {
+            link.addEventListener('click', e => {
+                const targetHref = link.getAttribute('href');
+                if (!targetHref.startsWith('#')) {
+                    e.preventDefault();
+                    document.body.classList.add('page-transition');
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 300);
+                }
+            });
         }
     });
-});
+}
 
-// Neon Glow Hover Effect
-document.querySelectorAll(".glow-border").forEach((btn) => {
-    btn.addEventListener("mouseenter", function () {
-        this.style.boxShadow = "0 0 20px rgba(0, 255, 255, 0.8)";
-    });
-    btn.addEventListener("mouseleave", function () {
-        this.style.boxShadow = "none";
-    });
-});
+// Glitch text typing effect
+const textElement = document.getElementById("glitch-text");
+if (textElement) {
+    const words = ["Hi, I'm Joshua_", "BSIT_", "Aspiring Developer_"];
+    let wordIndex = 0, letterIndex = 0, currentText = "", deleting = false;
 
-// 3D Depth Parallax Effect
-document.addEventListener("mousemove", (e) => {
-    document.querySelectorAll(".parallax").forEach((element) => {
-        let x = (window.innerWidth - e.pageX * 2) / 100;
-        let y = (window.innerHeight - e.pageY * 2) / 100;
-        element.style.transform = `translate(${x}px, ${y}px)`;
-    });
-});document.addEventListener("DOMContentLoaded", function () {
-    // Initialize particles.js
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#1b1e34" },
-            "shape": {
-                "type": "polygon",
-                "stroke": { "width": 0, "color": "#000" },
-                "polygon": { "nb_sides": 6 }
-            },
-            "opacity": { "value": 0.3, "random": true },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": { "enable": true, "speed": 4, "size_min": 0.3, "sync": false }
-            },
-            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-            "move": {
-                "enable": true, "speed": 6, "direction": "none",
-                "random": false, "straight": false, "out_mode": "out", "bounce": false
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": { "enable": true, "mode": "repulse" },
-                "onclick": { "enable": true, "mode": "push" },
-                "resize": true
-            },
-            "modes": {
-                "grab": { "distance": 400, "line_linked": { "opacity": 1 } },
-                "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
-                "repulse": { "distance": 100, "duration": 0.4 },
-                "push": { "particles_nb": 4 },
-                "remove": { "particles_nb": 2 }
-            }
-        },
-        "retina_detect": true
-    });
-
-    // Glitch text typing effect
-    const textElement = document.getElementById("glitch-text");
-    if (textElement) {
-        const words = ["Hi, I'm Joshua_", "BSIT_", "Aspiring Developer_"];
-        let wordIndex = 0, letterIndex = 0, currentText = "", deleting = false;
+    function typeEffect() {
+        currentText = words[wordIndex].substring(0, deleting ? letterIndex-- : letterIndex++);
+        textElement.innerHTML = `<span class="glitch">${currentText}</span>`;
 
         function typeEffect() {
             currentText = words[wordIndex].substring(0, deleting ? letterIndex-- : letterIndex++);
@@ -197,7 +209,7 @@ document.addEventListener("mousemove", (e) => {
             element.style.transform = `translate(${x}px, ${y}px)`;
         });
     });
-});
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     const navbar = document.querySelector(".navbar");
