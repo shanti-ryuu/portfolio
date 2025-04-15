@@ -2044,7 +2044,6 @@ body {
 
 canvas {
     display: block;
-    vertical-align: bottom;
 }
 
 /* ---- stats.js ---- */
