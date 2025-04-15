@@ -1,0 +1,63 @@
+/* Theme variables and transitions */
+:root {
+    /* Dark theme (default) */
+    --color-bg: #0b0c10;
+    --color-bg-alt: #151e29f3;
+    --color-text: #C5C6C7;
+    --color-primary: #66FCF1;
+    --color-secondary: #45A29E;
+    --color-accent: #FF0055;
+    --color-glow: rgba(102, 252, 241, 0.3);
+    --color-dark: #000000;
+    --color-light: #FFFFFF;
+    --font-main: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --nav-height: 60px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme */
+body.light-mode {
+    --color-bg: #F5F5F7;
+    --color-bg-alt: #E5E5E7;
+    --color-text: #1F2833;
+    --color-primary: #45A29E;
+    --color-secondary: #66FCF1;
+    --color-glow: rgba(69, 162, 158, 0.3);
+}
+
+/* Theme transition */
+.theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body,
+body *:not(script) {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+body.theme-transition,
+body.theme-transition *:not(script) {
+    transition: none !important;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--color-primary);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+}

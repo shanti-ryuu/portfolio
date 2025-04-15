@@ -94,6 +94,7 @@ function loadNavbar() {
             .then(data => {
                 navbarContainer.innerHTML = data;
                 setupNavbarInteractions();
+                if (window.setupThemeToggle) window.setupThemeToggle();
             })
             .catch(error => console.error('Error loading navbar:', error));
     }
@@ -105,7 +106,7 @@ function setupNavbarInteractions() {
 
     if (navToggle && navLinks) {
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
+            navLinks.classList.toggle('active');
             navToggle.classList.toggle('active');
         });
     }

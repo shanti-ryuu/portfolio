@@ -1,6 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+function setupThemeToggle() {
     const themeToggle = document.getElementById("theme-toggle");
     const body = document.body;
+    if (!themeToggle) return;
 
     // Function to update particle colors
     function updateParticleColors(isLight) {
@@ -51,4 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (savedTheme) {
         setTheme(savedTheme === 'light');
     }
-});
+}
+
+// Run on DOMContentLoaded (in case navbar is present at load)
+document.addEventListener("DOMContentLoaded", setupThemeToggle);
+
+// Also expose globally so it can be called after navbar is injected
+window.setupThemeToggle = setupThemeToggle;

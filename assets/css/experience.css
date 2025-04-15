@@ -1,0 +1,550 @@
+/* ============================= */
+/*        Carousel Styles        */
+/* ============================= */
+
+/* Main container for the project carousel */
+.project-carousel {
+    position: relative; /* Allows absolute positioning of children */
+    width: 100%; /* Full width of parent */
+    height: 300px; /* Fixed height for carousel */
+    overflow: hidden; /* Hide overflowing slides */
+    border-radius: 15px; /* Rounded corners */
+    margin-bottom: 1.5rem; /* Space below carousel */
+}
+
+/* Container for all carousel slides */
+.carousel-container {
+    position: relative; /* Needed for absolute children */
+    width: 100%;
+    height: 100%;
+}
+
+/* Track that holds all the slides in a row */
+.carousel-track {
+    display: flex; /* Align slides horizontally */
+    transition: transform 0.5s ease; /* Smooth slide movement */
+    height: 100%;
+}
+
+/* Individual carousel slide */
+.carousel-slide {
+    min-width: 100%; /* Each slide takes full carousel width */
+    height: 100%;
+}
+
+/* Image inside each carousel slide */
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers slide area */
+}
+
+/* Navigation arrow buttons for carousel */
+.carousel-button {
+    position: absolute; /* Positioned over carousel */
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%);
+    background: rgba(34, 34, 34, 0.85); /* Semi-transparent dark background */
+    color: var(--color-primary); /* Primary color for icon */
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    font-size: 1.6rem; /* Large icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Subtle shadow */
+    transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+    z-index: 2;
+    opacity: 0.92;
+}
+/* Focus style for accessibility */
+.carousel-button:focus {
+    outline: 2px solid var(--color-primary); /* Visible outline for keyboard navigation */
+}
+/* Hover effect for carousel button */
+.carousel-button:hover {
+    background: var(--color-primary); /* Highlight button on hover */
+    color: var(--color-bg); /* Invert icon color for contrast */
+    box-shadow: 0 4px 16px var(--color-primary), 0 0 0 2px var(--color-accent); /* Glow effect */
+}
+
+
+/* Alternate hover style for carousel button (if needed for fallback) */
+.carousel-button:hover {
+    background: rgba(0, 0, 0, 0.8); /* Slightly darker background on hover */
+}
+
+/* Position previous button on the left */
+.carousel-button.prev {
+    left: 10px;
+}
+
+/* Position next button on the right */
+.carousel-button.next {
+    right: 10px;
+}
+
+/* Dot navigation for carousel (below slides) */
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    display: flex;
+    gap: 8px; /* Space between dots */
+    z-index: 2;
+}
+
+/* Individual dot for carousel navigation */
+.carousel-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%; /* Circular dot */
+    background: rgba(255, 255, 255, 0.6); /* Light background */
+    border: 2px solid var(--color-primary); /* Primary border */
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+    box-shadow: 0 2px 8px rgba(102,252,241,0.10); /* Subtle glow */
+}
+/* Active dot (current slide) */
+.carousel-dot.active {
+    background: var(--color-primary); /* Highlighted dot */
+    border-color: var(--color-accent); /* Accent border */
+}
+
+.carousel-dot.active {
+    background: var(--color-primary);
+}
+
+/* Experience Section Styles */
+.experience-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--color-text);
+}
+
+/* Projects Styles */
+.projects-container {
+    margin-bottom: 4rem;
+}
+
+.projects-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+}
+
+.project-content p {
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Experience Timeline Styles */
+.experience-container {
+    margin-bottom: 4rem;
+}
+
+.experience-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--color-primary);
+}
+
+.timeline-item {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    position: relative;
+    width: calc(50% - 30px);
+    margin-left: auto;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/*
+ * Decorative circle before each timeline content block
+ * Positioned absolutely to the left or right depending on odd/even item
+ */
+.timeline-content::before {
+    content: ''; /* Empty content for decorative shape */
+    position: absolute; /* Place relative to .timeline-content */
+    width: 20px; /* Size of the circle */
+    height: 20px;
+    background: var(--color-primary); /* Use primary color for circle */
+    border-radius: 50%; /* Make it a circle */
+    top: 20px; /* Align with top content */
+}
+
+/* Odd timeline items: place circle to the right */
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -40px;
+}
+
+/* Even timeline items: place circle to the left */
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -40px;
+}
+
+/* DATE LABEL FOR EACH TIMELINE ENTRY */
+.timeline-date {
+    color: var(--color-primary); /* Highlight date with primary color */
+    font-size: 1.1rem; /* Slightly larger font */
+    margin-bottom: 0.5rem; /* Space below date */
+}
+
+/* TITLE OF THE TIMELINE ENTRY (E.G., JOB OR DEGREE) */
+.timeline-content h3 {
+    color: var(--color-text); /* Main text color */
+    font-size: 1.3rem; /* Emphasize importance */
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content h4 {
+    color: var(--color-text-alt);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.experience-details {
+    list-style: none;
+    padding: 0;
+}
+
+.experience-details li {
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.experience-details li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+}
+
+/* CERTIFICATES SECTION STYLES */
+/* CERTIFICATES SECTION (LAYOUT AND APPEARANCE BELOW) */
+/* CERTIFICATES SECTION TITLE - CENTERED AND PROMINENT */
+.certificates-section h2 {
+    text-align: center; /* Center the heading */
+    font-size: 2rem; /* Large font size */
+    margin-bottom: 2.5rem; /* Space below heading */
+    color: var(--color-text); /* Use main text color */
+}
+
+/*
+ * Grid layout for certificate cards
+ * Responsive with auto-fit columns
+ */
+.certificates-grid {
+    display: grid; /* CSS grid for layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 2rem; /* Space between cards */
+}
+
+/*
+ * Individual certificate card styling
+ * Glassmorphism effect and hover transition
+ */
+.certificate-card {
+    background: rgba(255,255,255,0.08); /* Translucent background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06); /* Subtle shadow */
+    padding: 1.5rem; /* Internal spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
+    border: 1px solid rgba(255,255,255,0.12); /* Soft border */
+}
+
+/*
+ * Certificate image styling
+ * Responsive, rounded, and interactive
+ */
+.certificate-img {
+    width: 100%;
+    max-width: 300px; /* Limit image width */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 2px 16px rgba(102,252,241,0.10); /* Subtle glow */
+    transition: transform 0.35s cubic-bezier(.23,1.01,.32,1), box-shadow 0.35s cubic-bezier(.23,1.01,.32,1); /* Smooth hover */
+    cursor: pointer; /* Indicate interactivity */
+}
+
+/*
+ * On hover, image pops and glows
+ */
+.certificate-card:hover .certificate-img {
+    transform: scale(1.06) rotate(-1deg); /* Subtle pop and tilt */
+    box-shadow: 0 8px 32px 0 var(--color-primary), 0 0 0 4px var(--color-glow); /* Glow effect */
+}
+
+/*
+ * On hover, card border highlights
+ */
+.certificate-card:hover {
+    border-color: var(--color-primary);
+}
+
+
+.certificates-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: var(--color-text);
+}
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+.certificate-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 15px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+.certificate-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(102,252,241,0.10);
+    border-color: var(--color-primary);
+}
+.certificate-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+.certificate-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.certificate-issuer {
+    color: var(--color-secondary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.certificate-link {
+    margin-top: 0.5rem;
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+.skills-container {
+    margin-bottom: 4rem;
+}
+
+/* SKILLS SECTION TITLE */
+.skills-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text);
+}
+
+/* SKILLS GRID LAYOUT */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* INDIVIDUAL SKILL CATEGORY CARD */
+.skill-category {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* SKILL CATEGORY TITLE */
+.skill-category h3 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* SKILL CATEGORY LIST (NO BULLETS) */
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* INDIVIDUAL SKILL ITEM */
+.skill-category li {
+    color: var(--color-text);
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+/* DECORATIVE ICON FOR SKILL ITEM */
+.skill-category li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+}
+
+/* Responsive Design */
+/* Responsive Carousel & Project Cards */
+@media (max-width: 900px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+    .carousel-container {
+        height: 220px;
+    }
+    .project-image {
+        height: 150px;
+    }
+}
+@media (max-width: 600px) {
+    .carousel-container {
+        height: 160px;
+    }
+    .carousel-slide img, .project-image img {
+        border-radius: 10px;
+    }
+}
+@media (max-width: 480px) {
+    .experience-section {
+        padding: 2rem 1rem;
+    }
+    .certificates-section {
+        padding: 2rem 1rem;
+    }
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+    .timeline::before {
+        left: 30px;
+    }
+    .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+    }
+    .timeline-content::before {
+        left: -40px !important;
+    }
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
