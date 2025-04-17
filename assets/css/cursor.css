@@ -1,75 +1,78 @@
-/* Remove unnecessary body and canvas styles as they're handled in style.css */
+/* Custom Cursor Styles - Creates a smokey trail effect using the portfolio color palette */
 
-/* Hide default cursor on interactive elements */
-a, button, input[type="submit"], input[type="button"] {
+/* Hide the default cursor when hovering over the body */
+body {
     cursor: none;
 }
 
-.cursor-dot,
-.cursor-dot-outline,
-.cursor-trail {
-    pointer-events: none;
+/* Main cursor element - The primary cursor dot */
+.cursor {
     position: fixed;
-    top: 0;
     left: 0;
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(191, 57, 82, 0.8); /* Raspberry Red from palette with transparency */
+    pointer-events: none; /* Makes the cursor pass-through for mouse events */
+    transform: translate(-50%, -50%);
     z-index: 9999;
-    transition: opacity 0.3s ease-in-out;
+    mix-blend-mode: screen; /* Creates a light blend effect */
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
 }
 
+/* Cursor trail element - Creates the smokey effect */
 .cursor-trail {
-    width: 10px;
-    height: 10px;
-    background: var(--color-primary);
+    position: fixed;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    opacity: 0.3;
-    filter: blur(4px);
-    transition: opacity 0.2s ease;
+    background: radial-gradient(
+        circle,
+        rgba(96, 147, 191, 0.6), /* Sky Blue from palette with transparency */
+        rgba(48, 88, 140, 0.4), /* Navy Blue from palette with transparency */
+        rgba(37, 69, 89, 0.1)   /* Slate Blue from palette with transparency */
+    );
+    pointer-events: none; /* Makes the trail pass-through for mouse events */
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+    opacity: 0;
+    mix-blend-mode: luminosity; /* Creates a smokey blend effect */
+    transition: opacity 0.8s ease;
 }
 
-.cursor-dot {
-    width: 13px;
-    height: 13px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--color-primary),
-                0 0 20px var(--color-primary),
-                0 0 30px var(--color-primary);
-    transition: width 0.3s ease-in-out,
-                height 0.3s ease-in-out,
-                background-color 0.3s ease-in-out;
+/* Hover state for elements with hover-effect class */
+.hover-effect {
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.cursor-dot-outline {
-    width: 10px;
-    height: 10px;
-    background-color: transparent;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    opacity: 0.5;
-    transition: width 0.3s ease-in-out,
-                height 0.3s ease-in-out,
-                border-color 0.3s ease-in-out,
-                opacity 0.3s ease-in-out;
+/* Style changes when cursor hovers over interactive elements */
+.cursor.hover {
+    width: 18px;
+    height: 18px;
+    background-color: rgba(191, 57, 82, 1); /* Solid Raspberry Red */
+    mix-blend-mode: lighten;
 }
 
-.cursor-hover.cursor-dot {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(102, 252, 241, 0.5);
+/* Enhanced trail effect during hover */
+.cursor-trail.hover {
+    opacity: 0.8;
+    background: radial-gradient(
+        circle,
+        rgba(191, 57, 82, 0.6), /* Raspberry Red */
+        rgba(96, 147, 191, 0.4), /* Sky Blue */
+        rgba(48, 88, 140, 0.1)  /* Navy Blue */
+    );
 }
 
-.cursor-hover.cursor-dot-outline {
-    width: 50px;
-    height: 50px;
-    border-color: rgba(102, 252, 241, 0.7);
-    opacity: 0.3;
-}
-
-@media (hover: none) and (pointer: coarse) {
-    .cursor-dot,
-    .cursor-dot-outline {
+/* Responsive adjustments - Disable custom cursor on touch devices */
+@media (max-width: 768px) {
+    .cursor, .cursor-trail {
         display: none;
+    }
+    
+    body {
+        cursor: auto;
     }
 }

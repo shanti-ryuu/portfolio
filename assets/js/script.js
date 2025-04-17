@@ -1,262 +1,252 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Initialize navbar
-    loadNavbar();
+// Wait for the DOM to be fully loaded before executing scripts
+// This ensures all HTML elements are accessible before JavaScript tries to manipulate them
+document.addEventListener('DOMContentLoaded', function() {
+    // ----- Hamburger Menu Toggle for Mobile Navigation -----
+    // Get references to the hamburger button and navigation links
+    const hamburger = document.querySelector('.hamburger'); // Select hamburger menu icon
+    const navLinks = document.querySelector('.nav-links');   // Select navigation menu container
 
-    // Initialize page transitions
-    initializePageTransitions();
-
-    // Initialize particles.js with default config
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: '#66FCF1' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.5, random: false },
-            size: { value: 3, random: true },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#66FCF1',
-                opacity: 0.4,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                random: false,
-                straight: false,
-                out_mode: 'out',
-                bounce: false
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: { enable: true, mode: 'repulse' },
-                onclick: { enable: true, mode: 'push' },
-                resize: true
-            }
-        },
-        retina_detect: true
-    });
-
-    // Initialize Typed.js
-    new Typed('#typed-text', {
-        strings: ['Aspiring IT Programmer', 'BSIT Student', 'Web Developer'],
-        typeSpeed: 50,
-        backSpeed: 30,
-        loop: true
-    });
-
-    // Navbar functionality
-    const navbar = document.querySelector('.navbar');
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    // Handle navbar background on scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile menu toggle
-    navToggle?.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navbar.contains(e.target) && navLinks.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-        }
-    });
-
-    // Handle active nav link
-    const currentPath = window.location.pathname;
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-        }
-    });
-});
-
-function loadNavbar() {
-    const navbarContainer = document.getElementById('navbar-container');
-    if (navbarContainer) {
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                navbarContainer.innerHTML = data;
-                setupNavbarInteractions();
-                if (window.setupThemeToggle) window.setupThemeToggle();
-            })
-            .catch(error => console.error('Error loading navbar:', error));
-    }
-}
-
-function setupNavbarInteractions() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => {
+    // Toggle mobile menu when hamburger is clicked
+    // Check if hamburger exists to prevent errors on pages without it
+    if (hamburger) {
+        // Add click event listener to the hamburger menu icon
+        hamburger.addEventListener('click', () => {
+            // Toggle 'active' class to animate hamburger icon
+            hamburger.classList.toggle('active');
+            // Toggle 'active' class to show/hide the mobile navigation menu
             navLinks.classList.toggle('active');
-            navToggle.classList.toggle('active');
         });
     }
 
-    // Add active class to current page link
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const activeLink = document.querySelector(`a[href="${currentPage}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
-}
-
-function initializePageTransitions() {
-    document.querySelectorAll('a').forEach(link => {
-        if (link.href.includes(window.location.origin)) {
-            link.addEventListener('click', e => {
-                const targetHref = link.getAttribute('href');
-                if (!targetHref.startsWith('#')) {
-                    e.preventDefault();
-                    document.body.classList.add('page-transition');
-                    setTimeout(() => {
-                        window.location.href = link.href;
-                    }, 300);
-                }
-            });
-        }
-    });
-}
-
-// Glitch text typing effect
-const textElement = document.getElementById("glitch-text");
-if (textElement) {
-    const words = ["Hi, I'm Joshua_", "BSIT_", "Aspiring Developer_"];
-    let wordIndex = 0, letterIndex = 0, currentText = "", deleting = false;
-
-    function typeEffect() {
-        currentText = words[wordIndex].substring(0, deleting ? letterIndex-- : letterIndex++);
-        textElement.innerHTML = `<span class="glitch">${currentText}</span>`;
-
-        function typeEffect() {
-            currentText = words[wordIndex].substring(0, deleting ? letterIndex-- : letterIndex++);
-            textElement.innerHTML = `<span class="glitch">${currentText}</span>`;
-
-            let speed = deleting ? 50 : 100;
-            if (!deleting && letterIndex === words[wordIndex].length) {
-                speed = 1200; // Pause before deleting
-                deleting = true;
-            } else if (deleting && letterIndex === 0) {
-                deleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                speed = 500;
-            }
-
-            setTimeout(typeEffect, speed);
-        }
-        typeEffect();
-    }
-
-    // Cursor trail effect (optimized)
-    document.addEventListener("mousemove", (e) => {
-        const trail = document.createElement("div");
-        trail.className = "cursor-trail";
-        document.body.appendChild(trail);
-
-        trail.style.left = `${e.clientX}px`;
-        trail.style.top = `${e.clientY}px`;
-
-        trail.animate(
-            [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(2)", opacity: 0 }],
-            { duration: 500, easing: "ease-out" }
-        );
-
-        setTimeout(() => trail.remove(), 500);
+    // Close mobile menu when a nav link is clicked
+    // Select all navigation links and apply event listeners to each
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        // Add click event listener to each navigation link
+        link.addEventListener('click', () => {
+            // Remove 'active' class from hamburger to revert animation
+            hamburger.classList.remove('active');
+            // Remove 'active' class from nav menu to hide it after clicking a link
+            navLinks.classList.remove('active');
+        });
     });
 
-    // Smooth scroll effect
+    // ----- Initialize the Sci-Fi Background Animation -----
+    // Call the function to create and start the particle animation
+    initSciFiBackground();
+
+    // ----- Navbar Scroll Effect -----
+    // Add scroll event listener to the window to detect page scrolling
+    window.addEventListener('scroll', function() {
+        // Get reference to the navbar element
+        const navbar = document.querySelector('.navbar');
+        // Check if page has been scrolled more than 50px
+        if (window.scrollY > 50) {
+            // Add box shadow to navbar when scrolled for visual depth
+            navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            // Make navbar background more opaque when scrolled
+            navbar.style.background = 'rgba(1, 21, 38, 0.9)';
+        } else {
+            // Remove box shadow when at top of page
+            navbar.style.boxShadow = 'none';
+            // Make navbar background more transparent at top of page
+            navbar.style.background = 'rgba(1, 21, 38, 0.7)';
+        }
+    });
+
+    // ----- Smooth Scrolling for Navigation Links -----
+    // Select all anchor links that start with '#' (in-page links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
+        // Add click event listener to each anchor link
+        anchor.addEventListener('click', function(e) {
+            // Prevent default anchor click behavior (jumping)
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
-            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            // Get the href attribute value (the target section ID)
+            const targetId = this.getAttribute('href');
+            // Find the element with that ID
+            const targetElement = document.querySelector(targetId);
+            
+            // Only scroll if the target element exists
+            if (targetElement) {
+                // Scroll to the target element with smooth animation
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70, // Subtract 70px to account for navbar height
+                    behavior: 'smooth' // Use smooth scrolling effect
+                });
+            }
         });
     });
 
-    // Neon glow hover effect
-    document.querySelectorAll(".glow-border").forEach((btn) => {
-        btn.addEventListener("mouseenter", function () {
-            this.style.boxShadow = "0 0 20px rgba(0, 255, 255, 0.8)";
+    // ----- Animation for Elements on Scroll -----
+    // Select all elements with 'fade-in' class for scroll animations
+    const observeElements = document.querySelectorAll('.fade-in');
+    
+    // Create a new Intersection Observer to detect when elements enter viewport
+    const observer = new IntersectionObserver((entries) => {
+        // Process each observed element
+        entries.forEach(entry => {
+            // Check if element is in the viewport
+            if (entry.isIntersecting) {
+                // Make element fully visible
+                entry.target.style.opacity = 1;
+                // Reset element position (removing the initial Y offset)
+                entry.target.style.transform = 'translateY(0)';
+            }
         });
-        btn.addEventListener("mouseleave", function () {
-            this.style.boxShadow = "none";
-        });
-    });
-
-    // 3D Depth Parallax Effect (Fixed NaN issue)
-    document.addEventListener("mousemove", (e) => {
-        const { innerWidth: w, innerHeight: h } = window;
-        document.querySelectorAll(".parallax").forEach((element) => {
-            let x = ((w / 2) - e.pageX) / 20;
-            let y = ((h / 2) - e.pageY) / 20;
-            element.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    });
-};
-
-document.addEventListener("DOMContentLoaded", function () {
-    const navbar = document.querySelector(".navbar");
-    const links = document.querySelectorAll(".nav-link");
-    const underline = document.querySelector(".underline");
-
-    function updateUnderline(element) {
-        underline.style.width = `${element.offsetWidth}px`;
-        underline.style.left = `${element.offsetLeft}px`;
-    }
-
-    links.forEach((link) => {
-        link.addEventListener("mouseenter", () => updateUnderline(link));
-    });
-
-    // Reset underline when mouse leaves navbar
-    navbar.addEventListener("mouseleave", () => {
-        underline.style.width = "0";
+    }, { threshold: 0.1 }); // Trigger when at least 10% of the element is visible
+    
+    // Setup each element for the fade-in animation
+    observeElements.forEach(element => {
+        // Set initial opacity to 0 (invisible)
+        element.style.opacity = 0;
+        // Set initial position slightly below final position
+        element.style.transform = 'translateY(20px)';
+        // Set transition properties for smooth animation
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        // Start observing this element
+        observer.observe(element);
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    function setupNavbar() {
-        const navbar = document.querySelector(".navbar");
-        const links = document.querySelectorAll(".nav-link");
-        const underline = document.querySelector(".underline");
+// ----- Sci-Fi Background Animation Function -----
+// Main function to initialize and run the sci-fi themed background animation
+function initSciFiBackground() {
+    // Get the canvas element from the DOM
+    const canvas = document.getElementById('background-canvas');
+    // Exit the function if canvas element doesn't exist on the page
+    if (!canvas) return;
 
-        function updateUnderline(element) {
-            underline.style.width = `${element.offsetWidth}px`;
-            underline.style.left = `${element.offsetLeft}px`;
+    // Get the 2D drawing context for the canvas
+    const ctx = canvas.getContext('2d');
+    // Set canvas width and height to match the window size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Resize canvas when window size changes to ensure full coverage
+    window.addEventListener('resize', () => {
+        // Update canvas dimensions to new window size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    // Particle class for the sci-fi background
+    // Defines the properties and behaviors of each particle in the animation
+    class Particle {
+        constructor() {
+            // Random initial X position across canvas width
+            this.x = Math.random() * canvas.width;
+            // Random initial Y position across canvas height
+            this.y = Math.random() * canvas.height;
+            // Random size between 0.5 and 2.5 pixels
+            this.size = Math.random() * 2 + 0.5;
+            // Random X velocity between -0.25 and 0.25 pixels per frame
+            this.speedX = Math.random() * 0.5 - 0.25;
+            // Random Y velocity between -0.25 and 0.25 pixels per frame
+            this.speedY = Math.random() * 0.5 - 0.25;
+            // Assign a random color from the portfolio color palette
+            this.color = this.getRandomColor();
         }
 
-        links.forEach((link) => {
-            link.addEventListener("mouseenter", () => updateUnderline(link));
-        });
+        // Method to select a random color from the portfolio color palette
+        getRandomColor() {
+            // Array of colors matching the portfolio color palette
+            const colors = [
+                '#BF3952', // Raspberry Red - from color palette
+                '#30588C', // Navy Blue - from color palette
+                '#6093BF', // Sky Blue - from color palette
+                '#254559'  // Slate Blue - from color palette
+            ];
+            // Return a random color from the array
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
 
-        navbar.addEventListener("mouseleave", () => {
-            underline.style.width = "0";
-        });
+        // Method to update particle position for each animation frame
+        update() {
+            // Move particle based on its speed values
+            this.x += this.speedX;
+            this.y += this.speedY;
+            
+            // Wrap around canvas edges for seamless animation
+            // If particle moves beyond right edge, place it at left edge
+            if (this.x > canvas.width) this.x = 0;
+            // If particle moves beyond left edge, place it at right edge
+            else if (this.x < 0) this.x = canvas.width;
+            
+            // If particle moves beyond bottom edge, place it at top edge
+            if (this.y > canvas.height) this.y = 0;
+            // If particle moves beyond top edge, place it at bottom edge
+            else if (this.y < 0) this.y = canvas.height;
+        }
+
+        // Method to render the particle on the canvas
+        draw() {
+            // Set the fill color for this particle
+            ctx.fillStyle = this.color;
+            // Start a new drawing path
+            ctx.beginPath();
+            // Draw a circle at the particle's position with its size
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            // Fill the circle with the particle's color
+            ctx.fill();
+        }
     }
 
-    // Wait until the navbar is loaded before setting it up
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("navbar-container").innerHTML = data;
-            setupNavbar();
-        });
-});
+    // Create an array to hold all particle objects
+    let particles = [];
+    // Calculate number of particles based on screen width (responsive)
+    // Limit to a maximum of 100 particles for performance
+    const particleCount = Math.min(100, window.innerWidth / 10);
+    
+    // Initialize particles array with new Particle objects
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+
+    // Animation loop function that runs continuously
+    function animate() {
+        // Clear the entire canvas for the next frame
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Add a semi-transparent dark blue overlay to create depth
+        ctx.fillStyle = 'rgba(1, 21, 38, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Set styles for connecting lines between particles
+        ctx.strokeStyle = 'rgba(96, 147, 191, 0.15)';
+        ctx.lineWidth = 0.3;
+        
+        // Draw connecting lines between nearby particles for network effect
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                // Calculate distance between two particles using Pythagorean theorem
+                const dx = particles[i].x - particles[j].x; // X distance
+                const dy = particles[i].y - particles[j].y; // Y distance
+                const distance = Math.sqrt(dx * dx + dy * dy); // Hypotenuse (actual distance)
+                
+                // Only draw lines between particles that are within 100px of each other
+                if (distance < 100) {
+                    // Start a new line
+                    ctx.beginPath();
+                    // Move to the first particle's position
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    // Draw line to the second particle's position
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    // Render the line with previously set styles
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // Update positions and draw all particles
+        for (let i = 0; i < particles.length; i++) {
+            // Update particle position
+            particles[i].update();
+            // Render particle on canvas
+            particles[i].draw();
+        }
+        
+        // Schedule the next animation frame to create continuous animation
+        requestAnimationFrame(animate);
+    }
+    
+    // Start the animation loop
+    animate();
+}

@@ -3,50 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Joshua Santelices - BSIT Student and Aspiring IT Programmer">
     <title>Joshua Santelices | Portfolio</title>
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/transitions.css">
-    <link rel="stylesheet" href="assets/css/cursor.css">
-    <link rel="stylesheet" href="assets/css/typing.css">
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="assets/js/particles.js" defer></script>
-    <script src="assets/js/script.js" defer></script>
-    <script src="assets/js/theme.js" defer></script>
-    <script src="assets/js/cursor.js" defer></script>
+    
+    <!-- Google Fonts - Loading typography resources for the site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons - Used for visual elements and social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS - Main styling files for the portfolio -->
+    <link rel="stylesheet" href="assets/css/main.css">       <!-- Core styling and variables -->
+    <link rel="stylesheet" href="assets/css/navbar.css">     <!-- Navigation styling with hamburger menu -->
+    <link rel="stylesheet" href="assets/css/profile.css">    <!-- Profile image styling -->
+    <link rel="stylesheet" href="assets/css/cursor.css">     <!-- Smokey cursor effect styling -->
 </head>
 <body>
-    <div id="particles-js" aria-hidden="true"></div>
-    <div id="navbar-container"></div>
-
-    <main>
-        <header class="hero">
-            <div class="hero-content">
-                <img src="assets/images/profile.jpg" alt="Joshua Santelices" class="profile-pic floating">
-                <h1 class="glitch-hover" data-text="Hello, I'm Joshua_">Hello, I'm Joshua_</h1>
-                <div id="typed-wrapper">
-                    <span id="typed-text"></span>
+    <!-- Background Animation Canvas - Creates sci-fi themed particle effects -->
+    <div class="background-animation">
+        <canvas id="background-canvas"></canvas>
+    </div>
+    
+    <!-- Navbar - Consistent navigation across all pages -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Logo - Links back to homepage -->
+            <a href="index.html" class="logo">JS</a>
+            
+            <!-- Hamburger Menu - Shows on mobile/tablet devices -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            
+            <!-- Navigation Links - Main site sections -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="techstack.html">Tech Stack</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Homepage Section - Main landing page content -->
+    <section id="home" class="section">
+        <div class="container">
+            <div class="flex flex-col items-center justify-center">
+                <!-- Profile image centered at the top -->
+                <div class="flex justify-center mb-8 fade-in">
+                    <!-- Enhanced circular container for profile image -->
+                    <div class="profile-container">
+                        <!-- Profile image with circular styling -->
+                        <img src="assets/images/profile.png" alt="Joshua Santelices" class="profile-image">
+                    </div>
                 </div>
-                <div class="hero-buttons">
-                    <a href="about.html" class="btn glow-border">About Me</a>
-                    <a href="contact.html" class="btn glow-border">Get in Touch</a>
+                
+                <!-- Text content centered below the profile image -->
+                <div class="flex flex-col items-center text-center fade-in">
+                    <!-- Main greeting with gradient effect -->
+                    <h1>Hello, I am Joshua</h1>
+                    <!-- Educational background and professional aspiration -->
+                    <h3>BSIT | Aspiring Cybersecurity Professional</h3>
+                    <!-- Navigation buttons with hover effects -->
+                    <div class="flex gap-2 mt-4">
+                        <a href="about.html" class="btn">About Me</a>
+                        <a href="contact.html" class="btn">Get In Touch</a>
+                    </div>
                 </div>
             </div>
-        </header>
-
-        <section class="quick-links">
-            <div class="link-card">
-                <h2>Tech Stack</h2>
-                <p>Explore my technical skills and tools</p>
-                <a href="techstack.html" class="link-btn">View Stack</a>
+        </div>
+    </section>
+    
+    <!-- Footer - Consistent across all pages -->
+    <footer class="glass" style="margin-top: 2rem;">
+        <div class="container">
+            <div class="flex justify-center">
+                <!-- Copyright information with current year -->
+                <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
             </div>
-            <div class="link-card">
-                <h2>Experience</h2>
-                <p>Check out my projects and work</p>
-                <a href="experience.html" class="link-btn">See Work</a>
-            </div>
-        </section>
-    </main>
+        </div>
+    </footer>
+    
+    <!-- Custom JavaScript - Core functionality and animations -->
+    <script src="assets/js/script.js"></script>
+    <!-- Custom JavaScript - Smokey cursor effect -->
+    <script src="assets/js/cursor.js"></script>
 </body>
-</html>     
+</html>

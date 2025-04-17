@@ -1,0 +1,46 @@
+/* Certificate Styling */
+.certificate-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* Enhance neumorphism effect for certificate containers */
+#certificates .neumorphism-glass {
+    padding: 1rem;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-bottom: 1rem;
+}
+
+#certificates .neumorphism-glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.5),
+        -10px -10px 20px rgba(96, 147, 191, 0.15),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+        inset -2px -2px 5px rgba(96, 147, 191, 0.05);
+}
+
+#certificates .neumorphism-glass:hover .certificate-image {
+    transform: scale(1.03);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #certificates .grid {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #certificates .grid {
+        gap: 0.5rem;
+    }
+    
+    #certificates .neumorphism-glass {
+        padding: 0.5rem;
+    }
+}
