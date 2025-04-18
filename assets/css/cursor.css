@@ -1,11 +1,9 @@
-/* Custom Cursor Styles - Creates a smokey trail effect using the portfolio color palette */
-
-/* Hide the default cursor when hovering over the body */
+/* hide the default cursor when hovering over the body */
 body {
     cursor: none;
 }
 
-/* Main cursor element - The primary cursor dot */
+/* main cursor element */
 .cursor {
     position: fixed;
     left: 0;
@@ -13,15 +11,15 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: rgba(191, 57, 82, 0.8); /* Raspberry Red from palette with transparency */
-    pointer-events: none; /* Makes the cursor pass-through for mouse events */
+    background-color: rgba(191, 57, 82, 0.8); 
+    pointer-events: none; /* makes the cursor pass-through for mouse events */
     transform: translate(-50%, -50%);
     z-index: 9999;
-    mix-blend-mode: screen; /* Creates a light blend effect */
+    mix-blend-mode: screen; /* creates a light blend effect */
     transition: width 0.2s, height 0.2s, background-color 0.2s;
 }
 
-/* Cursor trail element - Creates the smokey effect */
+/* cursor trail element */
 .cursor-trail {
     position: fixed;
     width: 30px;
@@ -29,44 +27,44 @@ body {
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(96, 147, 191, 0.6), /* Sky Blue from palette with transparency */
-        rgba(48, 88, 140, 0.4), /* Navy Blue from palette with transparency */
-        rgba(37, 69, 89, 0.1)   /* Slate Blue from palette with transparency */
+        rgba(96, 147, 191, 0.6), /* sky blue */
+        rgba(48, 88, 140, 0.4), /* navy blue */
+        rgba(37, 69, 89, 0.1)   /* slate blue */
     );
-    pointer-events: none; /* Makes the trail pass-through for mouse events */
+    pointer-events: none; /* makes the trail pass-through for mouse events */
     transform: translate(-50%, -50%);
     z-index: 9998;
     opacity: 0;
-    mix-blend-mode: luminosity; /* Creates a smokey blend effect */
+    mix-blend-mode: luminosity; /* creates a blend effect */
     transition: opacity 0.8s ease;
 }
 
-/* Hover state for elements with hover-effect class */
+/* hover state for elements with hover-effect class */
 .hover-effect {
     position: relative;
     transition: all 0.3s ease;
 }
 
-/* Style changes when cursor hovers over interactive elements */
+/* style changes when cursor hovers over interactive elements */
 .cursor.hover {
     width: 18px;
     height: 18px;
-    background-color: rgba(191, 57, 82, 1); /* Solid Raspberry Red */
+    background-color: rgba(191, 57, 82, 1); 
     mix-blend-mode: lighten;
 }
 
-/* Enhanced trail effect during hover */
+/* enhanced trail effect during hover */
 .cursor-trail.hover {
     opacity: 0.8;
     background: radial-gradient(
         circle,
-        rgba(191, 57, 82, 0.6), /* Raspberry Red */
-        rgba(96, 147, 191, 0.4), /* Sky Blue */
-        rgba(48, 88, 140, 0.1)  /* Navy Blue */
+        rgba(191, 57, 82, 0.6), /* raspberry red */
+        rgba(96, 147, 191, 0.4), /* sky blue */
+        rgba(48, 88, 140, 0.1)  /* navy blue */
     );
 }
 
-/* Responsive adjustments - Disable custom cursor on touch devices */
+/* responsive adjustments - disable custom cursor on touch devices */
 @media (max-width: 768px) {
     .cursor, .cursor-trail {
         display: none;

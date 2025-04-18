@@ -7,7 +7,7 @@
     display: block;
 }
 
-/* Enhance neumorphism effect for certificate containers */
+/* neumorphism effect for cert containers */
 #certificates .neumorphism-glass {
     padding: 1rem;
     overflow: hidden;

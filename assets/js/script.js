@@ -1,86 +1,82 @@
-// Wait for the DOM to be fully loaded before executing scripts
-// This ensures all HTML elements are accessible before JavaScript tries to manipulate them
 document.addEventListener('DOMContentLoaded', function() {
-    // ----- Hamburger Menu Toggle for Mobile Navigation -----
-    // Get references to the hamburger button and navigation links
-    const hamburger = document.querySelector('.hamburger'); // Select hamburger menu icon
-    const navLinks = document.querySelector('.nav-links');   // Select navigation menu container
+    // burger menu for mobile nav 
+    // get references to the hamburger button and navigation links
+    const hamburger = document.querySelector('.hamburger'); // select hamburger menu icon
+    const navLinks = document.querySelector('.nav-links');   // select navigation menu container
 
-    // Toggle mobile menu when hamburger is clicked
-    // Check if hamburger exists to prevent errors on pages without it
+    // toggle mobile menu when hamburger is clicked
+    // check if hamburger exists to prevent errors on pages without it
     if (hamburger) {
-        // Add click event listener to the hamburger menu icon
+        // add click event listener to the hamburger menu icon
         hamburger.addEventListener('click', () => {
-            // Toggle 'active' class to animate hamburger icon
+            // toggle 'active' class to animate hamburger icon
             hamburger.classList.toggle('active');
-            // Toggle 'active' class to show/hide the mobile navigation menu
+            // toggle 'active' class to show/hide the mobile navigation menu
             navLinks.classList.toggle('active');
         });
     }
 
-    // Close mobile menu when a nav link is clicked
-    // Select all navigation links and apply event listeners to each
+    // close mobile menu when a nav link is clicked
+    // select all navigation links and apply event listeners to each
     document.querySelectorAll('.nav-links a').forEach(link => {
-        // Add click event listener to each navigation link
+        // add click event listener to each navigation link
         link.addEventListener('click', () => {
-            // Remove 'active' class from hamburger to revert animation
+            // remove 'active' class from hamburger to revert animation
             hamburger.classList.remove('active');
-            // Remove 'active' class from nav menu to hide it after clicking a link
+            // remove 'active' class from nav menu to hide it after clicking a link
             navLinks.classList.remove('active');
         });
     });
 
-    // ----- Initialize the Sci-Fi Background Animation -----
-    // Call the function to create and start the particle animation
     initSciFiBackground();
 
-    // ----- Navbar Scroll Effect -----
-    // Add scroll event listener to the window to detect page scrolling
+    // navbar scroll effect
+    // add scroll event listener to the window to detect page scrolling
     window.addEventListener('scroll', function() {
-        // Get reference to the navbar element
+        // get reference to the navbar element
         const navbar = document.querySelector('.navbar');
-        // Check if page has been scrolled more than 50px
+        // page has been scrolled more than 50px
         if (window.scrollY > 50) {
-            // Add box shadow to navbar when scrolled for visual depth
+            // box shadow to navbar when scrolled for visual depth
             navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-            // Make navbar background more opaque when scrolled
+            // navbar bg more opaque when scrolled
             navbar.style.background = 'rgba(1, 21, 38, 0.9)';
         } else {
-            // Remove box shadow when at top of page
+            // remove box shadow when at top of page
             navbar.style.boxShadow = 'none';
-            // Make navbar background more transparent at top of page
+            // make navbar bg more transparent at top of page
             navbar.style.background = 'rgba(1, 21, 38, 0.7)';
         }
     });
 
-    // ----- Smooth Scrolling for Navigation Links -----
-    // Select all anchor links that start with '#' (in-page links)
+    // -smooth scroll for nav links
+    // select all anchor links that start with '#' (in-page links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        // Add click event listener to each anchor link
+        // add click event listener to each anchor link
         anchor.addEventListener('click', function(e) {
-            // Prevent default anchor click behavior (jumping)
+            // prevent default anchor click behavior (jumping)
             e.preventDefault();
-            // Get the href attribute value (the target section ID)
+            // get the href attribute value (the target section ID)
             const targetId = this.getAttribute('href');
-            // Find the element with that ID
+            // find the element with that ID
             const targetElement = document.querySelector(targetId);
             
-            // Only scroll if the target element exists
+            // only scroll if the target element exists
             if (targetElement) {
-                // Scroll to the target element with smooth animation
+                // scroll to the target element with smooth animation
                 window.scrollTo({
-                    top: targetElement.offsetTop - 70, // Subtract 70px to account for navbar height
-                    behavior: 'smooth' // Use smooth scrolling effect
+                    top: targetElement.offsetTop - 70, // subtract 70px to account for navbar height
+                    behavior: 'smooth' //smooth scrolling effect
                 });
             }
         });
     });
 
-    // ----- Animation for Elements on Scroll -----
-    // Select all elements with 'fade-in' class for scroll animations
+    // -scroll animation for elements
+    // select all elements with 'fade-in' class for scroll animations
     const observeElements = document.querySelectorAll('.fade-in');
     
-    // Create a new Intersection Observer to detect when elements enter viewport
+    // create a new Intersection Observer to detect when elements enter viewport
     const observer = new IntersectionObserver((entries) => {
         // Process each observed element
         entries.forEach(entry => {

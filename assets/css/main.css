@@ -1,13 +1,11 @@
-/* Main Styling for Portfolio */
+/* main style */
 :root {
-  /* Color palette as specified */
-  --primary: #BF3952;    /* Raspberry Red */
-  --secondary: #30588C;  /* Navy Blue */
-  --dark: #011526;       /* Dark Blue */
-  --light: #6093BF;      /* Sky Blue */
-  --accent: #254559;     /* Slate Blue */
+  --primary: #BF3952;    
+  --secondary: #30588C;  
+  --dark: #011526;       
+  --light: #6093BF;      
+  --accent: #254559;     
   
-  /* Additional colors for UI elements */
   --background: var(--dark);
   --text-primary: #ffffff;
   --text-secondary: #e0e0e0;
@@ -17,14 +15,14 @@
   --glass-shadow: rgba(0, 0, 0, 0.3);
 }
 
-/* Global Reset */
+/* global reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Base Styles */
+/* base styles */
 body {
   font-family: 'Inter', 'Roboto', sans-serif;
   background-color: var(--background);
@@ -33,7 +31,7 @@ body {
   line-height: 1.6;
 }
 
-/* Sci-Fi Background Animation Container */
+/* bg animation container */
 .background-animation {
   position: fixed;
   top: 0;
@@ -44,7 +42,7 @@ body {
   overflow: hidden;
 }
 
-/* Typography */
+/* typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   margin-bottom: 1rem;
@@ -100,7 +98,7 @@ a:hover {
   justify-content: center;
 }
 
-/* Glass Morphism Effect */
+/* glass morphism */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -117,7 +115,7 @@ a:hover {
   box-shadow: 0 12px 32px var(--glass-shadow);
 }
 
-/* Neumorphism Glass Container */
+/* neumorphism glass container */
 .neumorphism-glass {
   background: rgba(1, 21, 38, 0.7);
   backdrop-filter: blur(10px);
@@ -138,7 +136,7 @@ a:hover {
     inset -2px -2px 5px rgba(96, 147, 191, 0.1);
 }
 
-/* Flex Utilities */
+/* flex utilities */
 .flex {
   display: flex;
 }
@@ -167,7 +165,7 @@ a:hover {
   gap: 2rem;
 }
 
-/* Margin Utilities */
+/* margin utilities */
 .mt-4 {
   margin-top: 1.5rem;
 }
