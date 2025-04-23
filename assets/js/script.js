@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     initSciFiBackground();
+    typeWriter("BSIT", "Aspiring Cybersecurity Professional", "typing-h3", 50);
+
 
     // navbar scroll effect
     // add scroll event listener to the window to detect page scrolling
@@ -103,8 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ----- Sci-Fi Background Animation Function -----
-// Main function to initialize and run the sci-fi themed background animation
+// Main function 
 function initSciFiBackground() {
     // Get the canvas element from the DOM
     const canvas = document.getElementById('background-canvas');
@@ -144,12 +145,12 @@ function initSciFiBackground() {
 
         // Method to select a random color from the portfolio color palette
         getRandomColor() {
-            // Array of colors matching the portfolio color palette
+            
             const colors = [
-                '#BF3952', // Raspberry Red - from color palette
-                '#30588C', // Navy Blue - from color palette
-                '#6093BF', // Sky Blue - from color palette
-                '#254559'  // Slate Blue - from color palette
+                '#BF3952', // Raspberry Red 
+                '#30588C', // Navy Blue 
+                '#6093BF', // Sky Blue 
+                '#254559'  // Slate Blue 
             ];
             // Return a random color from the array
             return colors[Math.floor(Math.random() * colors.length)];

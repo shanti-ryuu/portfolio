@@ -24,8 +24,10 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--light);
+  color: #14efff;
+  text-shadow: 0 0 8px #14ffd8, 0 0 16px #4714ff, 0 0 32px #14ffeb;
   text-decoration: none;
+  transition: text-shadow 0.3s, color 0.3s;
 }
 
 .nav-links {
