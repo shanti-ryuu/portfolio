@@ -1,4 +1,40 @@
-/* Certificate Styling */
+/*
+    this the certs flex zone
+*/
+
+/* how dat cert intro look */
+.cert-desc-glass {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.08);
+    border: 1px solid rgba(20, 239, 255, 0.03);
+    background: rgba(20, 239, 255, 0.01);
+    backdrop-filter: blur(1px);
+}
+
+.cert-title {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #14efff;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 3px 18px rgba(20, 239, 255, 0.67), 0 0 1px #fff;
+}
+
+.cert-description {
+    margin: 0 auto;
+    max-width: 1100px;
+    color: #b4eaff;
+    font-size: 1.13rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 8px rgba(20, 239, 255, 0.2);
+    text-align: justify;
+}
+
+/* dem fancy paper pics */
 .certificate-image {
     width: 100%;
     height: auto;
@@ -7,25 +43,66 @@
     display: block;
 }
 
-/* neumorphism effect for cert containers */
+/* ok so this is the neumorphism-glass card stylin, tryin to match tech-stack section lol */
 #certificates .neumorphism-glass {
-    padding: 1rem;
-    overflow: hidden;
+    text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     transition: all 0.4s ease;
     margin-bottom: 1rem;
+    overflow: hidden;
 }
 
+/* 3d pop effct n shadow on hover - kinda like ozone/tim quirino style */
 #certificates .neumorphism-glass:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.5),
-        -10px -10px 20px rgba(96, 147, 191, 0.15),
-        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-        inset -2px -2px 5px rgba(96, 147, 191, 0.05);
+    box-shadow:
+        0 12px 32px 0 rgba(20, 239, 255, 0.25),
+        0 4px 16px rgba(0,0,0,0.18),
+        0 2px 10px rgba(96, 147, 191, 0.15);
+    transform: translateY(-10px) scale(1.07) rotateX(2deg) rotateY(-2deg);
 }
 
 #certificates .neumorphism-glass:hover .certificate-image {
-    transform: scale(1.03);
+    transform: scale(1.18) rotate(-2deg);
+    filter: drop-shadow(0 0 8px rgba(20,239,255,0.4)); /* blue glow */
+}
+
+/* fade-in anim for cards, looks cool when u scroll */
+#certificates .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(.23,1.1,.32,1), transform 0.7s cubic-bezier(.23,1.1,.32,1);
+}
+#certificates .fade-in.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* responsive stuff, tryna match tech-stack section too */
+@media (max-width: 1024px) {
+    #certificates .grid {
+        gap: 1.5rem;
+    }
+}
+@media (max-width: 768px) {
+    #certificates .grid {
+        gap: 1rem;
+    }
+    #certificates .neumorphism-glass {
+        padding: 1.2rem;
+    }
+}
+@media (max-width: 480px) {
+    #certificates .grid {
+        gap: 0.8rem;
+    }
+    #certificates .neumorphism-glass {
+        padding: 1rem;
+    }
 }
 
 /* Responsive adjustments */

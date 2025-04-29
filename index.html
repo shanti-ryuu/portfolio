@@ -3,80 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua Santelices | Portfolio</title>
+    <title>Joshua Santelices | Home</title>
     
-    <!-- google fonts -->
+    
+<!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- font awesome icons - Used for visual elements and social media icons -->
+    
+<!-- font awesome icons - Used for visual elements and social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- custom css - main styling files-->
-    <link rel="stylesheet" href="assets/css/main.css">       <!-- core styling and variables -->
-    <link rel="stylesheet" href="assets/css/navbar.css">     <!-- nav styling with hamburger menu -->
-    <link rel="stylesheet" href="assets/css/profile.css">    <!-- pfp image styling -->
-    <link rel="stylesheet" href="assets/css/cursor.css">     <!-- cursor effect styling -->
+    
+<!-- custom css - main styling files-->
+    <link rel="stylesheet" href="assets/css/main.css">       
+<!-- core styling and variables -->
+    <link rel="stylesheet" href="assets/css/navbar.css">     
+<!-- nav styling with hamburger menu -->
+    
+<!-- calligraphy font for logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/profile.css">    
+<!-- pfp image styling -->
+    <link rel="stylesheet" href="assets/css/cursor.css">     
+<!-- cursor effect styling -->
 </head>
 <body>
-    <!-- bg animation canvas - particle effects -->
+    
+<!-- bg animation canvas - particle effects -->
     <div class="background-animation">
         <canvas id="background-canvas"></canvas>
     </div>
     
-    <!-- navbar - navigation across all pages -->
+    
+<!-- navbar - navigation across all pages -->
     <nav class="navbar">
         <div class="navbar-container">
-            <!-- logo - links back to homepage -->
-            <a href="index.html" class="logo">JS</a>
             
-            <!-- hamburger menu - shows on mobile/tablet devices -->
+<!-- logo - links back to homepage -->
+            <a href="index.html" class="logo logo-calligraphy">JS</a>
+            
+            
+<!-- hamburger menu - shows on mobile/tablet devices -->
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
             
-            <!-- nav links -->
+            
+<!-- nav links -->
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="techstack.html">Tech Stack</a></li>
+                
+<!-- Updated link: techstack.html -> tech-stack.html for consistency and better SEO -->
+                <li><a href="tech-stack.html">Tech Stack</a></li>
                 <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </nav>
     
-    <!-- homepage Section -->
+    
+<!-- homepage Section -->
     <section id="home" class="section">
         <div class="container">
-            <div class="flex flex-col items-center justify-center">
-                <!-- pfp img centered at the top -->
-                <div class="flex justify-center mb-8 fade-in">
-                    <!-- circular container for pfp -->
-                    <div class="profile-container">
-                        <!-- pfp with circular styling -->
-                        <img src="assets/images/profile.png" alt="Joshua Santelices" class="profile-image">
+            
+<!-- Profile image with glowing effect -->
+            <div class="home-container fade-in">
+                
+<!-- LEFT SIDE: Profile image with glowing effect -->
+                <div class="home-profile-side">
+                    <div class="profile-container-outer">
+                        
+<!-- Animated ring -->
+                        <div class="profile-glow-ring"></div>
+                        
+                        
+<!-- Main profile container -->
+                        <div class="home-img-glass">
+                            <img src="assets/images/profile.png" alt="Joshua Santelices" class="profile-img-hover">
+                        </div>
                     </div>
                 </div>
                 
-                <!-- text centered below the pfp -->
-                <div class="flex flex-col items-center text-center fade-in">
-                    <h1>Hello, I am Joshua</h1>
-                    <h3 id="typing-h3"></h3>
-                    <!-- nav buttons with hover effects -->
-                    <div class="flex gap-2 mt-4">
-                        <a href="about.html" class="btn">About Me</a>
-                        <a href="contact.html" class="btn">Get In Touch</a>
+                
+<!-- RIGHT SIDE: Content without glass container -->
+                <div class="home-text-side">
+                    <div class="home-content">
+                        <h1 class="neon-glow home-title">Hello, I am Joshua</h1>
+                        <h3 id="typing-h3" class="home-subtitle"></h3>
+                        
+                        
+<!-- nav buttons with hover effects -->
+                        <div class="flex gap-2 mt-4">
+                            <a href="about.html" class="btn">About Me</a>
+                            <a href="contact.html" class="btn">Get In Touch</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- footer - consistent across all pages -->
+    
+<!-- footer - consistent across all pages -->
     <footer class="glass" style="margin-top: 2rem;">
         <div class="container">
             <div class="flex justify-center">
@@ -85,11 +118,17 @@
         </div>
     </footer>
     
-    <!-- custom js - core functionality and animations -->
+    
+<!-- custom js - core functionality and animations -->
     <script src="assets/js/script.js"></script>
-    <!-- cursor effect js -->
+    
+<!-- cursor effect js -->
     <script src="assets/js/cursor.js"></script>
-    <!-- typing effect js -->
+    
+<!-- ripple effect for buttons -->
+    <script src="assets/js/ripple.js"></script>
+    
+<!-- typing effect js -->
     <script src="assets/js/typing.js"></script>
 </body>
 </html>

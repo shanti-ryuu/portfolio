@@ -5,58 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joshua's | Contact</title>
     
-    <!-- google fonts -->
+    
+<!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- font awesome icons - Used for visual elements and social media icons -->
+    
+<!-- font awesome icons - Used for visual elements and social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- custom css - main styling files-->
-    <link rel="stylesheet" href="assets/css/main.css">       <!-- core styling and variables -->
-    <link rel="stylesheet" href="assets/css/navbar.css">     <!-- nav styling with hamburger menu -->
-    <link rel="stylesheet" href="assets/css/profile.css">    <!-- pfp image styling -->
-    <link rel="stylesheet" href="assets/css/cursor.css">     <!-- cursor effect styling -->
-    <link rel="stylesheet" href="assets/css/contact.css">    <!-- contact styling -->
+    
+<!-- custom css - main styling files-->
+    <link rel="stylesheet" href="assets/css/main.css">       
+<!-- core styling and variables -->
+    <link rel="stylesheet" href="assets/css/navbar.css">     
+<!-- nav styling with hamburger menu -->
+    
+<!-- calligraphy font for logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/profile.css">    
+<!-- pfp image styling -->
+    <link rel="stylesheet" href="assets/css/cursor.css">     
+<!-- cursor effect styling -->
+    <link rel="stylesheet" href="assets/css/contact.css">    
+<!-- contact styling -->
 </head>
 <body>
-    <!-- bg animation canvas - particle effects -->
+    
+<!-- bg animation canvas - particle effects -->
     <div class="background-animation">
         <canvas id="background-canvas"></canvas>
     </div>
     
-    <!-- navbar - navigation across all pages -->
+    
+<!-- navbar - navigation across all pages -->
     <nav class="navbar">
         <div class="navbar-container">
-            <!-- logo - links back to homepage -->
-            <a href="index.html" class="logo">JS</a>
             
-            <!-- hamburger menu - shows on mobile/tablet devices -->
+<!-- logo - links back to homepage -->
+            <a href="index.html" class="logo logo-calligraphy">JS</a>
+            
+            
+<!-- hamburger menu - shows on mobile/tablet devices -->
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
             
-            <!-- nav links -->
+            
+<!-- nav links -->
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="techstack.html">Tech Stack</a></li>
+                
+<!-- Updated link: techstack.html -> tech-stack.html for consistency and better SEO -->
+                <li><a href="tech-stack.html">Tech Stack</a></li>
                 <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </nav>
     
-    <!-- Contact Section -->
+    
+<!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">
             <h2>Get In Touch</h2>
-            <div class="glass fade-in">
-                <!-- social media icons - GitHub and LinkedIn links with hover effects -->
-                <div class="flex justify-center gap-2">
+ 
+            
+<!-- Contact introduction text -->
+            <div class="glass contact-desc-glass fade-in">
+                <span class="contact-title">
+                    <span class="animated-emoji wave-emoji">👋</span> Let's Connect!
+                </span>
+                <p class="contact-description">
+                    Feel free to reach out through any of my social profiles below. I'm always open to connecting with fellow tech enthusiasts and collaborating on exciting projects.
+                </p>
+            </div>
+            
+            
+<!-- Contact methods glass container -->
+            <div class="glass contact-social-container fade-in">
+                
+<!-- social media icons - GitHub and LinkedIn links with hover effects -->
+                <div class="flex justify-center gap-4">
                     <a href="https://github.com/shanti-ryuu" target="_blank" class="social-icon">
                         <i class="fab fa-github fa-3x"></i>
                     </a>
@@ -68,7 +102,8 @@
         </div>
     </section>
     
-    <!-- Footer -->
+    
+<!-- Footer -->
     <footer class="glass" style="margin-top: 2rem;">
         <div class="container">
             <div class="flex justify-center">
@@ -77,9 +112,14 @@
         </div>
     </footer>
     
-    <!-- js - functionality for interactivity and animations -->
+    
+<!-- js - functionality for interactivity and animations -->
     <script src="assets/js/script.js"></script>
-    <!-- cursor effect js -->
+    
+<!-- cursor effect js -->
     <script src="assets/js/cursor.js"></script>
+    
+<!-- ripple effect for buttons -->
+    <script src="assets/js/ripple.js"></script>
 </body>
 </html>

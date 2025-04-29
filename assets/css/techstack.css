@@ -1,4 +1,59 @@
-/* tech stack section styling */
+/*
+ thhis the tech stack sauce
+
+*/
+/* da main info box */
+.tech-desc-glass {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.08);
+    border: 1px solid rgba(20, 239, 255, 0.03);
+    background: rgba(20, 239, 255, 0.01);
+    backdrop-filter: blur(1px);
+    display:inline-block; 
+    font-size:1.5rem; 
+    color:#14efff; 
+    font-weight:700; 
+    letter-spacing:0.05em; 
+    text-shadow:0 3px 18px #14efffaa, 0 0 1px #fff;
+
+}
+
+/* how dem words be lookin */
+.tech-title {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #14efff;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 3px 18px rgba(20, 239, 255, 0.67), 0 0 1px #fff;
+}
+
+.tech-description {
+    margin: 0 auto;
+    max-width: 1100px;
+    color: #b4eaff;
+    font-size: 1.13rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 8px rgba(20, 239, 255, 0.2);
+    text-align: justify;
+}
+/* Category Header */
+.tech-category-header {
+    margin-top: 0;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+/* Tech Grid */
+.tech-grid {
+    margin-bottom: 2.5rem;
+}
+
+/* Card Styles */
 #techstack .neumorphism-glass {
     text-align: center;
     padding: 1.5rem;
@@ -22,20 +77,43 @@
     transition: transform 0.3s ease;
 }
 
-#techstack .neumorphism-glass:hover i {
-    transform: scale(1.2);
+/* advanced hover, 3d, n entrance animz - got inspo from unifiers of japan, tellet, ozone, u kno */
+
+#techstack .neumorphism-glass .tech-logo {
+    transition: transform 0.4s cubic-bezier(.23,1.1,.32,1), filter 0.4s cubic-bezier(.23,1.1,.32,1);
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 0 0 rgba(20,239,255,0));
 }
 
-#techstack .neumorphism-glass:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.5),
-        -10px -10px 20px rgba(96, 147, 191, 0.15),
-        inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-        inset -2px -2px 5px rgba(96, 147, 191, 0.05);
+#techstack .neumorphism-glass:hover .tech-logo {
+    transform: scale(1.18) rotate(-2deg);
+    filter: drop-shadow(0 0 8px rgba(20,239,255,0.4)); /* blue glow */
 }
 
-/* Responsive adjustments */
+
+/* micro-interactin n entrance anim classesss */
+
+/* fade-in anim for sections or cards, looks dope when u scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(.23,1.1,.32,1), transform 0.7s cubic-bezier(.23,1.1,.32,1);
+}
+
+/* js will do the opacity:1 n transform:translateY(0) thing when in da viewport lol */
+
+/* 3d pop effct for cards on hover, ozone vibez */
+.neumorphism-glass:hover {
+    box-shadow:
+        0 12px 32px 0 rgba(20, 239, 255, 0.25),
+        0 4px 16px rgba(0,0,0,0.18),
+        0 2px 10px rgba(96, 147, 191, 0.15);
+    transform: translateY(-10px) scale(1.07) rotateX(2deg) rotateY(-2deg);
+    /* enhances the already existing hover effect for extra depth */
+}
+
+/* responsive stuff so it dont break on ur phone or smth */
 @media (max-width: 1024px) {
     #techstack .grid {
         gap: 1.5rem;

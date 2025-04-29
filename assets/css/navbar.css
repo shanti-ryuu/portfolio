@@ -1,4 +1,18 @@
-/* navbar styling */
+/*
+*/
+.logo-calligraphy {
+  /* logo-calligraphy: custom calligraphy font for the logo */
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.1rem;
+  letter-spacing: 0.04em;
+  color: #14efff;
+  text-shadow: 0 0 8px #14ffd8, 0 0 16px #4714ff, 0 0 32px #14ffeb;
+  font-weight: 400;
+  padding-right: 0.15em;
+  vertical-align: middle;
+  line-height: 1.1;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -78,12 +92,12 @@
   background-color: var(--text-primary);
 }
 
-/* Active class for menu */
+/* active class for menu, dont 4get this one!! */
 .nav-active {
   transform: translateX(0);
 }
 
-/* Hamburger animation */
+/* hamburger menu, for when ur screen is tiny af */
 .hamburger.active .bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -96,7 +110,7 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Responsive Styles */
+/* responsive tweaks for navbar so it dont break on ur phone */
 @media (max-width: 768px) {
   .hamburger {
     display: block;

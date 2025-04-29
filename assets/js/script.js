@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     initSciFiBackground();
-    typeWriter("BSIT", "Aspiring Cybersecurity Professional", "typing-h3", 50);
+    typeWriter("BSIT | Aspiring Cybersecurity Professional", "typing-h3", 50);
 
 
     // navbar scroll effect
@@ -65,11 +65,73 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // only scroll if the target element exists
             if (targetElement) {
-                // scroll to the target element with smooth animation
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70, // subtract 70px to account for navbar height
-                    behavior: 'smooth' //smooth scrolling effect
+                // smooth scroll for anchor links (framer/unifiers of japan vibes, so smooth lol)
+                const navLinks = document.querySelectorAll('.nav-links a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId.startsWith('#')) {
+                            e.preventDefault();
+                            document.querySelector(targetId).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
                 });
+
+                // navbar gets shadow when u scroll, looks pro
+                const navbar = document.querySelector('.navbar');
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 32) {
+                        navbar.classList.add('navbar-shadow');
+                    } else {
+                        navbar.classList.remove('navbar-shadow');
+                    }
+                });
+
+                // -----------------------------
+                // entrance anims (tellet style, intersection observer magic, adds 'in-view' class, css does the rest)
+                // Uses Intersection Observer to animate .fade-in, .slide-up, .scale-in
+                // Add class 'in-view' to trigger CSS transitions
+                // -----------------------------
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                        }
+                    });
+                }, { threshold: 0.12 });
+
+                document.querySelectorAll('.fade-in, .slide-up, .scale-in').forEach(el => {
+                    observer.observe(el);
+                });
+
+                // 3d parallax card thing (tim quirino style, cards tilt when u move ur mouse, fancy af)
+                const cards = document.querySelectorAll('.neumorphism-glass');
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        // Calculate rotation: max 10deg
+                        const rotateX = ((y - centerY) / centerY) * 6;
+                        const rotateY = ((x - centerX) / centerX) * -6;
+                        card.style.transform = `translateY(-8px) scale(1.08) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        // Reset to default hover effect
+                        card.style.transform = '';
+                    });
+                });
+
+                // micro-interactins (ozone style, ripple.js does the ripple, cursor.js does the pulse, no extra js here, go look there)
+
+                // Make element fully visible
+                entry.target.style.opacity = 1;
+                // Reset element position (removing the initial Y offset)
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     });
@@ -105,7 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Main function 
+// ----- Sci-Fi Background Animation Function -----
+// Main function to initialize and run the sci-fi themed background animation
 function initSciFiBackground() {
     // Get the canvas element from the DOM
     const canvas = document.getElementById('background-canvas');

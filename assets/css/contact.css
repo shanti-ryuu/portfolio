@@ -1,9 +1,50 @@
-/* contact section styling */
-#contact .glass {
+/*
+   slide in my dms fam
+*/
+/* how u hit me up yo */
+
+/* Container Styles */
+.contact-desc-glass {
+    margin-bottom: 2.5rem;
     text-align: center;
-    padding: 2rem;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.15);
+    border: 1.5px solid rgba(20, 239, 255, 0.1);
+    background: rgba(20, 239, 255, 0.03);
+    backdrop-filter: blur(0px);
 }
 
+.contact-social-container {
+    padding: 2rem;
+    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.15);
+    border: 1.5px solid rgba(20, 239, 255, 0.1);
+    background: rgba(20, 239, 255, 0.03);
+    backdrop-filter: blur(0px);
+}
+
+/* Text Styles */
+.contact-title {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #14efff;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 3px 18px rgba(20, 239, 255, 0.67), 0 0 1px #fff;
+}
+
+.contact-text {
+    margin: 0 auto;
+    max-width: 1100px;
+    color: #b4eaff;
+    font-size: 1.13rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 8px rgba(20, 239, 255, 0.2);
+    text-align: justify;
+}
+
+/* Social Icon Styles */
 .social-icon {
     display: inline-flex;
     justify-content: center;
@@ -14,10 +55,14 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, all 0.3s ease;
     color: var(--text-primary);
     position: relative;
     overflow: hidden;
+}
+
+.social-icon:hover {
+    transform: translateY(-8px);
 }
 
 .social-icon::before {

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua's | Tech Stack</title>
+    
+    
+<!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    
+<!-- font awesome icons - Used for visual elements and technology icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    
+<!-- custom css - main styling files-->
+    <link rel="stylesheet" href="assets/css/main.css">       
+<!-- core styling and variables -->
+    <link rel="stylesheet" href="assets/css/navbar.css">     
+<!-- nav styling with hamburger menu -->
+    
+<!-- calligraphy font for logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/cursor.css">     
+<!-- cursor effect styling -->
+    <link rel="stylesheet" href="assets/css/techstack.css">  
+<!-- tech stack specific css for the neumorphism containers -->
+    <link rel="stylesheet" href="assets/css/about.css">      
+<!-- for animated emojis -->
+</head>
+<body>
+    
+<!-- bg animation canvas - particle effects -->
+    <div class="background-animation">
+        <canvas id="background-canvas"></canvas>
+    </div>
+    
+    
+<!-- navbar - navigation across all pages -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            
+<!-- logo - links back to homepage -->
+            <a href="index.html" class="logo logo-calligraphy">JS</a>
+            
+            
+<!-- hamburger menu - shows on mobile/tablet devices -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            
+            
+<!-- nav links -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                
+<!-- updt tech-stack -->
+                <li><a href="tech-stack.html">Tech Stack</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+<!-- tech stack section -->
+    <section id="techstack" class="section">
+        <div class="container">
+            <h2>Tech Stack</h2>
+            <div class="glass tech-desc-glass">
+                <span class="animated-emoji bounce-emoji">🚀</span> here's my tech stack so far! <span class="animated-emoji pulse-emoji" style="font-size:1.6rem;">👇</span>
+                <div class="tech-description">
+                    All the languages, tools, and platforms below are what I’ve been learning, building with, and breaking (sometimes on purpose 😅). Always leveling up, always curious. If you vibe with any of these, let’s connect!
+                </div>
+            </div>
+
+            <h3 style="margin-top:0; color:#fff; font-size:1.3rem;">Programming Languages & Frameworks</h3>
+            <div class="grid grid-cols-4 fade-in" style="margin-bottom:2.5rem;">
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/html5.svg" alt="HTML5 Logo" class="tech-logo" />
+                    <h3>HTML</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/css3.svg" alt="CSS3 Logo" class="tech-logo" />
+                    <h3>CSS</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/javascript.svg" alt="JavaScript Logo" class="tech-logo" />
+                    <h3>JavaScript</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/c.svg" alt="C Logo" class="tech-logo" />
+                    <h3>C</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/cpp.svg" alt="C++ Logo" class="tech-logo" />
+                    <h3>C++</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/flutter.svg" alt="Flutter Logo" class="tech-logo" />
+                    <h3>Flutter</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/dart.svg" alt="Dart Logo" class="tech-logo" />
+                    <h3>Dart</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/oracle.svg" alt="Oracle SQL Logo" class="tech-logo" />
+                    <h3>Oracle SQL</h3>
+                </div>
+            </div>
+
+            <h3 style="margin-top:0; color:#fff; font-size:1.3rem;">Dev Tools & Platforms</h3>
+            <div class="grid grid-cols-4 fade-in">
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/git.svg" alt="Git Logo" class="tech-logo" />
+                    <h3>Git</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/github.svg" alt="GitHub Logo" class="tech-logo" />
+                    <h3>GitHub</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/vscode.svg" alt="VS Code Logo" class="tech-logo" />
+                    <h3>VS Code</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/linux.svg" alt="Linux Logo" class="tech-logo" />
+                    <h3>Linux</h3>
+                </div>
+                <div class="neumorphism-glass">
+                    <img src="assets/images/logos/android.svg" alt="Android Studio Logo" class="tech-logo" />
+                    <h3>Android Studio</h3>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    
+    
+<!-- footer - consistent across all pages -->
+    <footer class="glass" style="margin-top: 2rem;">
+        <div class="container">
+            <div class="flex justify-center">
+                <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    
+<!-- Dots Loader CSS and JS - inspired by csss.loaders.com/dots -->
+    <link rel="stylesheet" href="assets/css/loader-dots.css">
+    <script src="assets/js/loader-dots.js"></script>
+    
+<!-- custom js - core functionality and animations -->
+    <script src="assets/js/script.js"></script>
+    
+<!-- cursor effect js -->
+    <script src="assets/js/cursor.js"></script>
+    
+<!-- ripple effect for buttons -->
+    <script src="assets/js/ripple.js"></script>
+</body>
+</html>

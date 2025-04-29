@@ -5,64 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joshua's | About</title>
     
-    <!-- Google Fonts - Loading typography resources for the site -->
+    
+<!-- Google Fonts - Loading typography resources for the site -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome Icons - Used for visual elements and social media icons -->
+    
+<!-- Font Awesome Icons - Used for visual elements and social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- custom css - main styling files-->
-    <link rel="stylesheet" href="assets/css/main.css">       <!-- core styling and variables -->
-    <link rel="stylesheet" href="assets/css/navbar.css">     <!-- nav styling with hamburger menu -->
-    <link rel="stylesheet" href="assets/css/profile.css">    <!-- pfp image styling -->
-    <link rel="stylesheet" href="assets/css/cursor.css">     <!-- cursor effect styling -->
+    
+<!-- custom css - main styling files-->
+    <link rel="stylesheet" href="assets/css/main.css">       
+<!-- core styling and variables -->
+    <link rel="stylesheet" href="assets/css/navbar.css">     
+<!-- nav styling with hamburger menu -->
+    
+<!-- calligraphy font for logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/profile.css">    
+<!-- pfp image styling -->
+    <link rel="stylesheet" href="assets/css/cursor.css">     
+<!-- cursor effect styling -->
+    <link rel="stylesheet" href="assets/css/about.css">      
+<!-- about page specific styling -->
 </head>
 <body>
-    <!-- bg animation canvas - particle effects -->
+    
+<!-- bg animation canvas - particle effects -->
     <div class="background-animation">
         <canvas id="background-canvas"></canvas>
     </div>
     
-    <!-- navbar - navigation across all pages -->
+    
+<!-- navbar - navigation across all pages -->
     <nav class="navbar">
         <div class="navbar-container">
-            <!-- logo - links back to homepage -->
-            <a href="index.html" class="logo">JS</a>
             
-            <!-- hamburger menu - shows on mobile/tablet devices -->
+<!-- logo - links back to homepage -->
+            <a href="index.html" class="logo logo-calligraphy">JS</a>
+            
+            
+<!-- hamburger menu - shows on mobile/tablet devices -->
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
             
-            <!-- nav links -->
+            
+<!-- nav links -->
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="techstack.html">Tech Stack</a></li>
+                
+<!-- Updated link: techstack.html -> tech-stack.html for consistency and better SEO -->
+                <li><a href="tech-stack.html">Tech Stack</a></li>
                 <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </nav>
     
-    <!-- about section -->
+    
+<!-- about section -->
     <section id="about" class="section">
         <div class="container">
             <h2>About Me</h2>
-            <div class="glass fade-in">
-                <h3 class="mb-4">I'm Joshua Santelices</h3>
-                <p>I'm a student building my portfolio and developing skills in various technologies. I have a particular interest in cybersecurity because this field doesn't necessarily require extensive coding skills, yet offers exciting challenges and opportunities.</p>
-                <p>My journey is focused on learning and growing in the tech world, with an emphasis on security practices and principles that help protect digital assets and infrastructures.</p>
+            
+<!-- Unified container with profile image at the top center and description below -->
+            <div class="about-container fade-in">
+                <div class="glass about-desc-glass">
+                    
+                    <div class="about-profile-top">
+                        <div class="profile-container-outer">
+                            <div class="profile-glow-ring"></div>
+                            <div class="about-img-glass">
+                                <img src="assets/images/profile1.png" alt="Profile" class="profile-img-hover" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-text-content">
+                        <span class="about-title">
+                            <span class="animated-emoji wave-emoji">👋</span> hey, I'm Joshua Santelices!
+                        </span>
+                        <p class="about-text">
+                            I'm a student building my portfolio and developing skills in various technologies. I have a particular interest in cybersecurity because this field doesn't necessarily require extensive coding skills, yet offers exciting challenges and opportunities. <br><br>
+                            My journey is focused on learning and growing in the tech world, with an emphasis on security practices and principles that help protect digital assets and infrastructures.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            
+<!-- Skills Section -->
+            <h3 class="skills-heading">My Skills</h3>
+            <div class="skills-container fade-in">
+                
+<!-- Development Skills -->
+                <div class="glass skill-category">
+                    <h4>
+                        <span class="animated-emoji bounce-emoji skill-emoji">💻</span> Development
+                    </h4>
+                    <div class="skill-bars">
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>Web Development</span>
+                                <span>15%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:15%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>Mobile App Development</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:10%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>UI/UX Design</span>
+                                <span>25%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:25%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+<!-- Cybersecurity Skills -->
+                <div class="glass skill-category" style="margin-bottom:1.5rem; padding:1.8rem; box-shadow:0 6px 30px #14efff33; border:1.5px solid #14efff22;">
+                    <h4 style="color:#14efff; font-size:1.3rem; margin-bottom:1rem; display:flex; align-items:center;">
+                        <span class="animated-emoji pulse-emoji" style="display:inline-block;">🔒</span> Cybersecurity
+                    </h4>
+                    <div class="skill-bars">
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>Network Security</span>
+                                <span>3%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:3%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>Penetration Testing</span>
+                                <span>5%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:5%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span>Security Analysis</span>
+                                <span>7%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-fill" style="width:7%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+<!-- Education & Experience Timeline -->
+            <h3 class="timeline-heading">Journey So Far</h3>
+            <div class="timeline-container fade-in">
+                
+<!-- Timeline Connector -->
+                <div class="timeline-line"></div>
+                
+                
+<!-- Timeline Item 1 -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h4>Bachelor of Science in Information Technology</h4>
+                        <p>Still grinding my way through college, learning how to talk to computers and make 'em listen.</p>
+                    </div>
+                </div>
+                
+                
+<!-- Timeline Item 2 -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass">
+                        <div class="timeline-date">2020 - 2023</div>
+                        <h4>TVL-CSS | Information in Communication Technology</h4>
+                        <p>Senior High hustle — learned how to fix PCs, run networks, and vibe with tech early on.</p>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
     
-    <!-- footer - consistent across all pages -->
-    <footer class="glass" style="margin-top: 2rem;">
+    
+<!-- footer - consistent across all pages -->
+    <footer class="glass">
         <div class="container">
             <div class="flex justify-center">
                 <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
@@ -70,9 +222,14 @@
         </div>
     </footer>
     
-    <!-- custom js - core functionality and animations -->
+    
+<!-- custom js - core functionality and animations -->
     <script src="assets/js/script.js"></script>
-    <!-- cursor effect js -->
+    
+<!-- cursor effect js -->
     <script src="assets/js/cursor.js"></script>
+    
+<!-- ripple effect for buttons -->
+    <script src="assets/js/ripple.js"></script>
 </body>
 </html>

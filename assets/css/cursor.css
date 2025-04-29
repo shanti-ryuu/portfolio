@@ -3,7 +3,7 @@ body {
     cursor: none;
 }
 
-/* main cursor element */
+/* main cursor element - enhanced for lively GitBook-inspired effect */
 .cursor {
     position: fixed;
     left: 0;
@@ -13,13 +13,28 @@ body {
     border-radius: 50%;
     background-color: rgba(191, 57, 82, 0.8); 
     pointer-events: none; /* makes the cursor pass-through for mouse events */
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     z-index: 9999;
     mix-blend-mode: screen; /* creates a light blend effect */
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    box-shadow: 0 2px 12px 2px rgba(20,239,255,0.23), 0 1px 8px 0 rgba(96,147,191,0.09); /* 3D shadow */
+    transition: width 0.2s, height 0.2s, background-color 0.2s, box-shadow 0.25s, transform 0.18s cubic-bezier(.23,1.1,.32,1);
 }
 
-/* cursor trail element */
+/* lively pulse effect on move */
+.cursor.pulse {
+    transform: translate(-50%, -50%) scale(1.32);
+    box-shadow: 0 4px 24px 6px rgba(20,239,255,0.33), 0 2px 16px 0 rgba(96,147,191,0.19);
+}
+
+/* color glow on click */
+.cursor.click {
+    background-color: #14efff;
+    box-shadow: 0 0 24px 8px #14efff, 0 2px 12px 2px rgba(191,57,82,0.25);
+    transition: background-color 0.1s, box-shadow 0.17s;
+}
+
+
+/* cursor trail element, follows u around like a puppy lol */
 .cursor-trail {
     position: fixed;
     width: 30px;
@@ -27,25 +42,25 @@ body {
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(96, 147, 191, 0.6), /* sky blue */
-        rgba(48, 88, 140, 0.4), /* navy blue */
-        rgba(37, 69, 89, 0.1)   /* slate blue */
+        rgba(96, 147, 191, 0.6), /* sky blue, looks nice */
+        rgba(48, 88, 140, 0.4), /* navy blue, deepens the color */
+        rgba(37, 69, 89, 0.1)   /* slate blue, gives it some subtlety */
     );
-    pointer-events: none; /* makes the trail pass-through for mouse events */
+    pointer-events: none; /* makes the trail pass-thru for mouse events, dont wanna interfere */
     transform: translate(-50%, -50%);
     z-index: 9998;
     opacity: 0;
-    mix-blend-mode: luminosity; /* creates a blend effect */
+    mix-blend-mode: luminosity; /* cursor pulse n click effcts, for that extra pop */
     transition: opacity 0.8s ease;
 }
 
-/* hover state for elements with hover-effect class */
+/* hover state for elements with hover-effect class, makes em look nice */
 .hover-effect {
     position: relative;
     transition: all 0.3s ease;
 }
 
-/* style changes when cursor hovers over interactive elements */
+/* style changes when cursor hovers over interactive elements, gives it some flair */
 .cursor.hover {
     width: 18px;
     height: 18px;
@@ -53,18 +68,18 @@ body {
     mix-blend-mode: lighten;
 }
 
-/* enhanced trail effect during hover */
+/* enhanced trail effect during hover, makes it look all fancy */
 .cursor-trail.hover {
     opacity: 0.8;
     background: radial-gradient(
         circle,
-        rgba(191, 57, 82, 0.6), /* raspberry red */
-        rgba(96, 147, 191, 0.4), /* sky blue */
-        rgba(48, 88, 140, 0.1)  /* navy blue */
+        rgba(191, 57, 82, 0.6), /* raspberry red, looks nice */
+        rgba(96, 147, 191, 0.4), /* sky blue, deepens the color */
+        rgba(48, 88, 140, 0.1)  /* navy blue, gives it some subtlety */
     );
 }
 
-/* responsive adjustments - disable custom cursor on touch devices */
+/* responsive adjustments - disable custom cursor stylz, makes ur mouse look spicy on touch devices */
 @media (max-width: 768px) {
     .cursor, .cursor-trail {
         display: none;
