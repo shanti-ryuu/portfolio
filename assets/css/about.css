@@ -30,69 +30,52 @@
 }
 
 /* Profile Container Styles */
-.profile-container-outer {
-    position: relative;
-    width: 250px;
-    height: 250px;
-}
-
-.profile-glow-ring {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid rgba(20, 239, 255, 0.6);
-    box-shadow: 0 0 25px rgba(20, 239, 255, 0.5);
-    animation: rotateGlow 8s linear infinite;
-}
-
 .about-img-glass {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 220px;
-    height: 220px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    background: rgba(20, 239, 255, 0.10);
+    background: rgba(191, 57, 82, 0.10);
     backdrop-filter: blur(12px);
-    box-shadow: 0 4px 24px rgba(20, 239, 255, 0.33), 0 0 0 6px rgba(20, 239, 255, 0.13);
+    box-shadow: 0 4px 24px rgba(191, 57, 82, 0.55), 0 0 0 6px rgba(191, 57, 82, 0.22);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 2px solid rgba(20, 239, 255, 0.27);
-    animation: pulse 3s infinite;
-}
-
-.about-img-glass img {
-    width: 190px;
-    height: 190px;
+    border: 2px solid rgba(191, 57, 82, 0.44);
+    animation: pulseHome 3s infinite;
+  }
+  
+  .about-img-glass img {
+    width: 220px;
+    height: 220px;
     object-fit: cover;
     border-radius: 50%;
-    box-shadow: 0 2px 16px rgba(20, 239, 255, 0.33);
+    box-shadow: 0 2px 16px rgba(191, 57, 82, 0.55);
     transition: transform 0.5s ease;
-}
-
-/* Animation for the glowing ring */
-@keyframes rotateGlow {
+  }
+  
+  /* Animation for the glowing ring */
+  @keyframes rotateGlow {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* Scale effect on hover */
-.profile-img-hover:hover {
+  }
+  
+  /* Scale effect on hover */
+  .about-img-hover:hover {
     transform: scale(1.05);
-}
-
-/* Pulsing glow effect */
-@keyframes pulse {
-    0% { box-shadow: 0 4px 24px rgba(20, 239, 255, 0.3), 0 0 0 6px rgba(20, 239, 255, 0.1); }
-    50% { box-shadow: 0 4px 30px rgba(20, 239, 255, 0.6), 0 0 0 8px rgba(20, 239, 255, 0.2); }
-    100% { box-shadow: 0 4px 24px rgba(20, 239, 255, 0.3), 0 0 0 6px rgba(20, 239, 255, 0.1); }
-}
+  }
+  
+  /* Pulsing glow effect for home page */
+  @keyframes pulseHome {
+    0% { box-shadow: 0 4px 24px rgba(191, 57, 82, 0.3), 0 0 0 6px rgba(191, 57, 82, 0.1); }
+    50% { box-shadow: 0 4px 30px rgba(191, 57, 82, 0.6), 0 0 0 8px rgba(191, 57, 82, 0.2); }
+    100% { box-shadow: 0 4px 24px rgba(191, 57, 82, 0.3), 0 0 0 6px rgba(191, 57, 82, 0.1); }
+  }
+  
 
 /* Animated Emoji Styles */
 .animated-emoji {

@@ -8,17 +8,17 @@
     margin-bottom: 2.5rem;
     text-align: center;
     padding: 2.2rem 2rem;
-    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.15);
-    border: 1.5px solid rgba(20, 239, 255, 0.1);
-    background: rgba(20, 239, 255, 0.03);
+    box-shadow: 0 6px 40px rgba(191, 57, 82, 0.15);
+    border: 1.5px solid rgba(191, 57, 82, 0.1);
+    background: rgba(191, 57, 82, 0.03);
     backdrop-filter: blur(0px);
 }
 
 .contact-social-container {
     padding: 2rem;
-    box-shadow: 0 6px 40px rgba(20, 239, 255, 0.15);
-    border: 1.5px solid rgba(20, 239, 255, 0.1);
-    background: rgba(20, 239, 255, 0.03);
+    box-shadow: 0 6px 40px rgba(96, 147, 191, 0.15);
+    border: 1.5px solid rgba(96, 147, 191, 0.1);
+    background: rgba(96, 147, 191, 0.03);
     backdrop-filter: blur(0px);
 }
 
@@ -26,21 +26,21 @@
 .contact-title {
     display: inline-block;
     font-size: 1.5rem;
-    color: #14efff;
+    color: var(--light);
     font-weight: 700;
     letter-spacing: 0.05em;
-    text-shadow: 0 3px 18px rgba(20, 239, 255, 0.67), 0 0 1px #fff;
+    text-shadow: 0 3px 18px rgba(96, 147, 191, 0.67), 0 0 1px #fff;
 }
 
-.contact-text {
+.contact-description {
     margin: 0 auto;
     max-width: 1100px;
-    color: #b4eaff;
+    color: var(--text-secondary);
     font-size: 1.13rem;
     font-weight: 500;
     line-height: 1.6;
     letter-spacing: 0.01em;
-    text-shadow: 0 1px 8px rgba(20, 239, 255, 0.2);
+    text-shadow: 0 1px 8px rgba(96, 147, 191, 0.2);
     text-align: justify;
 }
 
@@ -59,6 +59,7 @@
     color: var(--text-primary);
     position: relative;
     overflow: hidden;
+    margin: 0 15px;
 }
 
 .social-icon:hover {
@@ -72,7 +73,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    background: linear-gradient(45deg, var(--primary), var(--light));
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -1;
@@ -90,10 +91,29 @@
 
 .social-icon i {
     transition: transform 0.3s ease;
+    font-size: 2.8rem;
 }
 
 .social-icon:hover i {
     transform: scale(1.1);
+}
+
+/* Wave emoji animation */
+.wave-emoji {
+    display: inline-block;
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
 }
 
 /* Responsive adjustments */
@@ -101,6 +121,7 @@
     .social-icon {
         width: 70px;
         height: 70px;
+        margin: 0 12px;
     }
     
     .social-icon i {
@@ -112,6 +133,7 @@
     .social-icon {
         width: 60px;
         height: 60px;
+        margin: 0 10px;
     }
     
     .social-icon i {

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     
 <!-- font awesome icons - Used for visual elements and technology icons -->
@@ -32,6 +33,10 @@
 <!-- for animated emojis -->
 </head>
 <body>
+    
+<!-- Custom cursor elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
     
 <!-- bg animation canvas - particle effects -->
     <div class="background-animation">
@@ -73,14 +78,14 @@
     <section id="techstack" class="section">
         <div class="container">
             <h2>Tech Stack</h2>
-            <div class="glass tech-desc-glass">
+            <div class="glass glass-primary tech-desc-glass">
                 <span class="animated-emoji bounce-emoji">🚀</span> here's my tech stack so far! <span class="animated-emoji pulse-emoji" style="font-size:1.6rem;">👇</span>
                 <div class="tech-description">
                     All the languages, tools, and platforms below are what I’ve been learning, building with, and breaking (sometimes on purpose 😅). Always leveling up, always curious. If you vibe with any of these, let’s connect!
                 </div>
             </div>
 
-            <h3 style="margin-top:0; color:#fff; font-size:1.3rem;">Programming Languages & Frameworks</h3>
+            <h3 style="margin-top:0; color:var(--light); font-size:1.3rem;">Programming Languages & Frameworks</h3>
             <div class="grid grid-cols-4 fade-in" style="margin-bottom:2.5rem;">
                 <div class="neumorphism-glass">
                     <img src="assets/images/logos/html5.svg" alt="HTML5 Logo" class="tech-logo" />
@@ -116,7 +121,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-top:0; color:#fff; font-size:1.3rem;">Dev Tools & Platforms</h3>
+            <h3 style="margin-top:0; color:var(--light); font-size:1.3rem;">Dev Tools & Platforms</h3>
             <div class="grid grid-cols-4 fade-in">
                 <div class="neumorphism-glass">
                     <img src="assets/images/logos/git.svg" alt="Git Logo" class="tech-logo" />
@@ -142,18 +147,7 @@
             </div>
         </div>
     </section>
-    
-    
-<!-- footer - consistent across all pages -->
-    <footer class="glass" style="margin-top: 2rem;">
-        <div class="container">
-            <div class="flex justify-center">
-                <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    
+
 <!-- Dots Loader CSS and JS - inspired by csss.loaders.com/dots -->
     <link rel="stylesheet" href="assets/css/loader-dots.css">
     <script src="assets/js/loader-dots.js"></script>
@@ -166,5 +160,8 @@
     
 <!-- ripple effect for buttons -->
     <script src="assets/js/ripple.js"></script>
+    
+<!-- loader js -->
+    <script src="assets/js/loader.js"></script>
 </body>
 </html>

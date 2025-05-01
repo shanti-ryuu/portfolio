@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     
 <!-- Font Awesome Icons - Used for visual elements and social media icons -->
@@ -32,6 +33,10 @@
 <!-- about page specific styling -->
 </head>
 <body>
+    
+<!-- Custom cursor elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
     
 <!-- bg animation canvas - particle effects -->
     <div class="background-animation">
@@ -76,12 +81,12 @@
             
 <!-- Unified container with profile image at the top center and description below -->
             <div class="about-container fade-in">
-                <div class="glass about-desc-glass">
+                <div class="glass glass-primary about-desc-glass">
                     
                     <div class="about-profile-top">
                         <div class="profile-container-outer">
                             <div class="profile-glow-ring"></div>
-                            <div class="about-img-glass">
+                            <div class="about-img-glass glass-primary">
                                 <img src="assets/images/profile1.png" alt="Profile" class="profile-img-hover" />
                             </div>
                         </div>
@@ -98,87 +103,7 @@
                     </div>
                 </div>
             </div>
-            
-            
-<!-- Skills Section -->
-            <h3 class="skills-heading">My Skills</h3>
-            <div class="skills-container fade-in">
-                
-<!-- Development Skills -->
-                <div class="glass skill-category">
-                    <h4>
-                        <span class="animated-emoji bounce-emoji skill-emoji">💻</span> Development
-                    </h4>
-                    <div class="skill-bars">
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>Web Development</span>
-                                <span>15%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:15%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>Mobile App Development</span>
-                                <span>10%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:10%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>UI/UX Design</span>
-                                <span>25%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:25%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-<!-- Cybersecurity Skills -->
-                <div class="glass skill-category" style="margin-bottom:1.5rem; padding:1.8rem; box-shadow:0 6px 30px #14efff33; border:1.5px solid #14efff22;">
-                    <h4 style="color:#14efff; font-size:1.3rem; margin-bottom:1rem; display:flex; align-items:center;">
-                        <span class="animated-emoji pulse-emoji" style="display:inline-block;">🔒</span> Cybersecurity
-                    </h4>
-                    <div class="skill-bars">
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>Network Security</span>
-                                <span>3%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:3%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>Penetration Testing</span>
-                                <span>5%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:5%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-info">
-                                <span>Security Analysis</span>
-                                <span>7%</span>
-                            </div>
-                            <div class="skill-progress">
-                                <div class="skill-progress-fill" style="width:7%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
+         
 <!-- Education & Experience Timeline -->
             <h3 class="timeline-heading">Journey So Far</h3>
             <div class="timeline-container fade-in">
@@ -190,7 +115,7 @@
 <!-- Timeline Item 1 -->
                 <div class="timeline-item left">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content glass">
+                    <div class="timeline-content glass glass-secondary">
                         <div class="timeline-date">2023 - Present</div>
                         <h4>Bachelor of Science in Information Technology</h4>
                         <p>Still grinding my way through college, learning how to talk to computers and make 'em listen.</p>
@@ -201,7 +126,7 @@
 <!-- Timeline Item 2 -->
                 <div class="timeline-item right">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content glass">
+                    <div class="timeline-content glass glass-secondary">
                         <div class="timeline-date">2020 - 2023</div>
                         <h4>TVL-CSS | Information in Communication Technology</h4>
                         <p>Senior High hustle — learned how to fix PCs, run networks, and vibe with tech early on.</p>
@@ -211,18 +136,7 @@
             </div>
         </div>
     </section>
-    
-    
-<!-- footer - consistent across all pages -->
-    <footer class="glass">
-        <div class="container">
-            <div class="flex justify-center">
-                <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    
+ 
 <!-- custom js - core functionality and animations -->
     <script src="assets/js/script.js"></script>
     
@@ -231,5 +145,8 @@
     
 <!-- ripple effect for buttons -->
     <script src="assets/js/ripple.js"></script>
+    
+<!-- loader js -->
+    <script src="assets/js/loader.js"></script>
 </body>
 </html>

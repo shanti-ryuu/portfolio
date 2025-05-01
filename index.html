@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     
 <!-- font awesome icons - Used for visual elements and social media icons -->
@@ -28,8 +29,14 @@
 <!-- pfp image styling -->
     <link rel="stylesheet" href="assets/css/cursor.css">     
 <!-- cursor effect styling -->
+    <link rel="stylesheet" href="assets/css/loader.css">       
+
 </head>
 <body>
+    
+<!-- Custom cursor elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
     
 <!-- bg animation canvas - particle effects -->
     <div class="background-animation">
@@ -83,7 +90,7 @@
                         
                         
 <!-- Main profile container -->
-                        <div class="home-img-glass">
+                        <div class="home-img-glass glass-primary">
                             <img src="assets/images/profile.png" alt="Joshua Santelices" class="profile-img-hover">
                         </div>
                     </div>
@@ -99,26 +106,15 @@
                         
 <!-- nav buttons with hover effects -->
                         <div class="flex gap-2 mt-4">
-                            <a href="about.html" class="btn">About Me</a>
-                            <a href="contact.html" class="btn">Get In Touch</a>
+                            <a href="about.html" class="btn btn-primary">About Me</a>
+                            <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    
-<!-- footer - consistent across all pages -->
-    <footer class="glass" style="margin-top: 2rem;">
-        <div class="container">
-            <div class="flex justify-center">
-                <p>&copy; 2025 Joshua Santelices. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-    
+
 <!-- custom js - core functionality and animations -->
     <script src="assets/js/script.js"></script>
     
@@ -130,5 +126,8 @@
     
 <!-- typing effect js -->
     <script src="assets/js/typing.js"></script>
+    
+<!-- loader js -->
+    <script src="assets/js/loader.js"></script>
 </body>
 </html>
