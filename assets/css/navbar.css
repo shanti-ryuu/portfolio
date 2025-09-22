@@ -78,6 +78,18 @@
   width: 100%;
 }
 
+/* Active state for current page */
+.nav-links li a.active {
+  color: var(--primary);
+  text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+}
+
+.nav-links li a.active::after {
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  box-shadow: 0 0 8px var(--primary);
+}
+
 .hamburger {
   display: none;
   cursor: pointer;
