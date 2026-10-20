@@ -947,7 +947,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .about-intro h1, .tech-page-intro h1, .page-intro h1 { font-size: clamp(2.25rem, 6vw, 5rem); line-height: 1.04; text-wrap: balance; }
 .project-detail-page .page-intro h1 { max-width: 1200px; font-size: clamp(2.25rem, 5vw, 4.25rem); }
 @media (max-width: 767px) {
-  .project-detail-page .page-intro h1 { display: block; overflow: visible; -webkit-line-clamp: unset; }
+  .project-detail-page .page-intro h1 { display: block; overflow: visible; font-size: clamp(1.75rem, 7vw, 2.5rem); -webkit-line-clamp: unset; }
 }
 .about-intro h1, .tech-page-intro h1, .page-intro h1 { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 
@@ -1008,8 +1008,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 }
 @media (max-width: 767px) {
   :root { --nav-h: calc(max(12px, env(safe-area-inset-top)) + 56px); }
-  /* Keep the project cats visible but quiet where the title and gallery fill the mobile canvas. */
-  .dancing-cat-layer[data-route="projects"] .dancing-cat { opacity: .32; }
+  /* Fixed companions overlap full-width mobile content; keep the canvas clear on phones/tablets. */
+  .dancing-cat-layer .dancing-cat, .pixel-cat-companion { display: none; }
   .route-content main:not(.home-scroll-scene) { padding-top: calc(var(--nav-h) + 32px); }
   .about-intro { padding-top: 0; }
   .tech-page-intro { padding-top: 0; padding-bottom: 0; }
