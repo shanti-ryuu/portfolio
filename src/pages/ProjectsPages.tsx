@@ -57,7 +57,7 @@ function RepositoryIcon() {
 
 function StatusTable({ project }: { project: Project }) {
   if (!project.components?.length) return null
-  return <section className="detail-block component-status-block"><h2>Component status</h2><div className="component-status-table" role="table" aria-label={`${project.shortTitle} component status`}>
+  return <section className="detail-block component-status-block"><h2>Component status</h2><div className="component-status-table" role="table" aria-label={`${project.shortTitle} component status`} tabIndex={0}>
     <div className="component-status-row component-status-head" role="row"><span role="columnheader">Component</span><span role="columnheader">Status</span><span role="columnheader">Repository evidence</span></div>
     {project.components.filter((component) => !component.draft).map((component) => <div className="component-status-row" role="row" key={component.title}><span role="cell">{component.title}</span><span role="cell"><StatusLabel status={component.status} /></span><span role="cell">{component.evidence}</span></div>)}
   </div></section>

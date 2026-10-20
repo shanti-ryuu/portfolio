@@ -38,12 +38,12 @@ export default function DancingCat({ src, poster, side, size }: DancingCatProps)
 
     let posterImage: HTMLImageElement | null = new Image()
     posterImage.onload = () => {
-      if (reduceMotion || !video || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) drawKeyed(posterImage!)
+      if (reduceMotion || !video || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) drawKeyed(posterImage)
     }
     posterImage.src = poster
 
-    function drawKeyed(source: CanvasImageSource, width?: number, height?: number) {
-      if (!canvas || !context) return
+    function drawKeyed(source: CanvasImageSource | null | undefined, width?: number, height?: number) {
+      if (!canvas || !context || !source) return
       const sourceWidth = width ?? (source as HTMLVideoElement).videoWidth ?? (source as HTMLImageElement).naturalWidth
       const sourceHeight = height ?? (source as HTMLVideoElement).videoHeight ?? (source as HTMLImageElement).naturalHeight
       if (!sourceWidth || !sourceHeight) return
