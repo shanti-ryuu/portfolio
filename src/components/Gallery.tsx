@@ -173,9 +173,7 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
       <div ref={dialogRef} className="gallery-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-lightbox-title">
         <div className="gallery-lightbox-header"><h2 id="gallery-lightbox-title">{label}</h2><button ref={closeRef} type="button" className="gallery-control gallery-close" onClick={closeLightbox} aria-label="Close full-screen image">×</button></div>
         <div className="gallery-lightbox-stage" style={imageStyle} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onPointerCancel={() => { pointerStart.current = null }}>
-          <button type="button" className="gallery-image-trigger" onClick={() => { if (didSwipe.current) { didSwipe.current = false; return } closeLightbox() }} aria-label="Close full-screen image">
-            <AnimatePresence mode="wait" initial={false}><motion.img key={active.src} className="gallery-lightbox-image" src={imageUrl} width={active.width} height={active.height} alt={active.alt} loading="eager" decoding="async" initial={reducedMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : .16 }} /></AnimatePresence>
-          </button>
+          <AnimatePresence mode="wait" initial={false}><motion.img key={active.src} className="gallery-lightbox-image" src={imageUrl} width={active.width} height={active.height} alt={active.alt} loading="eager" decoding="async" initial={reducedMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? 0 : .16 }} /></AnimatePresence>
           <button type="button" className="gallery-control gallery-lightbox-prev" onClick={() => move(-1)} aria-label="Previous screenshot"><span aria-hidden="true">←</span></button>
           <button type="button" className="gallery-control gallery-lightbox-next" onClick={() => move(1)} aria-label="Next screenshot"><span aria-hidden="true">→</span></button>
         </div>

@@ -5,6 +5,7 @@ import CursorCharacter from './CursorCharacter'
 import ParticleBackground from './ParticleBackground'
 import PixelCatCompanion from './PixelCatCompanion'
 import DancingCat from './components/DancingCat'
+import Reveal from './components/Reveal'
 import useTypewriter from './useTypewriter'
 import { profile } from './data/portfolio'
 import { projects } from './data/projects'
@@ -233,6 +234,7 @@ function Home() {
 }
 
 function AboutPage() {
+  const reduceMotion = Boolean(useReducedMotion())
   const featured = techStack.filter((tech) => tech.featured)
   const summaryProjects = projects
   const relatedProjects = (id: string) => projects.flatMap((project) => [
@@ -240,15 +242,14 @@ function AboutPage() {
     ...(project.plannedTech?.includes(id) ? [{ slug: project.slug, title: project.shortTitle, planned: true }] : []),
   ])
   return <main className="page-shell page-about new-content-page">
-    <section className="about-intro content-container">
+    <Reveal className="about-intro-reveal"><section className="about-intro content-container">
       <div className="about-intro-copy"><Eyebrow>ABOUT JOSHUA</Eyebrow><h1>{aboutContent.title}</h1><p>{aboutContent.introduction}</p></div>
-      <img className="about-portrait" src={`${import.meta.env.BASE_URL}media/profile-pic.png`} alt="Portrait of Joshua" />
-    </section>
-    <section className="about-section content-container"><SectionTitle label="BACKGROUND" title="A student building through projects." /><div className="about-copy measure-copy"><p>{aboutContent.background}</p><p>{aboutContent.interests}</p></div></section>
-    <section className="about-section content-container"><SectionTitle label="EDUCATION" title="Where I’m learning." /><article className="education-card glass-panel"><span className="education-mark" aria-hidden="true">SD</span><div><h3>{profile.education.degree}</h3><p>{profile.education.institution}</p><span className="muted-note">{profile.education.yearLevel || 'Year level: update when confirmed'}</span></div></article></section>
-    <section className="about-section content-container"><SectionTitle label="APPROACH & CURRENT LEARNING" title="Curious about the whole system." /><div className="about-copy measure-copy"><p>{aboutContent.approach}</p><ul className="about-learning-list">{aboutContent.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div></section>
-    <section className="about-section content-container"><SectionTitle label="PROJECT HIGHLIGHTS" title="Learning by making." /><div className="about-project-list">{summaryProjects.map((project, index) => <Link className="about-project glass-panel" to={`/projects/${project.slug}`} key={project.slug}><span className="about-project-index">0{index + 1} · {project.status}</span><h3>{project.shortTitle}</h3><p>{project.summary}</p><span className="about-project-roles">My role · {project.roles.join(' · ')}</span><span className="about-project-link">Project details <span aria-hidden="true">↗</span></span></Link>)}</div></section>
-    <section className="about-section content-container about-tech-section"><SectionTitle label="SELECTED TECHNOLOGIES" title="Tools I’m working with." /><div className="tech-card-grid about-featured-grid">{featured.map((tech) => <TechCard tech={tech} key={tech.id} compact projectReferences={relatedProjects(tech.id)} />)}</div><Link className="inline-arrow" to="/tech-stack">See the full stack <span aria-hidden="true">↗</span></Link></section>
+      <motion.div className="about-portrait-stage" initial={reduceMotion ? false : { opacity: 0, y: 16, scale: .98 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : .48, ease: 'easeOut' }}><img className="about-portrait" src={`${import.meta.env.BASE_URL}media/profile-pic.png`} alt="Portrait of Joshua" /></motion.div>
+    </section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section about-background-section content-container"><SectionTitle label="BACKGROUND" title="A student building through projects." /><div className="about-background-grid"><div className="about-copy measure-copy"><p>{aboutContent.background}</p><p>{aboutContent.interests}</p></div><div className="education-details"><Eyebrow>EDUCATION</Eyebrow><h2 className="education-title">Where I’m learning.</h2><article className="education-card glass-panel"><span className="education-mark" aria-hidden="true">SD</span><div><h3>{profile.education.degree}</h3><p>{profile.education.institution}</p><span className="muted-note">{profile.education.yearLevel || 'Year level: update when confirmed'}</span></div></article></div></div></section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section content-container"><SectionTitle label="APPROACH & CURRENT LEARNING" title="Curious about the whole system." /><div className="about-copy measure-copy"><p>{aboutContent.approach}</p><ul className="about-learning-list">{aboutContent.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div></section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section content-container"><SectionTitle label="PROJECT HIGHLIGHTS" title="Learning by making." /><div className="about-project-list">{summaryProjects.map((project, index) => <Link className="about-project glass-panel" to={`/projects/${project.slug}`} key={project.slug}><span className="about-project-index">0{index + 1} · {project.status}</span><h3>{project.shortTitle}</h3><p>{project.summary}</p><span className="about-project-roles">My role · {project.roles.join(' · ')}</span><span className="about-project-link">Project details <span aria-hidden="true">↗</span></span></Link>)}</div></section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section content-container about-tech-section"><SectionTitle label="SELECTED TECHNOLOGIES" title="Tools I’m working with." /><div className="tech-card-grid about-featured-grid">{featured.map((tech) => <TechCard tech={tech} key={tech.id} compact projectReferences={relatedProjects(tech.id)} />)}</div><Link className="inline-arrow" to="/tech-stack">See the full stack <span aria-hidden="true">↗</span></Link></section></Reveal>
   </main>
 }
 
@@ -268,7 +269,7 @@ function TechStackPage() {
     <section className="tech-stack-section content-container" aria-label="Technology inventory">
       <div className="tech-filter-row" aria-label="Filter by category">{categories.map((item) => <button type="button" className={`tech-filter${category === item ? ' is-selected' : ''}`} aria-pressed={category === item} onClick={() => setCategory(item)} ref={(node) => { if (node && category === item) node.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }) }} key={item}>{item}<span>{categoryCount(item)}</span></button>)}</div>
       <div className="tech-status-row" aria-label="Filter by status">{(['All', 'used', 'studied', 'exploring'] as const).map((item) => <button type="button" className={`status-filter${status === item ? ' is-selected' : ''}`} aria-pressed={status === item} onClick={() => setStatus(item)} ref={(node) => { if (node && status === item) node.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }) }} key={item}>{item === 'All' ? 'All statuses' : item}</button>)}</div>
-      {filtered.length ? <motion.div className="tech-card-grid" layout={!reduceMotion} transition={{ duration: reduceMotion ? 0 : .22, ease: 'easeOut' }}>{filtered.map((tech) => <TechCard tech={tech} key={tech.id} projectReferences={relatedProjects(tech.id)} />)}</motion.div> : <div className="tech-empty glass-panel"><h2>No technologies match those filters.</h2><p>Choose another category or status to see more of the stack.</p></div>}
+      {filtered.length ? <motion.div className="tech-card-grid" layout={!reduceMotion} transition={{ duration: reduceMotion ? 0 : .22, ease: 'easeOut' }}><AnimatePresence initial={false} mode="popLayout">{filtered.map((tech) => <TechCard tech={tech} key={tech.id} projectReferences={relatedProjects(tech.id)} />)}</AnimatePresence></motion.div> : <div className="tech-empty glass-panel"><h2>No technologies match those filters.</h2><p>Choose another category or status to see more of the stack.</p></div>}
       <p className="tech-stack-note">This stack reflects ongoing learning, not a proficiency ranking.</p>
     </section>
   </main>
@@ -278,9 +279,13 @@ function ContactPage() {
   const hasEmail = Boolean(profile.email.trim())
   const socials = [['GitHub', profile.githubUrl], ['LinkedIn', profile.linkedInUrl]].filter((item): item is [string, string] => Boolean(item[1]))
   return <main className="page-shell page-contact"><PageIntro label="CONTACT" title="Good work starts with a conversation." description="I’m open to connecting about university projects, internship opportunities, and thoughtful technology." />
-    <section className="contact-panel content-section"><div><Eyebrow>GET IN TOUCH</Eyebrow><h2>Say hello.</h2><p>{hasEmail ? 'Use the email link to reach me.' : 'My verified email address has not been added yet, so there is no direct contact link at this time.'}</p></div><div className="contact-methods">{hasEmail ? <a className="button button-dark" href={`mailto:${profile.email}`}>Email Joshua <span aria-hidden="true">↗</span></a> : <p className="contact-placeholder">Email: add a verified address in <code>profile.email</code> in <code>src/data/portfolio.ts</code>.</p>}{socials.map(([label, url]) => <a className="contact-social" key={label} href={url} target="_blank" rel="noreferrer">{label} <span aria-hidden="true">↗</span></a>)}{!socials.length && <p className="muted-note">Verified social profile links have not been supplied.</p>}</div></section>
+    <Reveal><section className="contact-panel content-section"><div><Eyebrow>GET IN TOUCH</Eyebrow><h2>Say hello.</h2><p>{hasEmail ? 'Use the email link to reach me.' : 'My verified email address has not been added yet, so there is no direct contact link at this time.'}</p></div><div className="contact-methods">{hasEmail ? <a className="button button-dark" href={`mailto:${profile.email}`}>Email Joshua <span aria-hidden="true">↗</span></a> : <p className="contact-placeholder">Email: add a verified address in <code>profile.email</code> in <code>src/data/portfolio.ts</code>.</p>}{socials.map(([label, url]) => <a className="contact-social" key={label} href={url} target="_blank" rel="noreferrer"><SocialIcon label={label} />{label}<span aria-hidden="true">↗</span></a>)}{!socials.length && <p className="muted-note">Verified social profile links have not been supplied.</p>}</div></section></Reveal>
     <div className="contact-next"><Link className="inline-arrow" to="/projects">Explore selected projects <span aria-hidden="true">↗</span></Link><Link className="text-link" to="/">Return home <span aria-hidden="true">↗</span></Link></div>
   </main>
+}
+
+function SocialIcon({ label }: { label: string }) {
+  return label === 'GitHub' ? <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.24-1.62-1.24-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.1-1.24-5.1-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.43.11-2.98 0 0 .94-.3 3.06 1.15a10.64 10.64 0 0 1 5.57 0c2.12-1.45 3.06-1.15 3.06-1.15.61 1.55.23 2.7.11 2.98.72.78 1.15 1.78 1.15 3 0 4.29-2.62 5.23-5.12 5.51.4.35.75 1.02.75 2.06v3.07c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z" /></svg> : <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.48v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V8.99h3.56v11.46ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.44c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" /></svg>
 }
 
 function NotFoundPage() {
@@ -317,14 +322,17 @@ function DancingCatBackground() {
   const { pathname } = useLocation()
   const route = pathname === '/' ? 'home' : pathname.startsWith('/projects') ? 'projects' : pathname.slice(1).split('/')[0] || 'home'
   const media = `${import.meta.env.BASE_URL}media/cat-dancing/optimized/`
+  const contact = route === 'contact'
   return <div className="dancing-cat-layer" data-route={route} aria-hidden="true">
-    <DancingCat key="scuba" src={`${media}scuba.mp4`} poster={`${media}scuba-poster.png`} side="left" size={156} />
-    <DancingCat key="damdamdidi" src={`${media}damdamdidi.mp4`} poster={`${media}damdamdidi-poster.png`} side="right" size={168} />
+    <DancingCat key="left-companion" src={`${media}${contact ? 'damdamdidi' : 'scuba'}.mp4`} poster={`${media}${contact ? 'damdamdidi' : 'scuba'}-poster.png`} side="left" size={contact ? 170 : route === 'about' ? 190 : 166} />
+    <DancingCat key="right-companion" src={`${media}${contact ? 'thankyou' : 'damdamdidi'}.mp4`} poster={`${media}${contact ? 'thankyou' : 'damdamdidi'}-poster.png`} side={contact ? 'center' : 'right'} size={contact ? 190 : route === 'tech-stack' || route === 'achievements' ? 220 : route === 'about' ? 190 : 176} />
   </div>
 }
 
 function App() {
-  return <div className="app-shell"><ParticleBackground /><PixelCatCompanion /><DancingCatBackground /><Header /><div className="route-content"><Routes>
+  const location = useLocation()
+  const reducedMotion = Boolean(useReducedMotion())
+  return <div className="app-shell"><ParticleBackground /><PixelCatCompanion /><DancingCatBackground /><Header /><div className="route-content"><AnimatePresence mode="wait" initial={false}><motion.div key={location.pathname} className="route-transition" initial={reducedMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -5 }} transition={{ duration: reducedMotion ? 0 : .18, ease: 'easeOut' }}><Routes location={location}>
     <Route path="/" element={<Home />} />
     <Route path="/about" element={<AboutPage />} />
     <Route path="/tech-stack" element={<TechStackPage />} />
@@ -336,7 +344,7 @@ function App() {
     <Route path="/achievements" element={<AchievementsPage />} />
     <Route path="/contact" element={<ContactPage />} />
     <Route path="*" element={<NotFoundPage />} />
-  </Routes></div><Footer /></div>
+  </Routes></motion.div></AnimatePresence></div><Footer /></div>
 }
 
 function PortfolioApp() {

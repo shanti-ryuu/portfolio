@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useReducedMotion } from 'motion/react'
 import { chromaKey } from '../chromaKey'
 
-type DancingCatProps = { src: string; poster: string; side: 'left' | 'right'; size: number }
+type DancingCatProps = { src: string; poster: string; side: 'left' | 'right' | 'center'; size: number }
 
 export default function DancingCat({ src, poster, side, size }: DancingCatProps) {
   const reduceMotion = Boolean(useReducedMotion())

@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import Gallery from '../components/Gallery'
+import Reveal from '../components/Reveal'
 import TechLogo from '../components/TechLogo'
 import { galleries, teamCollab } from '../data/gallery.generated'
 import { projects, type Project, type ProjectStatus } from '../data/projects'
@@ -42,7 +43,7 @@ export function ProjectsPage() {
   return <main className="page-shell page-projects">
     <header className="page-intro"><span className="eyebrow">SELECTED WORK</span><h1>Selected work.</h1><p>A set of interfaces and team projects I’ve helped shape.</p></header>
     <section className="project-index" aria-label="Selected projects">
-      <div className="project-grid"><ProjectCard project={featured} index={projects.indexOf(featured)} featured />{remaining.map((project) => <ProjectCard key={project.slug} project={project} index={projects.indexOf(project)} />)}</div>
+      <Reveal className="project-grid-reveal"><div className="project-grid"><ProjectCard project={featured} index={projects.indexOf(featured)} featured />{remaining.map((project) => <ProjectCard key={project.slug} project={project} index={projects.indexOf(project)} />)}</div></Reveal>
     </section>
     <section className="team-collab-section" aria-labelledby="team-collab-title">
       <div className="section-title"><div><span className="eyebrow">BEHIND THE WORK</span><h2 id="team-collab-title">Team collaboration</h2></div></div>
@@ -75,8 +76,8 @@ export function ProjectDetailPage() {
   return <main className="page-shell project-detail-page">
     <nav className="breadcrumbs" aria-label="Breadcrumb"><Link to="/projects">Projects</Link><span aria-hidden="true">/</span><span aria-current="page">{project.shortTitle}</span></nav>
     <header className="page-intro"><span className="eyebrow">CASE STUDY / {String(index + 1).padStart(2, '0')}</span><h1>{project.title}</h1><div className="project-meta detail-project-meta"><span>{project.kind}</span><span className="status-pill">{project.status}</span></div><ul className="role-chip-list detail-role-list">{project.roles.map((role) => <li key={role}>{role}</li>)}</ul></header>
-    <section className="detail-gallery" aria-label="Project screenshots"><Gallery images={galleries[project.gallery] ?? []} label={`${project.shortTitle} screenshots`} /></section>
-    <div className="detail-layout"><aside className="detail-sidebar"><div><span className="project-sub-label">PROJECT TYPE</span><p>{project.kind}</p></div><div><span className="project-sub-label">STATUS</span><p>{project.status}</p></div><div><span className="project-sub-label">MY CONTRIBUTION</span><ul className="editorial-list">{project.roles.map((role) => <li key={role}>{role}</li>)}</ul></div></aside>
+    <Reveal className="detail-gallery-reveal"><section className="detail-gallery" aria-label="Project screenshots"><Gallery images={galleries[project.gallery] ?? []} label={`${project.shortTitle} screenshots`} /></section></Reveal>
+    <Reveal className="detail-layout-reveal"><div className="detail-layout"><aside className="detail-sidebar"><div><span className="project-sub-label">PROJECT TYPE</span><p>{project.kind}</p></div><div><span className="project-sub-label">STATUS</span><p>{project.status}</p></div><div><span className="project-sub-label">MY CONTRIBUTION</span><ul className="editorial-list">{project.roles.map((role) => <li key={role}>{role}</li>)}</ul></div></aside>
       <div className="detail-main">
         <section className="detail-block"><h2>Overview</h2><p>{project.summary}</p></section>
         <section className="detail-block"><h2>Context</h2><p>{project.context}</p></section>
@@ -87,7 +88,7 @@ export function ProjectDetailPage() {
         <section className="detail-block repository-block"><h2>Repositories</h2><ul>{project.repos.map((repo) => { const path = new URL(repo.url).pathname.replace(/^\//, '').replace(/\.git$/, ''); return <li key={repo.url}><a href={repo.url} target="_blank" rel="noopener noreferrer"><span><strong>{repo.label}</strong><small>{path}</small></span><span className="repo-link-affordance">Opens GitHub <RepositoryIcon /></span></a>{repo.note && <p>{repo.note}</p>}</li> })}</ul></section>
         <StatusTable project={project} />
         <section className="detail-block"><h2>Status</h2><p>{project.status}. Repository evidence describes code present in the linked projects; it does not establish live deployment or real-world system performance.</p></section>
-      </div></div>
+      </div></div></Reveal>
     <nav className="project-pagination" aria-label="Project navigation"><Link to={`/projects/${previous.slug}`}><span className="eyebrow">PREVIOUS</span><strong>{previous.shortTitle}</strong></Link><Link to={`/projects/${next.slug}`}><span className="eyebrow">NEXT</span><strong>{next.shortTitle}</strong></Link></nav>
   </main>
 }

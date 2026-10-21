@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Gallery from '../components/Gallery'
+import Reveal from '../components/Reveal'
 import { credlyBadges } from '../data/badges'
 import { credentialImage, credentials, credlyUrl, type CredentialCategory, type CredentialRecord } from '../data/credentials'
 import type { GallerySlide } from '../data/gallery.generated'
@@ -44,7 +45,7 @@ function CredentialGrid({ records, category, emptyTitle }: { records: Credential
   }, [])
 
   return <>
-    {records.length ? <div className="credential-grid">{records.map((record, index) => {
+    {records.length ? <Reveal className="credential-grid-reveal"><div className="credential-grid">{records.map((record, index) => {
       const preview = firstEvidence(record)
       return <button ref={(node) => { buttonRefs.current[record.id] = node }} type="button" className="credential-card glass-panel" key={record.id} onClick={() => setSelectedSlide(positions[index])} aria-label={`Open ${record.title} evidence`}>
         <span className="credential-card-media">
@@ -55,7 +56,7 @@ function CredentialGrid({ records, category, emptyTitle }: { records: Credential
           {record.context && <span>{record.context}</span>}
         </span>
       </button>
-    })}</div> : <div className="credential-empty glass-panel"><span className="eyebrow">NO MATCHING RECORDS</span><h2>{emptyTitle}</h2><p>Choose another filter to see the available records.</p></div>}
+    })}</div></Reveal> : <div className="credential-empty glass-panel"><span className="eyebrow">NO MATCHING RECORDS</span><h2>{emptyTitle}</h2><p>Choose another filter to see the available records.</p></div>}
     {selectedSlide !== null && <Gallery key={`${category ?? 'achievements'}-${selectedSlide}`} images={slides} label="Credential evidence" initialIndex={selectedSlide} startInLightbox onClose={() => setSelectedSlide(null)} returnFocus={() => {
       const recordIndex = positions.findIndex((position, index) => selectedSlide >= position && selectedSlide < position + Math.max(1, records[index].evidence.length))
       const record = records[Math.max(0, recordIndex)]
@@ -76,7 +77,7 @@ export default function CredentialsPage() {
       <CredentialGrid records={records} category={filter} emptyTitle="No credentials in this filter." />
     </section>
     <section className="credly-section glass-panel">
-      <div><span className="eyebrow">DIGITAL BADGES</span><h2>Credly profile</h2><p>{credlyBadges.length ? `${credlyBadges.length} confirmed badges are listed.` : 'The public profile could not be read, so no badges are listed here yet.'}</p>{credlyBadges.length > 0 && <ul className="credly-badge-list">{credlyBadges.map((badge) => <li key={badge.name}><strong>{badge.name}</strong>{badge.issuer && <span>{badge.issuer}</span>}</li>)}</ul>}</div>
+      <div><span className="eyebrow">DIGITAL BADGES</span><h2>Credly profile</h2><p>{credlyBadges.length ? `${credlyBadges.length} confirmed badges are listed.` : 'Badges are not listed in this portfolio yet. Visit the public Credly profile to view current badges.'}</p>{credlyBadges.length > 0 && <ul className="credly-badge-list">{credlyBadges.map((badge) => <li key={badge.name}><strong>{badge.name}</strong>{badge.issuer && <span>{badge.issuer}</span>}</li>)}</ul>}</div>
       <a className="button button-outline" href={credlyUrl} target="_blank" rel="noopener noreferrer">Open Credly <span aria-hidden="true">↗</span></a>
     </section>
     <p className="credentials-crosslink">See <Link to="/achievements">awards and academic milestones <span aria-hidden="true">↗</span></Link>.</p>
