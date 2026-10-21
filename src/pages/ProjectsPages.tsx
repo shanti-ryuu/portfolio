@@ -1,6 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
 import Gallery from '../components/Gallery'
 import Reveal from '../components/Reveal'
+import DancingCat from '../components/DancingCat'
+import { motion, useReducedMotion } from 'motion/react'
+
+const catMedia = `${import.meta.env.BASE_URL}media/cat-dancing/`
+const safariCat = typeof navigator !== 'undefined' && /AppleWebKit/i.test(navigator.userAgent) && (/(iPhone|iPad|iPod|Macintosh.*Mobile)/i.test(navigator.userAgent) || !/(Chrome|Chromium|Edg|OPR|Firefox)/i.test(navigator.userAgent))
 import TechLogo from '../components/TechLogo'
 import { galleries, teamCollab } from '../data/gallery.generated'
 import { projects, type Project, type ProjectStatus } from '../data/projects'
@@ -16,12 +21,14 @@ function ProjectTech({ ids, compact = false, linked = false }: { ids: string[]; 
 }
 
 function ProjectCard({ project, index, featured = false }: { project: Project; index: number; featured?: boolean }) {
-  const cover = galleries[project.gallery]?.[0]
-  return <article className={`project-card${featured ? ' project-card-featured' : ''}`}>
+  const reducedMotion = Boolean(useReducedMotion())
+  const covers = galleries[project.gallery] ?? []
+  const landscape = covers[0] ? covers[0].width >= covers[0].height : true
+  const visibleCovers = landscape ? covers.slice(0, 1) : covers.slice(0, 3)
+  return <motion.article className={`project-card${featured ? ' project-card-featured' : ''}`} initial={reducedMotion ? false : { opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .08 }} transition={{ duration: reducedMotion ? 0 : .38, delay: reducedMotion ? 0 : Math.min((index % 3) * .04, .08), ease: [.22, 1, .36, 1] }}>
     <Link className="project-card-link" to={`/projects/${project.slug}`} aria-label={`Read ${project.shortTitle} case study`}>
       <div className="project-cover">
-        {cover && <><img className="project-cover-blur" src={`${import.meta.env.BASE_URL}${cover.src}`} alt="" aria-hidden="true" />
-          <img className="project-cover-image" src={`${import.meta.env.BASE_URL}${cover.src}`} alt={cover.alt} width={cover.width} height={cover.height} loading="lazy" decoding="async" /></>}
+        {visibleCovers.length > 0 && <div className={`project-cover-strip${visibleCovers.length === 1 ? ' is-single' : ''}`}>{visibleCovers.map((cover) => <img className="project-cover-image" key={cover.src} src={`${import.meta.env.BASE_URL}${cover.src}`} alt={cover.alt} width={cover.width} height={cover.height} loading="lazy" decoding="async" />)}</div>}
         <span className="project-cover-index" aria-hidden="true">PROJECT / {String(index + 1).padStart(2, '0')}</span>
       </div>
       <div className="project-card-body">
@@ -34,21 +41,21 @@ function ProjectCard({ project, index, featured = false }: { project: Project; i
       </div>
     </Link>
     {project.repos.length > 0 && <div className="project-card-repos" aria-label={`${project.shortTitle} repositories`}>{project.repos.map((repo) => <a key={repo.url} href={repo.url} target="_blank" rel="noopener noreferrer" aria-label={`${repo.label}, opens GitHub`}><RepositoryIcon /><span>{repo.label}</span><small>opens GitHub ↗</small></a>)}</div>}
-  </article>
+  </motion.article>
 }
 
 export function ProjectsPage() {
   const featured = projects.find((project) => project.slug === 'grain-solar-rice-dryer')!
   const remaining = projects.filter((project) => project !== featured)
   return <main className="page-shell page-projects">
-    <header className="page-intro"><span className="eyebrow">SELECTED WORK</span><h1>Selected work.</h1><p>A set of interfaces and team projects I’ve helped shape.</p></header>
+    <header className="page-intro projects-hero"><div><span className="eyebrow">SELECTED WORK</span><h1>Selected work.</h1><p>A set of interfaces and team projects I’ve helped shape.</p></div><DancingCat src={`${catMedia}scuba.${safariCat ? 'mov' : 'webm'}`} poster={`${catMedia}scuba-poster.png`} size={220} className="projects-hero-cat" /></header>
     <section className="project-index" aria-label="Selected projects">
       <Reveal className="project-grid-reveal"><div className="project-grid"><ProjectCard project={featured} index={projects.indexOf(featured)} featured />{remaining.map((project) => <ProjectCard key={project.slug} project={project} index={projects.indexOf(project)} />)}</div></Reveal>
     </section>
-    <section className="team-collab-section" aria-labelledby="team-collab-title">
+    <Reveal><section className="team-collab-section" aria-labelledby="team-collab-title">
       <div className="section-title"><div><span className="eyebrow">BEHIND THE WORK</span><h2 id="team-collab-title">Team collaboration</h2></div></div>
       <Gallery images={teamCollab} label="Team collaboration" compact emptyMessage="No team collaboration photos are available." />
-    </section>
+    </section></Reveal>
   </main>
 }
 

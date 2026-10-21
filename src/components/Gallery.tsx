@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { createPortal } from 'react-dom'
 import type { GallerySlide } from '../data/gallery.generated'
 
 type GalleryProps = {
@@ -80,6 +81,9 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
   useEffect(() => {
     if (!lightboxOpen) return
     const previousOverflow = document.body.style.overflow
+    const header = document.querySelector<HTMLElement>('.site-header')
+    if (header) header.inert = true
+    document.body.classList.add('gallery-open')
     const returnFocusTarget = triggerRef.current
     document.body.style.overflow = 'hidden'
     closeRef.current?.focus()
@@ -95,6 +99,7 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
         const first = focusable[0]
         const last = focusable[focusable.length - 1]
         if (!first || !last) return
+        if (!dialogRef.current.contains(document.activeElement)) { event.preventDefault(); (event.shiftKey ? last : first).focus(); return }
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
       }
@@ -103,6 +108,8 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = previousOverflow
+      if (header) header.inert = false
+      document.body.classList.remove('gallery-open')
       returnFocusRef.current?.()
       returnFocusTarget?.focus()
     }
@@ -151,7 +158,7 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
       </div>
       <p className="gallery-caption">{active.caption}</p>
       <div className="gallery-thumbnails" role="list" aria-label="Choose a screenshot">
-        {images.map((slide, slideIndex) => <div role="listitem" className="gallery-thumb-item" key={slide.src}>
+        {images.map((slide, slideIndex) => <div role="listitem" className="gallery-thumb-item" key={`${slide.src}-${slideIndex}`}>
           <button ref={(element) => { thumbnailRefs.current[slideIndex] = element }} type="button" className={`gallery-thumb${slideIndex === activeIndex ? ' is-active' : ''}`} aria-current={slideIndex === activeIndex ? 'true' : undefined} aria-label={`Show screenshot ${slideIndex + 1}: ${slide.caption}`} onClick={() => setIndex(slideIndex)}>
             <img src={`${import.meta.env.BASE_URL}${slide.thumb}`} width="120" height="76" alt="" loading={slideIndex === activeIndex ? 'eager' : 'lazy'} decoding="async" />
             <span>{pad(slideIndex + 1)}</span>
@@ -159,17 +166,17 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
         </div>)}
       </div>
       <div className="gallery-dots" aria-label="Choose screenshot">
-        {images.map((slide, slideIndex) => <button key={slide.src} type="button" className={`gallery-dot${slideIndex === activeIndex ? ' is-active' : ''}`} onClick={() => setIndex(slideIndex)} aria-label={`Show screenshot ${slideIndex + 1}`} aria-current={slideIndex === activeIndex ? 'true' : undefined} />)}
+        {images.map((slide, slideIndex) => <button key={`${slide.src}-${slideIndex}`} type="button" className={`gallery-dot${slideIndex === activeIndex ? ' is-active' : ''}`} onClick={() => setIndex(slideIndex)} aria-label={`Show screenshot ${slideIndex + 1}`} aria-current={slideIndex === activeIndex ? 'true' : undefined} />)}
       </div>
       <div className="gallery-preload" aria-hidden="true">
         {[-1, 1].map((offset) => {
           const slide = images[(activeIndex + offset + images.length) % images.length]
-          return slide ? <img key={slide.src} src={`${import.meta.env.BASE_URL}${slide.src}`} width={slide.width} height={slide.height} alt="" loading="eager" decoding="async" /> : null
+          return slide ? <img key={`${slide.src}-${offset}`} src={`${import.meta.env.BASE_URL}${slide.src}`} width={slide.width} height={slide.height} alt="" loading="eager" decoding="async" /> : null
         })}
       </div>
     </section>}
 
-    {lightboxOpen && <div className="gallery-lightbox" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeLightbox() }}>
+    {lightboxOpen && createPortal(<div className="gallery-lightbox" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeLightbox() }}>
       <div ref={dialogRef} className="gallery-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-lightbox-title">
         <div className="gallery-lightbox-header"><h2 id="gallery-lightbox-title">{label}</h2><button ref={closeRef} type="button" className="gallery-control gallery-close" onClick={closeLightbox} aria-label="Close full-screen image">×</button></div>
         <div className="gallery-lightbox-stage" style={imageStyle} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onPointerCancel={() => { pointerStart.current = null }}>
@@ -180,6 +187,6 @@ export default function Gallery({ images, label, compact = false, emptyMessage, 
         <p className="gallery-lightbox-caption">{active.caption}</p>
         <p className="gallery-counter" aria-live="polite" aria-atomic="true">{pad(activeIndex + 1)} / {pad(images.length)}</p>
       </div>
-    </div>}
+    </div>, document.body)}
   </>
 }

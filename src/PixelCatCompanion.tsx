@@ -63,7 +63,23 @@ export default function PixelCatCompanion() {
     }
   }, [reduceMotion])
 
-  return <div ref={catRef} className={`pixel-cat-companion${reduceMotion ? ' pixel-cat-reduced-motion' : ''}`} aria-hidden="true">
+  useEffect(() => {
+    const visible = new Set<Element>()
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.intersectionRatio >= .3) visible.add(entry.target)
+        else visible.delete(entry.target)
+      }
+      document.body.dataset.danceCat = visible.size ? 'on' : 'off'
+    }, { threshold: [.3] })
+    const register = (node: ParentNode) => node.querySelectorAll('[data-cat]').forEach((cat) => observer.observe(cat))
+    register(document)
+    const mutations = new MutationObserver((records) => records.forEach((record) => record.addedNodes.forEach((node) => { if (node instanceof Element) { if (node.matches('[data-cat]')) observer.observe(node); register(node) } })))
+    mutations.observe(document.body, { childList: true, subtree: true })
+    return () => { mutations.disconnect(); observer.disconnect(); delete document.body.dataset.danceCat }
+  }, [])
+
+  return <div ref={catRef} className={`pixel-cat pixel-cat-companion${reduceMotion ? ' pixel-cat-reduced-motion' : ''}`} aria-hidden="true">
     <img className="pixel-cat-art" src={`${import.meta.env.BASE_URL}images/pixel-cat.png`} alt="" draggable="false" />
   </div>
 }

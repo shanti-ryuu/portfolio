@@ -90,7 +90,7 @@ export const credentials: CredentialRecord[] = [
 ]
 
 export const credentialImagesByKey = credentialImages
-export const credlyUrl = 'https://www.credly.com/users/joshua-santelices/badges/credly'
+export const credlyUrl = 'https://www.credly.com/users/joshua-santelices/badges'
 
 export function credentialImage(id: string) {
   return credentialImagesByKey[id]

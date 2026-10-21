@@ -1,0 +1,37 @@
+[
+  {
+    "id": "6ade509f-757f-4ad0-a4f2-9de22bb2cdcf",
+    "name": "Introduction to Cybersecurity",
+    "issuer": "Cisco",
+    "issued_at_date": "2026-10-20",
+    "url": "https://www.credly.com/org/cisco/badge/introduction-to-cybersecurity"
+  },
+  {
+    "id": "fc49e1a5-dc74-42b3-89b7-003685bf20c5",
+    "name": "IT Specialist - Software Development",
+    "issuer": "Certiport, a Pearson VUE business",
+    "issued_at_date": "2026-06-03",
+    "url": "https://www.credly.com/org/certiport/badge/it-specialist-software-development"
+  },
+  {
+    "id": "7fd58d4f-9ec9-4d54-9a3e-821cdf0bcf89",
+    "name": "Introduction to IoT",
+    "issuer": "Cisco",
+    "issued_at_date": "2026-03-03",
+    "url": "https://www.credly.com/org/cisco/badge/introduction-to-iot"
+  },
+  {
+    "id": "4bc58c62-5255-4d76-abe4-12bdd872241b",
+    "name": "IT Specialist - Cybersecurity",
+    "issuer": "Certiport, a Pearson VUE business",
+    "issued_at_date": "2026-02-04",
+    "url": "https://www.credly.com/org/certiport/badge/it-specialist-cybersecurity"
+  },
+  {
+    "id": "912b9255-bd75-4ac3-afdc-4c31e13419aa",
+    "name": "Microsoft Office Specialist: PowerPoint Associate (Office 2019)",
+    "issuer": "Microsoft",
+    "issued_at_date": "2024-05-30",
+    "url": "https://www.credly.com/org/microsoft-certification/badge/microsoft-office-specialist-powerpoint-associate-office-2019"
+  }
+]

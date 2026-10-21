@@ -1,13 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from 'motion/react'
+import { useLocation } from 'react-router-dom'
 
 type Particle = { x: number; y: number; vx: number; vy: number; radius: number; color: string }
-const colors = ['rgba(43,53,88,.5)', 'rgba(255,255,255,.75)', 'rgba(122,136,176,.55)']
+const contentColors = ['rgba(43,53,88,.35)', 'rgba(255,255,255,.35)', 'rgba(122,136,176,.35)']
+const homeColors = ['rgba(43,53,88,.5)', 'rgba(255,255,255,.75)', 'rgba(122,136,176,.55)']
 const random = (min: number, max: number) => min + Math.random() * (max - min)
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const reducedMotion = Boolean(useReducedMotion())
+  const { pathname } = useLocation()
+  const contentRoute = !['/', '/portfolio', '/portfolio/'].includes(pathname)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -72,7 +76,7 @@ export default function ParticleBackground() {
           const dx = first.x - second.x
           const dy = first.y - second.y
           if (dx * dx + dy * dy < 130 * 130) {
-            context.strokeStyle = 'rgba(43,53,88,.16)'
+            context.strokeStyle = contentRoute ? 'rgba(43,53,88,.10)' : 'rgba(43,53,88,.16)'
             context.lineWidth = 1
             context.beginPath()
             context.moveTo(first.x, first.y)
@@ -104,7 +108,8 @@ export default function ParticleBackground() {
       particles = Array.from({ length: count }, () => {
         const angle = random(0, Math.PI * 2)
         const speed = random(0.15, 0.35)
-        return { x: random(0, width), y: random(0, height), vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, radius: random(1.5, 3.5), color: colors[Math.floor(random(0, colors.length))] }
+        const palette = contentRoute ? contentColors : homeColors
+        return { x: random(0, width), y: random(0, height), vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, radius: random(1.5, 3.5), color: palette[Math.floor(random(0, palette.length))] }
       })
       draw(false)
     }
@@ -143,7 +148,7 @@ export default function ParticleBackground() {
       document.removeEventListener('visibilitychange', start)
       desktop.removeEventListener('change', updateDeviceMode)
     }
-  }, [reducedMotion])
+  }, [contentRoute, reducedMotion])
 
   return <canvas ref={canvasRef} className="particle-background" aria-hidden="true" />
 }

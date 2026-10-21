@@ -31,7 +31,7 @@ export const projects: Project[] = [
   {
     slug: 'grain-solar-rice-dryer',
     title: 'AI-Assisted Optimization of IoT Solar-Powered Rice Grain Dryer with Android-Based Monitoring and Predictive Control System.',
-    shortTitle: 'grAIn: Solar-powered rice grain dryer',
+    shortTitle: 'grAIn',
     kind: 'IoT · Mobile · Web',
     status: 'In development',
     summary: 'An academic capstone exploring solar-powered rice drying, an Android monitoring app, and predictive-control ideas.',
@@ -73,7 +73,7 @@ export const projects: Project[] = [
   {
     slug: 'scentryx',
     title: 'ScentryX gas detection monitoring',
-    shortTitle: 'ScentryX gas detection monitoring',
+    shortTitle: 'ScentryX',
     kind: 'IoT · Mobile app',
     status: 'Frontend contribution',
     summary: 'A Flutter interface for a gas-monitoring project, with sign-in and device dashboard screens for gas level, safety status, and connectivity.',

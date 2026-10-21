@@ -16,7 +16,7 @@ const CLIPS: Record<Direction, string> = {
   'down-right': 'looking-downright.mp4',
 }
 
-const VIDEO_ROOT = `${import.meta.env.BASE_URL}media/character-gaze.mp4/`
+const VIDEO_ROOT = `${import.meta.env.BASE_URL}media/character-gaze-h264/`
 const clipUrl = (direction: Direction) => `${VIDEO_ROOT}${CLIPS[direction]}`
 
 function directionAt(x: number, y: number, previous: Direction): Direction {

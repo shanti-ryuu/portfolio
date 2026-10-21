@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react'
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'motion/react'
+import { AnimatePresence, motion, useAnimationFrame, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'motion/react'
 import CursorCharacter from './CursorCharacter'
 import ParticleBackground from './ParticleBackground'
 import PixelCatCompanion from './PixelCatCompanion'
@@ -12,10 +12,18 @@ import { projects } from './data/projects'
 import { aboutContent } from './data/about'
 import { techStack, type TechCategory, type TechStatus } from './data/techStack'
 import TechCard from './components/TechCard'
+import TechLogo from './components/TechLogo'
+import useFilterRowMasks from './useFilterRowMasks'
 import { ProjectDetailPage, ProjectsPage } from './pages/ProjectsPages'
 import CredentialsPage from './pages/CredentialsPage'
 import AchievementsPage from './pages/AchievementsPage'
 import './App.css'
+
+const catMedia = `${import.meta.env.BASE_URL}media/cat-dancing/`
+const safariCat = typeof navigator !== 'undefined' && /AppleWebKit/i.test(navigator.userAgent) && (/(iPhone|iPad|iPod|Macintosh.*Mobile)/i.test(navigator.userAgent) || !/(Chrome|Chromium|Edg|OPR|Firefox)/i.test(navigator.userAgent))
+function DanceCat({ name, size, className = '', flipped = false }: { name: 'damdamdidi' | 'scuba' | 'thankyou'; size: number; className?: string; flipped?: boolean }) {
+  return <DancingCat src={`${catMedia}${name}.${safariCat ? 'mov' : 'webm'}`} poster={`${catMedia}${name}-poster.png`} size={size} className={className} flipped={flipped} />
+}
 
 const navigation = [
   ['Home', '/'],
@@ -85,7 +93,7 @@ function Header() {
 
   return <>
     <header ref={headerRef} className="site-header">
-      <Link className="wordmark" to="/" aria-label={`${profile.name} home`}>{profile.initials}<span>.</span></Link>
+      <Link className="wordmark" to="/" aria-label={`${profile.name} home`}><span className="wordmark-glyph">{profile.initials}<i>.</i></span></Link>
       <button ref={toggleRef} className="menu-toggle" aria-expanded={open} aria-controls="site-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen((value) => !value)}><span /><span /></button>
       <nav className="main-nav desktop-main-nav" aria-label="Main navigation">
         {navigation.map(([label, path]) => <Link key={path} to={path} aria-current={isCurrentRoute(path) ? 'page' : undefined} className={isCurrentRoute(path) ? 'active' : undefined}>{label}</Link>)}
@@ -106,8 +114,9 @@ function Header() {
 
 function Footer() {
   return <footer className="site-footer">
+    <PixelCatCompanion />
     <div className="site-footer-inner">
-      <div className="footer-main"><Link className="wordmark" to="/" aria-label={`${profile.name} home`}>{profile.initials}<span>.</span></Link><div className="footer-identity"><p>IT student · Frontend &amp; IoT</p><span className="footer-location">St. Dominic College of Asia</span></div></div>
+      <div className="footer-main"><Link className="wordmark" to="/" aria-label={`${profile.name} home`}><span className="wordmark-glyph">{profile.initials}<i>.</i></span></Link><div className="footer-identity"><p>IT student · Frontend &amp; IoT</p><span className="footer-location">St. Dominic College of Asia</span></div></div>
       <small>© {new Date().getFullYear()} {profile.name}</small>
     </div>
   </footer>
@@ -123,11 +132,46 @@ function SectionTitle({ label, title, children }: { label: string; title: string
   return <div className="section-title"><div><Eyebrow>{label}</Eyebrow><h2>{title}</h2></div>{children}</div>
 }
 
+function OrbitCats({ reduceMotion }: { reduceMotion: boolean }) {
+  const stage = useRef<HTMLDivElement>(null)
+  const left = useRef<HTMLDivElement>(null)
+  const right = useRef<HTMLDivElement>(null)
+  const visible = useRef(false)
+  useEffect(() => {
+    const node = stage.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => { visible.current = entry.isIntersecting }, { threshold: .01 })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+  useAnimationFrame((time) => {
+    if (reduceMotion || !visible.current || !stage.current) return
+    const angle = (time / 24000) * Math.PI * 2
+    const portrait = stage.current.querySelector('.about-portrait')
+    if (!portrait) return
+    const rect = portrait.getBoundingClientRect()
+    const catSize = window.innerWidth < 768 ? 56 : 96
+    const rx = rect.width / 2 + catSize / 2 + 12
+    const ry = rect.height / 2 + catSize / 2 + 12
+    for (const [node, offset] of [[left.current, 0], [right.current, Math.PI]] as const) {
+      if (!node) continue
+      const a = angle + offset
+      node.style.transform = `translate(${Math.cos(a) * rx}px, ${Math.sin(a) * ry}px)`
+    }
+  })
+  return <motion.div ref={stage} className={`about-portrait-stage orbit-cats${reduceMotion ? ' is-reduced-motion' : ''}`} initial={reduceMotion ? false : { opacity: 0, x: 48 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : .5, ease: 'easeOut' }}>
+    <img className="about-portrait" src={`${import.meta.env.BASE_URL}media/profile-pic.png`} alt="Portrait of Joshua" />
+    <div ref={left} className="orbit-slot orbit-cat-left"><DanceCat name="scuba" size={96} className="orbit-cat" /></div>
+    <div ref={right} className="orbit-slot orbit-cat-right"><DanceCat name="damdamdidi" size={96} className="orbit-cat" flipped /></div>
+  </motion.div>
+}
+
 function Hero({ heroRef, copyOpacity, copyY, cueOpacity, reduceMotion, mobileModel }: { heroRef: RefObject<HTMLElement | null>; copyOpacity: MotionValue<number>; copyY: MotionValue<number>; cueOpacity: MotionValue<number>; reduceMotion: boolean; mobileModel: ReactNode }) {
   const typedText = useTypewriter('Aspiring Frontend dev and cybersecurity professional', reduceMotion)
   return <section ref={heroRef} className="hero hero-cinematic" aria-labelledby="home-title">
     <div className="hero-stage" aria-hidden="true"><span className="hero-grain" /></div>
     <div className="hero-inner section-wrap">
+      {mobileModel}
       <motion.div className="hero-copy" style={reduceMotion ? { opacity: 1, y: 0 } : { opacity: copyOpacity, y: copyY }}>
         <h1 id="home-title"><span>Hi, I'm Joshua,</span><span>nice to meet you.</span></h1>
         <p className="typing-line" aria-label="Aspiring Frontend dev and cybersecurity professional" aria-live="off">{typedText}{!reduceMotion && <span className="typing-cursor" aria-hidden="true">|</span>}</p>
@@ -137,7 +181,6 @@ function Hero({ heroRef, copyOpacity, copyY, cueOpacity, reduceMotion, mobileMod
           <Link className="text-link" to="/contact">Get in touch <span aria-hidden="true">↗</span></Link>
         </div>
       </motion.div>
-      {mobileModel}
       <div className="hero-bottom-bar">
         <motion.a className="scroll-cue" href="#selected-work" style={reduceMotion ? { opacity: 1 } : { opacity: cueOpacity }}><span className="scroll-line" /><span>Scroll to explore</span><span className="scroll-arrow" aria-hidden="true">↓</span></motion.a>
         <span className="hero-corner-bottom">Joshua Santelices – 2026</span>
@@ -175,20 +218,22 @@ function ModelStage({ wrapRef, progress, reduceMotion, mobile }: { wrapRef: RefO
   const mobileOpacity = useTransform(progress, [.35, 1], [1, 0])
   const activeX = mobile ? mobileX : desktopX
   const activeScale = mobile ? mobileScale : desktopScale
-  const x = useTransform(activeX, (value) => reduceMotion ? (mobile ? 0 : position.startX) : value)
-  const scale = useTransform(activeScale, (value) => reduceMotion ? 1 : value)
-  const opacity = useTransform(mobileOpacity, (value) => reduceMotion || !mobile ? 1 : value)
+  const x = useTransform(activeX, (value) => reduceMotion || mobile ? (mobile ? 0 : position.startX) : value)
+  const scale = useTransform(activeScale, (value) => reduceMotion || mobile ? 1 : value)
+  const opacity = mobile ? mobileOpacity : 1
 
   return <div ref={stageRef} className={mobile ? 'model-stage mobile-model-stage' : 'model-stage'} aria-hidden="true">
+    {mobile && <><DanceCat name="damdamdidi" size={96} className="mobile-home-cat mobile-home-cat-left" flipped /><DanceCat name="scuba" size={96} className="mobile-home-cat mobile-home-cat-right" /></>}
     <motion.div className="model-frame" style={{ x, scale, opacity }}>
+      {!mobile && <><DanceCat name="damdamdidi" size={120} className="desktop-home-cat desktop-home-cat-left" /><DanceCat name="scuba" size={120} className="desktop-home-cat desktop-home-cat-right" /></>}
       <CursorCharacter interactionRegionRef={wrapRef} playbackRegionRef={stageRef} />
     </motion.div>
   </div>
 }
 
-function Projects({ progress, reduceMotion, mobile }: { progress: MotionValue<number>; reduceMotion: boolean; mobile: boolean }) {
+function Projects({ progress, reduceMotion }: { progress: MotionValue<number>; reduceMotion: boolean }) {
   const panelOpacity = useTransform(progress, [.25, .55], [0, 1])
-  const panelX = useTransform(progress, [.25, .55], [mobile ? 0 : 60, 0])
+  const panelX = useTransform(progress, [.25, .55], [0, 0])
   return <section className="selected-work-stage" id="selected-work" aria-labelledby="selected-work-title">
     <motion.div className="selected-work-content" style={reduceMotion ? { opacity: 1, x: 0 } : { opacity: panelOpacity, x: panelX }}>
       <div className="selected-work-heading"><Eyebrow>01 / SELECTED WORK</Eyebrow><h2 id="selected-work-title">What I’m building.</h2><p>Frontend craft, connected devices, and ideas still taking shape.</p></div>
@@ -225,7 +270,7 @@ function HomeScrollScene() {
   return <div ref={wrapRef} className="home-scroll-scene">
     {!mobile && <ModelStage wrapRef={wrapRef} progress={progress} reduceMotion={reduceMotion} mobile={false} />}
     <Hero heroRef={heroRef} copyOpacity={copyOpacity} copyY={copyY} cueOpacity={cueOpacity} reduceMotion={reduceMotion} mobileModel={mobileModel} />
-    <Projects progress={progress} reduceMotion={reduceMotion} mobile={mobile} />
+    <Projects progress={progress} reduceMotion={reduceMotion} />
   </div>
 }
 
@@ -237,23 +282,20 @@ function AboutPage() {
   const reduceMotion = Boolean(useReducedMotion())
   const featured = techStack.filter((tech) => tech.featured)
   const summaryProjects = projects
-  const relatedProjects = (id: string) => projects.flatMap((project) => [
-    ...(project.tech.includes(id) ? [{ slug: project.slug, title: project.shortTitle, planned: false }] : []),
-    ...(project.plannedTech?.includes(id) ? [{ slug: project.slug, title: project.shortTitle, planned: true }] : []),
-  ])
   return <main className="page-shell page-about new-content-page">
     <Reveal className="about-intro-reveal"><section className="about-intro content-container">
       <div className="about-intro-copy"><Eyebrow>ABOUT JOSHUA</Eyebrow><h1>{aboutContent.title}</h1><p>{aboutContent.introduction}</p></div>
-      <motion.div className="about-portrait-stage" initial={reduceMotion ? false : { opacity: 0, y: 16, scale: .98 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: reduceMotion ? 0 : .48, ease: 'easeOut' }}><img className="about-portrait" src={`${import.meta.env.BASE_URL}media/profile-pic.png`} alt="Portrait of Joshua" /></motion.div>
+      <OrbitCats reduceMotion={reduceMotion} />
     </section></Reveal>
-    <Reveal className="about-section-reveal"><section className="about-section about-background-section content-container"><SectionTitle label="BACKGROUND" title="A student building through projects." /><div className="about-background-grid"><div className="about-copy measure-copy"><p>{aboutContent.background}</p><p>{aboutContent.interests}</p></div><div className="education-details"><Eyebrow>EDUCATION</Eyebrow><h2 className="education-title">Where I’m learning.</h2><article className="education-card glass-panel"><span className="education-mark" aria-hidden="true">SD</span><div><h3>{profile.education.degree}</h3><p>{profile.education.institution}</p><span className="muted-note">{profile.education.yearLevel || 'Year level: update when confirmed'}</span></div></article></div></div></section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section about-background-section content-container"><SectionTitle label="BACKGROUND" title="A student building through projects." /><div className="about-background-grid"><div className="about-copy measure-copy"><p>{aboutContent.background}</p><p>{aboutContent.interests}</p></div><div className="education-details"><Eyebrow>EDUCATION</Eyebrow><h2 className="education-title">Where I’m learning.</h2><article className="education-card glass-panel"><span className="education-mark" aria-hidden="true">SD</span><div><h3>{profile.education.degree}</h3><p>{profile.education.institution}</p>{profile.education.yearLevel && <span className="muted-note">{profile.education.yearLevel}</span>}</div></article></div></div></section></Reveal>
     <Reveal className="about-section-reveal"><section className="about-section content-container"><SectionTitle label="APPROACH & CURRENT LEARNING" title="Curious about the whole system." /><div className="about-copy measure-copy"><p>{aboutContent.approach}</p><ul className="about-learning-list">{aboutContent.learningGoals.map((goal) => <li key={goal}>{goal}</li>)}</ul></div></section></Reveal>
     <Reveal className="about-section-reveal"><section className="about-section content-container"><SectionTitle label="PROJECT HIGHLIGHTS" title="Learning by making." /><div className="about-project-list">{summaryProjects.map((project, index) => <Link className="about-project glass-panel" to={`/projects/${project.slug}`} key={project.slug}><span className="about-project-index">0{index + 1} · {project.status}</span><h3>{project.shortTitle}</h3><p>{project.summary}</p><span className="about-project-roles">My role · {project.roles.join(' · ')}</span><span className="about-project-link">Project details <span aria-hidden="true">↗</span></span></Link>)}</div></section></Reveal>
-    <Reveal className="about-section-reveal"><section className="about-section content-container about-tech-section"><SectionTitle label="SELECTED TECHNOLOGIES" title="Tools I’m working with." /><div className="tech-card-grid about-featured-grid">{featured.map((tech) => <TechCard tech={tech} key={tech.id} compact projectReferences={relatedProjects(tech.id)} />)}</div><Link className="inline-arrow" to="/tech-stack">See the full stack <span aria-hidden="true">↗</span></Link></section></Reveal>
+    <Reveal className="about-section-reveal"><section className="about-section content-container about-tech-section"><SectionTitle label="SELECTED TECHNOLOGIES" title="Tools I’m working with." /><div className="tech-status-legend" aria-label="Technology status legend"><span><i className="status-used" />Used</span><span><i className="status-studied" />Studied</span><span><i className="status-exploring" />Exploring</span></div><div className="about-tech-tiles">{featured.slice(0, 8).map((tech) => <article className="about-tech-tile" key={tech.id}><TechLogo logo={tech.logo} name={tech.name} /><strong>{tech.name}</strong><span className={`about-tile-status is-${tech.status}`}><i />{tech.status[0].toUpperCase() + tech.status.slice(1)}</span><p>{tech.note}</p></article>)}</div><Link className="inline-arrow" to="/tech-stack">See the full stack <span aria-hidden="true">↗</span></Link></section></Reveal>
   </main>
 }
 
 function TechStackPage() {
+  useFilterRowMasks()
   const [category, setCategory] = useState<TechCategory | 'All'>('All')
   const [status, setStatus] = useState<TechStatus | 'All'>('All')
   const reduceMotion = Boolean(useReducedMotion())
@@ -265,10 +307,11 @@ function TechStackPage() {
     ...(project.plannedTech?.includes(id) ? [{ slug: project.slug, title: project.shortTitle, planned: true }] : []),
   ])
   return <main className="page-shell page-tech-stack new-content-page">
-    <header className="tech-page-intro content-container"><Eyebrow>TECH STACK</Eyebrow><h1>Tools, technologies, and learning in progress.</h1><p>A practical snapshot of the tools used in my portfolio and project work, alongside areas I’m currently exploring.</p></header>
+    <header className="tech-page-intro content-container"><div className="tech-page-copy"><Eyebrow>TECH STACK</Eyebrow><h1>Tools, technologies, and learning in progress.</h1><p>A practical snapshot of the tools used in my portfolio and project work, alongside areas I’m currently exploring.</p></div><DanceCat name="damdamdidi" size={320} className="tech-hero-cat tech-hero-cat-desktop" /><DanceCat name="scuba" size={140} className="tech-hero-cat tech-hero-cat-mobile" /></header>
     <section className="tech-stack-section content-container" aria-label="Technology inventory">
+      <div className="tech-status-legend" aria-label="Technology status legend"><span><i className="status-used" />Used</span><span><i className="status-studied" />Studied</span><span><i className="status-exploring" />Exploring</span></div>
       <div className="tech-filter-row" aria-label="Filter by category">{categories.map((item) => <button type="button" className={`tech-filter${category === item ? ' is-selected' : ''}`} aria-pressed={category === item} onClick={() => setCategory(item)} ref={(node) => { if (node && category === item) node.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }) }} key={item}>{item}<span>{categoryCount(item)}</span></button>)}</div>
-      <div className="tech-status-row" aria-label="Filter by status">{(['All', 'used', 'studied', 'exploring'] as const).map((item) => <button type="button" className={`status-filter${status === item ? ' is-selected' : ''}`} aria-pressed={status === item} onClick={() => setStatus(item)} ref={(node) => { if (node && status === item) node.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }) }} key={item}>{item === 'All' ? 'All statuses' : item}</button>)}</div>
+      <div className="tech-status-row" aria-label="Filter by status">{(['All', 'used', 'studied', 'exploring'] as const).map((item) => <button type="button" className={`status-filter${status === item ? ' is-selected' : ''}`} aria-pressed={status === item} onClick={() => setStatus(item)} ref={(node) => { if (node && status === item) node.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }) }} key={item}>{item === 'All' ? 'All statuses' : item[0].toUpperCase() + item.slice(1)}</button>)}</div>
       {filtered.length ? <motion.div className="tech-card-grid" layout={!reduceMotion} transition={{ duration: reduceMotion ? 0 : .22, ease: 'easeOut' }}><AnimatePresence initial={false} mode="popLayout">{filtered.map((tech) => <TechCard tech={tech} key={tech.id} projectReferences={relatedProjects(tech.id)} />)}</AnimatePresence></motion.div> : <div className="tech-empty glass-panel"><h2>No technologies match those filters.</h2><p>Choose another category or status to see more of the stack.</p></div>}
       <p className="tech-stack-note">This stack reflects ongoing learning, not a proficiency ranking.</p>
     </section>
@@ -278,9 +321,8 @@ function TechStackPage() {
 function ContactPage() {
   const hasEmail = Boolean(profile.email.trim())
   const socials = [['GitHub', profile.githubUrl], ['LinkedIn', profile.linkedInUrl]].filter((item): item is [string, string] => Boolean(item[1]))
-  return <main className="page-shell page-contact"><PageIntro label="CONTACT" title="Good work starts with a conversation." description="I’m open to connecting about university projects, internship opportunities, and thoughtful technology." />
-    <Reveal><section className="contact-panel content-section"><div><Eyebrow>GET IN TOUCH</Eyebrow><h2>Say hello.</h2><p>{hasEmail ? 'Use the email link to reach me.' : 'My verified email address has not been added yet, so there is no direct contact link at this time.'}</p></div><div className="contact-methods">{hasEmail ? <a className="button button-dark" href={`mailto:${profile.email}`}>Email Joshua <span aria-hidden="true">↗</span></a> : <p className="contact-placeholder">Email: add a verified address in <code>profile.email</code> in <code>src/data/portfolio.ts</code>.</p>}{socials.map(([label, url]) => <a className="contact-social" key={label} href={url} target="_blank" rel="noreferrer"><SocialIcon label={label} />{label}<span aria-hidden="true">↗</span></a>)}{!socials.length && <p className="muted-note">Verified social profile links have not been supplied.</p>}</div></section></Reveal>
-    <div className="contact-next"><Link className="inline-arrow" to="/projects">Explore selected projects <span aria-hidden="true">↗</span></Link><Link className="text-link" to="/">Return home <span aria-hidden="true">↗</span></Link></div>
+  return <main className="page-shell page-contact"><header className="page-intro contact-hero"><div><Eyebrow>CONTACT</Eyebrow><h1>Good work starts with a conversation.</h1><p>I’m open to connecting about university projects, internship opportunities, and thoughtful technology.</p></div><DanceCat name="thankyou" size={360} className="contact-hero-cat" /></header>
+    <Reveal><section className="contact-panel content-section"><div className="contact-intro-copy"><Eyebrow>GET IN TOUCH</Eyebrow><h2>Say hello.</h2><p>{hasEmail ? 'Use the email link to reach me.' : 'My verified email address has not been added yet, so there is no direct contact link at this time.'}</p></div><DanceCat name="damdamdidi" size={150} className="contact-card-cat" /><div className="contact-methods">{hasEmail ? <a className="button button-dark" href={`mailto:${profile.email}`}>Email Joshua <span aria-hidden="true">↗</span></a> : <p className="contact-placeholder">Email: add a verified address in <code>profile.email</code> in <code>src/data/portfolio.ts</code>.</p>}{socials.map(([label, url]) => <a className="contact-social" key={label} href={url} target="_blank" rel="noreferrer"><SocialIcon label={label} />{label}<span aria-hidden="true">↗</span></a>)}{!socials.length && <p className="muted-note">Verified social profile links have not been supplied.</p>}</div><div className="contact-next"><Link className="inline-arrow" to="/projects">Explore selected projects <span aria-hidden="true">↗</span></Link><Link className="text-link" to="/">Return home <span aria-hidden="true">↗</span></Link></div></section></Reveal>
   </main>
 }
 
@@ -318,21 +360,21 @@ function RouteDocumentTitle() {
   return null
 }
 
-function DancingCatBackground() {
-  const { pathname } = useLocation()
-  const route = pathname === '/' ? 'home' : pathname.startsWith('/projects') ? 'projects' : pathname.slice(1).split('/')[0] || 'home'
-  const media = `${import.meta.env.BASE_URL}media/cat-dancing/optimized/`
-  const contact = route === 'contact'
-  return <div className="dancing-cat-layer" data-route={route} aria-hidden="true">
-    <DancingCat key="left-companion" src={`${media}${contact ? 'damdamdidi' : 'scuba'}.mp4`} poster={`${media}${contact ? 'damdamdidi' : 'scuba'}-poster.png`} side="left" size={contact ? 170 : route === 'about' ? 190 : 166} />
-    <DancingCat key="right-companion" src={`${media}${contact ? 'thankyou' : 'damdamdidi'}.mp4`} poster={`${media}${contact ? 'thankyou' : 'damdamdidi'}-poster.png`} side={contact ? 'center' : 'right'} size={contact ? 190 : route === 'tech-stack' || route === 'achievements' ? 220 : route === 'about' ? 190 : 176} />
-  </div>
-}
-
 function App() {
   const location = useLocation()
   const reducedMotion = Boolean(useReducedMotion())
-  return <div className="app-shell"><ParticleBackground /><PixelCatCompanion /><DancingCatBackground /><Header /><div className="route-content"><AnimatePresence mode="wait" initial={false}><motion.div key={location.pathname} className="route-transition" initial={reducedMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -5 }} transition={{ duration: reducedMotion ? 0 : .18, ease: 'easeOut' }}><Routes location={location}>
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.setAttribute('data-backdrop-visible', 'true')
+      else entry.target.removeAttribute('data-backdrop-visible')
+    }), { threshold: .01 })
+    const observe = (root: ParentNode) => root.querySelectorAll('.glass-panel').forEach((node) => observer.observe(node))
+    observe(document)
+    const mutations = new MutationObserver((records) => records.forEach((record) => record.addedNodes.forEach((node) => { if (node instanceof Element) { if (node.matches('.glass-panel')) observer.observe(node); observe(node) } })))
+    mutations.observe(document.body, { childList: true, subtree: true })
+    return () => { mutations.disconnect(); observer.disconnect() }
+  }, [])
+  return <div className="app-shell"><ParticleBackground /><Header /><div className="route-content"><AnimatePresence mode="wait" initial={false}><motion.div key={location.pathname} className="route-transition" initial={reducedMotion ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -5 }} transition={{ duration: reducedMotion ? 0 : .18, ease: 'easeOut' }}><Routes location={location}>
     <Route path="/" element={<Home />} />
     <Route path="/about" element={<AboutPage />} />
     <Route path="/tech-stack" element={<TechStackPage />} />
