@@ -1336,3 +1336,36 @@ body[data-dance-cat="on"] .pixel-cat { display:none; opacity:0; }
   .page-achievements .credentials-crosslink { margin: 12px 0 0; }
   .site-footer .pixel-cat-companion { display: none; }
 }
+
+/* Contact: keep the introduction and action card balanced side by side. */
+.page-contact {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 76px);
+  padding-top: calc(var(--nav-h) + 48px);
+}
+.page-contact > .contact-hero { display: block; min-width: 0; padding: 0; }
+.page-contact > .contact-hero h1 { max-width: 650px; font-size: clamp(42px, 5.2vw, 72px); }
+.page-contact > div { min-width: 0; }
+.page-contact .contact-panel {
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(130px, .55fr);
+  align-items: center;
+  gap: 18px 24px;
+  padding: clamp(24px, 3vw, 38px);
+}
+.page-contact .contact-intro-copy { grid-column: 1; grid-row: 1; }
+.page-contact .contact-card-cat { grid-column: 1; grid-row: 2; width: 112px; justify-self: end; align-self: center; margin: -8px 12px 0 0; }
+.page-contact .contact-methods { grid-column: 2; grid-row: 1 / span 2; }
+.page-contact .contact-panel .contact-next { grid-column: 1 / -1; }
+@media (max-width: 900px) {
+  .page-contact { display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding-top: 0; }
+  .page-contact > .contact-hero { padding-top: calc(var(--nav-h) + 12px); padding-bottom: 16px; }
+}
+@media (max-width: 767px) {
+  .page-contact > .contact-hero h1 { font-size: clamp(2rem, 8.5vw, 2.75rem); }
+  .page-contact .contact-panel { display: flex; flex-direction: column; gap: 14px; padding: 20px; }
+  .page-contact .contact-card-cat { width: 104px; height: 104px; align-self: flex-end; margin: -8px 4px -2px 0; }
+  .page-contact .contact-methods { width: 100%; }
+}

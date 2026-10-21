@@ -3,6 +3,11 @@ import { useReducedMotion } from 'motion/react'
 
 type DancingCatProps = { src: string; poster: string; side?: 'left' | 'right' | 'center'; size?: number; className?: string; flipped?: boolean }
 const activeVideos = new Set<HTMLVideoElement>()
+const videoSlotEvent = 'portfolio-cat-video-slot-available'
+
+function releaseVideo(video: HTMLVideoElement) {
+  if (activeVideos.delete(video)) window.dispatchEvent(new Event(videoSlotEvent))
+}
 
 export default function DancingCat({ src, poster, side = 'center', size = 160, className = '', flipped = false }: DancingCatProps) {
   const reduceMotion = Boolean(useReducedMotion())
@@ -30,14 +35,23 @@ export default function DancingCat({ src, poster, side = 'center', size = 160, c
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-    const pause = () => { video.pause(); activeVideos.delete(video) }
-    if (reduceMotion || !inView || document.hidden || videoFailed) { pause(); return }
-    if (activeVideos.size >= 2) return
-    activeVideos.add(video)
-    void video.play().then(() => setVideoReady(video.readyState >= 2 && !video.paused)).catch(() => { pause(); setVideoReady(false); setVideoFailed(true) })
-    const onVisibility = () => document.hidden ? pause() : undefined
+    const pause = () => { video.pause(); releaseVideo(video) }
+    const syncPlayback = () => {
+      if (reduceMotion || !inView || document.hidden || videoFailed) { pause(); return }
+      if (!activeVideos.has(video) && activeVideos.size >= 2) return
+      if (!video.paused && activeVideos.has(video)) return
+      activeVideos.add(video)
+      void video.play().then(() => setVideoReady(video.readyState >= 2 && !video.paused)).catch(() => {
+        pause()
+        setVideoReady(false)
+        setVideoFailed(true)
+      })
+    }
+    const onVisibility = () => syncPlayback()
+    window.addEventListener(videoSlotEvent, syncPlayback)
     document.addEventListener('visibilitychange', onVisibility)
-    return () => { document.removeEventListener('visibilitychange', onVisibility); pause() }
+    syncPlayback()
+    return () => { window.removeEventListener(videoSlotEvent, syncPlayback); document.removeEventListener('visibilitychange', onVisibility); pause() }
   }, [inView, reduceMotion, src, videoFailed])
 
   useEffect(() => {
@@ -52,7 +66,7 @@ export default function DancingCat({ src, poster, side = 'center', size = 160, c
   }, [videoReady])
 
   return <figure ref={wrapperRef} className={`dancing-cat dancing-cat-${side} ${className}`} data-cat={responsiveHidden ? undefined : ''} style={{ '--cat-size': `${size}px`, '--cat-flip': flipped ? -1 : 1 } as CSSProperties} aria-hidden="true">
-    <img className="dancing-cat-poster" src={poster} alt="" onError={(event) => { event.currentTarget.dataset.missing = 'true' }} />
-    {!reduceMotion && <video ref={videoRef} className={`dancing-cat-video${videoReady ? ' is-ready' : ''}`} src={src} poster={poster} muted loop playsInline autoPlay preload="metadata" aria-hidden="true" onPlaying={() => setVideoReady(true)} onPause={() => setVideoReady(false)} onError={() => { setVideoFailed(true); setVideoReady(false) }} />}
+    {!videoReady && <img className="dancing-cat-poster" src={poster} alt="" onError={(event) => { event.currentTarget.dataset.missing = 'true' }} />}
+    {!reduceMotion && <video ref={videoRef} className={`dancing-cat-video${videoReady ? ' is-ready' : ''}`} src={src} muted loop playsInline autoPlay preload="metadata" aria-hidden="true" onPlaying={() => setVideoReady(true)} onPause={() => setVideoReady(false)} onError={() => { setVideoFailed(true); setVideoReady(false) }} />}
   </figure>
 }

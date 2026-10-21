@@ -21,7 +21,7 @@ import './App.css'
 
 const catMedia = `${import.meta.env.BASE_URL}media/cat-dancing/`
 const safariCat = typeof navigator !== 'undefined' && /AppleWebKit/i.test(navigator.userAgent) && (/(iPhone|iPad|iPod|Macintosh.*Mobile)/i.test(navigator.userAgent) || !/(Chrome|Chromium|Edg|OPR|Firefox)/i.test(navigator.userAgent))
-function DanceCat({ name, size, className = '', flipped = false }: { name: 'damdamdidi' | 'scuba' | 'thankyou'; size: number; className?: string; flipped?: boolean }) {
+function DanceCat({ name, size, className = '', flipped = false }: { name: 'damdamdidi' | 'scuba'; size: number; className?: string; flipped?: boolean }) {
   return <DancingCat src={`${catMedia}${name}.${safariCat ? 'mov' : 'webm'}`} poster={`${catMedia}${name}-poster.png`} size={size} className={className} flipped={flipped} />
 }
 
@@ -321,7 +321,7 @@ function TechStackPage() {
 function ContactPage() {
   const hasEmail = Boolean(profile.email.trim())
   const socials = [['GitHub', profile.githubUrl], ['LinkedIn', profile.linkedInUrl]].filter((item): item is [string, string] => Boolean(item[1]))
-  return <main className="page-shell page-contact"><header className="page-intro contact-hero"><div><Eyebrow>CONTACT</Eyebrow><h1>Good work starts with a conversation.</h1><p>I’m open to connecting about university projects, internship opportunities, and thoughtful technology.</p></div><DanceCat name="thankyou" size={360} className="contact-hero-cat" /></header>
+  return <main className="page-shell page-contact"><header className="page-intro contact-hero"><div><Eyebrow>CONTACT</Eyebrow><h1>Good work starts with a conversation.</h1><p>I’m open to connecting about university projects, internship opportunities, and thoughtful technology.</p></div></header>
     <Reveal><section className="contact-panel content-section"><div className="contact-intro-copy"><Eyebrow>GET IN TOUCH</Eyebrow><h2>Say hello.</h2><p>{hasEmail ? 'Use the email link to reach me.' : 'My verified email address has not been added yet, so there is no direct contact link at this time.'}</p></div><DanceCat name="damdamdidi" size={150} className="contact-card-cat" /><div className="contact-methods">{hasEmail ? <a className="button button-dark" href={`mailto:${profile.email}`}>Email Joshua <span aria-hidden="true">↗</span></a> : <p className="contact-placeholder">Email: add a verified address in <code>profile.email</code> in <code>src/data/portfolio.ts</code>.</p>}{socials.map(([label, url]) => <a className="contact-social" key={label} href={url} target="_blank" rel="noreferrer"><SocialIcon label={label} />{label}<span aria-hidden="true">↗</span></a>)}{!socials.length && <p className="muted-note">Verified social profile links have not been supplied.</p>}</div><div className="contact-next"><Link className="inline-arrow" to="/projects">Explore selected projects <span aria-hidden="true">↗</span></Link><Link className="text-link" to="/">Return home <span aria-hidden="true">↗</span></Link></div></section></Reveal>
   </main>
 }
