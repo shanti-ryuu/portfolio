@@ -4,6 +4,11 @@ import { useReducedMotion } from 'motion/react'
 type DancingCatProps = { src: string; poster: string; side?: 'left' | 'right' | 'center'; size?: number; className?: string; flipped?: boolean }
 const activeVideos = new Set<HTMLVideoElement>()
 const videoSlotEvent = 'portfolio-cat-video-slot-available'
+const desktopSafari = typeof navigator !== 'undefined'
+  && /Macintosh/i.test(navigator.userAgent)
+  && !/Mobile/i.test(navigator.userAgent)
+  && /AppleWebKit/i.test(navigator.userAgent)
+  && !/(Chrome|Chromium|Edg|OPR|Firefox)/i.test(navigator.userAgent)
 
 function releaseVideo(video: HTMLVideoElement) {
   if (activeVideos.delete(video)) window.dispatchEvent(new Event(videoSlotEvent))
@@ -67,6 +72,6 @@ export default function DancingCat({ src, poster, side = 'center', size = 160, c
 
   return <figure ref={wrapperRef} className={`dancing-cat dancing-cat-${side} ${className}`} data-cat={responsiveHidden ? undefined : ''} style={{ '--cat-size': `${size}px`, '--cat-flip': flipped ? -1 : 1 } as CSSProperties} aria-hidden="true">
     {!videoReady && <img className="dancing-cat-poster" src={poster} alt="" onError={(event) => { event.currentTarget.dataset.missing = 'true' }} />}
-    {!reduceMotion && <video ref={videoRef} className={`dancing-cat-video${videoReady ? ' is-ready' : ''}`} src={src} muted loop playsInline autoPlay preload="metadata" aria-hidden="true" onPlaying={() => setVideoReady(true)} onPause={() => setVideoReady(false)} onError={() => { setVideoFailed(true); setVideoReady(false) }} />}
+    {!reduceMotion && !desktopSafari && <video ref={videoRef} className={`dancing-cat-video${videoReady ? ' is-ready' : ''}`} src={src} muted loop playsInline autoPlay preload="metadata" aria-hidden="true" onPlaying={() => setVideoReady(true)} onPause={() => setVideoReady(false)} onError={() => { setVideoFailed(true); setVideoReady(false) }} />}
   </figure>
 }

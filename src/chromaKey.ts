@@ -1,31 +1,5 @@
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value))
 
-// Lookup tables keep the per-frame Lab conversion inexpensive enough for the
-// cropped character frame while retaining the requested perceptual key.
-const linearRgb = new Float32Array(256)
-for (let i = 0; i < 256; i += 1) {
-  const channel = i / 255
-  linearRgb[i] = channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
-}
-const labCurve = new Float32Array(8192)
-for (let i = 0; i < labCurve.length; i += 1) {
-  const value = (i / (labCurve.length - 1)) * 1.1
-  labCurve[i] = value > 0.008856 ? Math.cbrt(value) : value / 0.128 + 4 / 29
-}
-
-function rgbToLab(r: number, g: number, b: number) {
-  const red = linearRgb[r]
-  const green = linearRgb[g]
-  const blue = linearRgb[b]
-  const x = (0.4124564 * red + 0.3575764 * green + 0.1804375 * blue) / 0.95047
-  const y = (0.2126729 * red + 0.7151522 * green + 0.072175 * blue)
-  const z = (0.0193339 * red + 0.119192 * green + 0.9503041 * blue) / 1.08883
-  const fx = labCurve[clamp(Math.round(x * (labCurve.length - 1) / 1.1), 0, labCurve.length - 1)]
-  const fy = labCurve[clamp(Math.round(y * (labCurve.length - 1) / 1.1), 0, labCurve.length - 1)]
-  const fz = labCurve[clamp(Math.round(z * (labCurve.length - 1) / 1.1), 0, labCurve.length - 1)]
-  return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)] as const
-}
-
 function smoothstep(edge0: number, edge1: number, value: number) {
   const t = clamp((value - edge0) / (edge1 - edge0), 0, 1)
   return t * t * (3 - 2 * t)
@@ -50,20 +24,30 @@ function sampleBackground(data: Uint8ClampedArray, width: number, height: number
     }
   }
   const rgb = [Math.round(red / count), Math.round(green / count), Math.round(blue / count)] as const
-  return { rgb, lab: rgbToLab(rgb[0], rgb[1], rgb[2]) }
+  return rgb
 }
 
 export function chromaKey(data: Uint8ClampedArray, width: number, height: number, hardEdge = false) {
-  const sample = sampleBackground(data, width, height)
-  const background = sample.lab
+  const background = sampleBackground(data, width, height)
+  const redWeight = 0.35
+  const greenWeight = 0.65
+  const blueWeight = 0.35
+  // These thresholds map the old Lab soft edge to RGB distance around the
+  // sampled green screen; sqrt is needed only for pixels inside that edge.
+  const lowThresholdSquared = 18 * 18
+  const highThresholdSquared = 53 * 53
   for (let i = 0; i < data.length; i += 4) {
-    const [l, a, b] = rgbToLab(data[i], data[i + 1], data[i + 2])
-    const dl = l - background[0]
-    const da = a - background[1]
-    const db = b - background[2]
-    const distance = Math.sqrt(dl * dl + da * da + db * db)
-    const alpha = hardEdge ? (distance < 13 ? 0 : 1) : smoothstep(6, 18, distance)
-    if (hardEdge && distance < 52) {
+    const red = data[i] - background[0]
+    const green = data[i + 1] - background[1]
+    const blue = data[i + 2] - background[2]
+    const distanceSquared = red * red * redWeight + green * green * greenWeight + blue * blue * blueWeight
+    const alpha = hardEdge
+      ? (distanceSquared < 28 * 28 ? 0 : 1)
+      : distanceSquared <= lowThresholdSquared ? 0
+        : distanceSquared >= highThresholdSquared ? 1
+          : smoothstep(18, 53, Math.sqrt(distanceSquared))
+    if (hardEdge && distanceSquared < 70 * 70) {
+      const distance = Math.sqrt(distanceSquared)
       const strongestNonGreen = Math.max(data[i], data[i + 2])
       const spill = Math.max(0, data[i + 1] - strongestNonGreen - 7)
       data[i + 1] = Math.max(strongestNonGreen, data[i + 1] - Math.round(spill * (1 - distance / 52)))
@@ -71,9 +55,9 @@ export function chromaKey(data: Uint8ClampedArray, width: number, height: number
     if (alpha < 0.015) { data[i + 3] = 0; continue }
     if (alpha < 0.995) {
       const keyScale = 1 / alpha
-      data[i] = clamp(Math.round((data[i] - sample.rgb[0] * (1 - alpha)) * keyScale), 0, 255)
-      data[i + 1] = clamp(Math.round((data[i + 1] - sample.rgb[1] * (1 - alpha)) * keyScale), 0, 255)
-      data[i + 2] = clamp(Math.round((data[i + 2] - sample.rgb[2] * (1 - alpha)) * keyScale), 0, 255)
+      data[i] = clamp(Math.round((data[i] - background[0] * (1 - alpha)) * keyScale), 0, 255)
+      data[i + 1] = clamp(Math.round((data[i + 1] - background[1] * (1 - alpha)) * keyScale), 0, 255)
+      data[i + 2] = clamp(Math.round((data[i + 2] - background[2] * (1 - alpha)) * keyScale), 0, 255)
       data[i + 3] = Math.round(255 * alpha)
     }
   }

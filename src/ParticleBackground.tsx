@@ -22,16 +22,17 @@ export default function ParticleBackground() {
     let height = 0
     let particles: Particle[] = []
     let frame = 0
+    let previousFrameTime = 0
     let pointer: { x: number; y: number } | null = null
     const desktop = window.matchMedia('(min-width: 768px)')
 
-    const draw = (animate: boolean) => {
+    const draw = (animate: boolean, elapsedScale = 1) => {
       context.clearRect(0, 0, width, height)
       for (let i = 0; i < particles.length; i += 1) {
         const particle = particles[i]
         if (animate) {
-          particle.x += particle.vx
-          particle.y += particle.vy
+          particle.x += particle.vx * elapsedScale
+          particle.y += particle.vy * elapsedScale
           const catX = width - Math.max(26, width * 0.055) - (width < 768 ? 48 : 72)
           const catY = height - (width < 768 ? 64 : 78)
           const catDx = catX - particle.x
@@ -40,8 +41,8 @@ export default function ParticleBackground() {
           if (catDistance > 0 && catDistance < 155) {
             const direction = catDistance < 48 ? -1 : 1
             const strength = direction < 0 ? 0.009 : ((155 - catDistance) / 155) * 0.0015
-            particle.vx += (catDx / catDistance) * strength * direction
-            particle.vy += (catDy / catDistance) * strength * direction
+            particle.vx += (catDx / catDistance) * strength * direction * elapsedScale
+            particle.vy += (catDy / catDistance) * strength * direction * elapsedScale
           }
           if (pointer && desktop.matches) {
             const dx = pointer.x - particle.x
@@ -49,14 +50,14 @@ export default function ParticleBackground() {
             const distance = Math.hypot(dx, dy)
             if (distance > 0 && distance < 140) {
               const pull = ((140 - distance) / 140) * 0.012
-              particle.vx += (dx / distance) * pull
-              particle.vy += (dy / distance) * pull
-              particle.vx *= 0.995
-              particle.vy *= 0.995
+              particle.vx += (dx / distance) * pull * elapsedScale
+              particle.vy += (dy / distance) * pull * elapsedScale
+              particle.vx *= 0.995 ** elapsedScale
+              particle.vy *= 0.995 ** elapsedScale
             }
           }
-          particle.vx *= 0.999
-          particle.vy *= 0.999
+          particle.vx *= 0.999 ** elapsedScale
+          particle.vy *= 0.999 ** elapsedScale
           const speed = Math.hypot(particle.vx, particle.vy)
           if (speed > 0.35) {
             particle.vx = particle.vx / speed * 0.35
@@ -69,6 +70,9 @@ export default function ParticleBackground() {
         }
       }
 
+      context.beginPath()
+      context.strokeStyle = contentRoute ? 'rgba(43,53,88,.10)' : 'rgba(43,53,88,.16)'
+      context.lineWidth = 1
       for (let i = 0; i < particles.length; i += 1) {
         const first = particles[i]
         for (let j = i + 1; j < particles.length; j += 1) {
@@ -76,26 +80,30 @@ export default function ParticleBackground() {
           const dx = first.x - second.x
           const dy = first.y - second.y
           if (dx * dx + dy * dy < 130 * 130) {
-            context.strokeStyle = contentRoute ? 'rgba(43,53,88,.10)' : 'rgba(43,53,88,.16)'
-            context.lineWidth = 1
-            context.beginPath()
             context.moveTo(first.x, first.y)
             context.lineTo(second.x, second.y)
-            context.stroke()
           }
         }
       }
+      context.stroke()
 
-      for (const particle of particles) {
+      for (const color of contentRoute ? contentColors : homeColors) {
         context.beginPath()
-        context.fillStyle = particle.color
-        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+        for (const particle of particles) {
+          if (particle.color === color) {
+            context.moveTo(particle.x + particle.radius, particle.y)
+            context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+          }
+        }
+        context.fillStyle = color
         context.fill()
       }
     }
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      // The constellation is intentionally soft; limiting backing resolution
+      // avoids clearing several million pixels on every animation frame.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       width = window.innerWidth
       height = window.innerHeight
       canvas.width = Math.round(width * dpr)
@@ -114,13 +122,16 @@ export default function ParticleBackground() {
       draw(false)
     }
 
-    const animate = () => {
+    const animate = (time: number) => {
       if (document.hidden) return
-      draw(true)
+      const elapsed = previousFrameTime ? time - previousFrameTime : 1000 / 60
+      previousFrameTime = time
+      draw(true, Math.min(elapsed / (1000 / 60), 2))
       frame = window.requestAnimationFrame(animate)
     }
     const start = () => {
       window.cancelAnimationFrame(frame)
+      previousFrameTime = 0
       if (document.hidden || reducedMotion) {
         draw(false)
         return

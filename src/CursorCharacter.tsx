@@ -174,7 +174,10 @@ export default function CursorCharacter({ className = '', interactionRegionRef, 
     // width rather than inventing pixels. Re-export with >=8% margin around
     // the entire character (especially elbow/forearm) for the permanent fix.
     const cropX = 0
-    const outputScale = Math.min(1, 900 / sourceWidth)
+    // Color keying runs on every decoded video frame. A 640px working width
+    // keeps the full-HD source crisp at its displayed size while nearly
+    // halving per-frame pixel work versus the previous 900px canvas.
+    const outputScale = Math.min(1, 640 / sourceWidth)
     const cropWidth = Math.round(sourceWidth * outputScale)
     const cropHeight = Math.round(sourceHeight * outputScale)
     let sourceCanvas = sourceContextRef.current?.canvas
@@ -222,7 +225,7 @@ export default function CursorCharacter({ className = '', interactionRegionRef, 
     }
     const cropTop = cropTopRef.current ?? 0
     const cropHeightVisible = cropHeight - cropTop
-    const mobile = window.matchMedia('(max-width: 767px)').matches
+    const mobile = window.innerWidth < 768
     const subjectBounds = subjectBoundsRef.current
     const displayX = mobile && subjectBounds ? subjectBounds.left : 0
     const displayWidth = mobile && subjectBounds ? subjectBounds.right - subjectBounds.left : cropWidth

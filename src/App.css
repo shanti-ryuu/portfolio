@@ -576,10 +576,16 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--navy); outline-
 .app-shell { position: relative; isolation: isolate; min-height: 100svh; overflow-x: clip; }
 .particle-background { position: fixed; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .site-header, .site-footer-inner, .hero-inner, .section-wrap { width: min(1280px, calc(100% - var(--gutter) * 2)); margin-inline: auto; }
-.site-header { grid-template-columns: minmax(0,1fr) auto auto; column-gap: 16px; }
+.site-header { grid-template-columns: minmax(0,1fr) auto auto auto; column-gap: 12px; }
 .site-header { margin: 0; }
 .main-nav { grid-column: 2; }
 .desktop-nav-cta { grid-column: 3; }
+.desktop-portfolio-switch { grid-column: 4; }
+.portfolio-switch { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 10px 16px; border: 1px solid rgba(255,255,255,.62); border-radius: var(--radius-pill); background: linear-gradient(135deg,rgba(255,255,255,.58),rgba(255,255,255,.24)); box-shadow: inset 0 1px 0 rgba(255,255,255,.85),0 8px 24px rgba(31,40,70,.14); color: #15171c; font-size: 15px; font-weight: 650; letter-spacing: -.01em; text-decoration: none; white-space: nowrap; -webkit-backdrop-filter: blur(18px) saturate(170%); backdrop-filter: blur(18px) saturate(170%); transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.portfolio-switch:hover { transform: translateY(-1px); background: linear-gradient(135deg,rgba(255,255,255,.76),rgba(255,255,255,.36)); box-shadow: inset 0 1px 0 rgba(255,255,255,.9),0 10px 26px rgba(31,40,70,.18); }
+.portfolio-switch:active { transform: translateY(1px) scale(.98); }
+.portfolio-switch:focus { outline: 2px solid var(--navy); outline-offset: 3px; }
+.mobile-portfolio-switch { display: none; }
 .route-content { position: relative; z-index: 10; min-height: 0; flex: 1 0 auto; }
 .site-footer { position: relative; z-index: 20; overflow: visible; border-top: 1px solid rgba(255,255,255,.35); background: linear-gradient(to bottom, rgba(195,200,209,0), rgba(180,186,197,.6)); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
 .site-footer::before { position: absolute; right: 0; bottom: 100%; left: 0; height: 80px; background: linear-gradient(to bottom, transparent, rgba(180,186,197,.2)); content: ''; pointer-events: none; }
@@ -786,12 +792,13 @@ html, body { max-width: 100%; overflow-x: clip; }
   .site-header { position: static; inset: auto; display: block; width: auto; height: auto; margin: 0; transform: none; }
   .site-header > .wordmark { position: fixed; top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); z-index: 51; }
   .site-header .menu-toggle { position: fixed; top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); z-index: 50; display: flex; width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; background: linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.22)); box-shadow: 0 6px 18px rgba(31,40,70,.14); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); }
-  .desktop-main-nav, .desktop-nav-cta { display: none; }
+  .desktop-main-nav, .desktop-nav-cta, .desktop-portfolio-switch { display: none; }
   .menu-backdrop { position: fixed; inset: 0; z-index: 39; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: rgba(0,0,0,.1); }
   .main-nav.mobile-main-nav { position: fixed; top: calc(4.5rem + env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); bottom: auto; left: max(16px, env(safe-area-inset-left)); z-index: 40; display: flex; width: auto; max-width: none; max-height: calc(100svh - 6rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)); flex-direction: column; align-items: stretch; gap: 0; overflow-x: hidden; overflow-y: auto; box-sizing: border-box; padding: 16px; border: 1px solid rgba(255,255,255,.6); border-radius: 24px; background: rgba(255,255,255,.55); box-shadow: inset 0 1px 0 rgba(255,255,255,.8),0 16px 38px rgba(31,40,70,.18); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); transform-origin: top center; }
   .main-nav.mobile-main-nav > a:not(.nav-cta) { display: block; width: 100%; min-height: 56px; padding: 12px 16px; border-radius: 16px; font-size: 24px; font-weight: 700; line-height: 1.3; text-align: left; white-space: normal; }
   .main-nav.mobile-main-nav > a:not(.nav-cta).active { background: rgba(255,255,255,.8); box-shadow: inset 0 1px 0 rgba(255,255,255,.9),0 3px 10px rgba(31,40,70,.08); }
   .main-nav.mobile-main-nav .mobile-nav-cta { display: flex; width: 100%; min-height: 52px; align-self: stretch; justify-content: center; margin: 12px 0 0; padding: 12px 16px; font-size: 18px; font-weight: 700; }
+  .main-nav.mobile-main-nav .mobile-portfolio-switch { display: flex; box-sizing: border-box; width: 100%; min-height: 52px; margin-top: 10px; font-size: 17px; }
   .hero-cinematic { min-height: 0; height: auto; padding: calc(88px + env(safe-area-inset-top)) 0 0; }
   .hero-inner { display: flex; width: calc(100% - 32px); min-height: 0; flex-direction: column; align-items: stretch; }
   .hero-cinematic .hero-copy { width: auto; margin: 0; padding: 16px; }
@@ -891,10 +898,11 @@ html, body { max-width: 100%; overflow-x: clip; }
   .about-section { padding-top: 64px; }
 }
 @media (min-width: 768px) and (max-width: 1239px) {
-  .desktop-nav-cta { display: none; }
-  .site-header { grid-template-columns: minmax(0,1fr) auto; }
-  .main-nav { gap: 0; padding: 4px; }
-  .main-nav > a:not(.nav-cta) { padding-inline: 10px; font-size: 16px; }
+  .site-header { grid-template-columns: minmax(0,1fr) auto auto auto; column-gap: 8px; }
+  .main-nav { gap: 0; padding: 3px; }
+  .main-nav > a:not(.nav-cta) { padding: 9px 7px; font-size: 14px; }
+  .nav-cta { min-height: 44px; padding-inline: 12px; font-size: 14px; }
+  .portfolio-switch { min-height: 42px; padding-inline: 11px; font-size: 13px; }
 }
 @media (min-width: 1240px) and (max-width: 1450px) {
   .main-nav > a:not(.nav-cta) { padding-inline: 11px; }

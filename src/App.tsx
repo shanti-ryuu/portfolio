@@ -99,6 +99,7 @@ function Header() {
         {navigation.map(([label, path]) => <Link key={path} to={path} aria-current={isCurrentRoute(path) ? 'page' : undefined} className={isCurrentRoute(path) ? 'active' : undefined}>{label}</Link>)}
       </nav>
       <Link className="nav-cta desktop-nav-cta" to="/contact">Let’s talk <span aria-hidden="true">↗</span></Link>
+      <a className="portfolio-switch desktop-portfolio-switch" href="https://shin-joshua.netlify.app/">Switch Portfolio</a>
     </header>
     <AnimatePresence>
       {open && <>
@@ -106,6 +107,7 @@ function Header() {
         <motion.nav ref={menuRef} id="site-navigation" className="main-nav mobile-main-nav" aria-label="Main navigation" initial={{ opacity: 0, y: -8, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: .98 }} transition={{ duration: .18 }}>
           {navigation.map(([label, path]) => <Link key={path} to={path} onClick={() => setOpen(false)} aria-current={isCurrentRoute(path) ? 'page' : undefined} className={isCurrentRoute(path) ? 'active' : undefined}>{label}</Link>)}
           <Link className="nav-cta mobile-nav-cta" to="/contact" onClick={() => setOpen(false)}>Let’s talk <span aria-hidden="true">↗</span></Link>
+          <a className="portfolio-switch mobile-portfolio-switch" href="https://shin-joshua.netlify.app/" onClick={() => setOpen(false)}>Switch Portfolio</a>
         </motion.nav>
       </>}
     </AnimatePresence>
@@ -137,22 +139,32 @@ function OrbitCats({ reduceMotion }: { reduceMotion: boolean }) {
   const left = useRef<HTMLDivElement>(null)
   const right = useRef<HTMLDivElement>(null)
   const visible = useRef(false)
+  const radii = useRef({ x: 0, y: 0 })
   useEffect(() => {
     const node = stage.current
-    if (!node) return
+    const portrait = node?.querySelector('.about-portrait')
+    if (!node || !portrait) return
     const observer = new IntersectionObserver(([entry]) => { visible.current = entry.isIntersecting }, { threshold: .01 })
     observer.observe(node)
-    return () => observer.disconnect()
+    const measure = () => {
+      const rect = portrait.getBoundingClientRect()
+      const catSize = window.innerWidth < 768 ? 56 : 96
+      radii.current = { x: rect.width / 2 + catSize / 2 + 12, y: rect.height / 2 + catSize / 2 + 12 }
+    }
+    const resizeObserver = new ResizeObserver(measure)
+    resizeObserver.observe(portrait)
+    window.addEventListener('resize', measure)
+    measure()
+    return () => {
+      observer.disconnect()
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', measure)
+    }
   }, [])
   useAnimationFrame((time) => {
     if (reduceMotion || !visible.current || !stage.current) return
     const angle = (time / 24000) * Math.PI * 2
-    const portrait = stage.current.querySelector('.about-portrait')
-    if (!portrait) return
-    const rect = portrait.getBoundingClientRect()
-    const catSize = window.innerWidth < 768 ? 56 : 96
-    const rx = rect.width / 2 + catSize / 2 + 12
-    const ry = rect.height / 2 + catSize / 2 + 12
+    const { x: rx, y: ry } = radii.current
     for (const [node, offset] of [[left.current, 0], [right.current, Math.PI]] as const) {
       if (!node) continue
       const a = angle + offset
