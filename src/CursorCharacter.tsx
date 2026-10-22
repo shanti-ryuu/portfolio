@@ -16,8 +16,12 @@ const CLIPS: Record<Direction, string> = {
   'down-right': 'looking-downright.mp4',
 }
 
-const VIDEO_ROOT = `${import.meta.env.BASE_URL}media/character-gaze-h264/`
-const clipUrl = (direction: Direction) => `${VIDEO_ROOT}${CLIPS[direction]}`
+const COMPATIBLE_VIDEO_ROOT = `${import.meta.env.BASE_URL}media/character-gaze-h264/`
+const HIGH_QUALITY_VIDEO_ROOT = `${import.meta.env.BASE_URL}media/character-gaze.mp4/`
+const hevcVideo = typeof document !== 'undefined'
+  && document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== ''
+const clipUrl = (direction: Direction) => `${hevcVideo ? HIGH_QUALITY_VIDEO_ROOT : COMPATIBLE_VIDEO_ROOT}${CLIPS[direction]}`
+const compatibleClipUrl = (direction: Direction) => `${COMPATIBLE_VIDEO_ROOT}${CLIPS[direction]}`
 
 function directionAt(x: number, y: number, previous: Direction): Direction {
   const threshold = previous === 'center' ? 0.4 : 0.32
@@ -174,10 +178,13 @@ export default function CursorCharacter({ className = '', interactionRegionRef, 
     // width rather than inventing pixels. Re-export with >=8% margin around
     // the entire character (especially elbow/forearm) for the permanent fix.
     const cropX = 0
-    // Color keying runs on every decoded video frame. A 640px working width
-    // keeps the full-HD source crisp at its displayed size while nearly
-    // halving per-frame pixel work versus the previous 900px canvas.
-    const outputScale = Math.min(1, 640 / sourceWidth)
+    // Keep the canvas close to the source's native 1080px height on desktop;
+    // a 640px cap visibly softened the full-screen character. The source itself
+    // remains the upper bound, so this never invents extra image detail.
+    const targetHeight = window.innerWidth < 768
+      ? 640
+      : Math.min(1080, window.innerHeight * Math.min(window.devicePixelRatio || 1, 1.5))
+    const outputScale = Math.min(1, targetHeight / sourceHeight)
     const cropWidth = Math.round(sourceWidth * outputScale)
     const cropHeight = Math.round(sourceHeight * outputScale)
     let sourceCanvas = sourceContextRef.current?.canvas
@@ -249,8 +256,15 @@ export default function CursorCharacter({ className = '', interactionRegionRef, 
   const onError = useCallback((event: SyntheticEvent<HTMLVideoElement>) => {
     const video = event.currentTarget
     const expected = new URL(clipUrl(activeDirection.current), document.baseURI).href
-    if (!video.currentSrc || video.currentSrc === expected) setFailed(true)
-  }, [])
+    if (!video.currentSrc || video.currentSrc !== expected) return
+    if (hevcVideo && (!video.currentSrc || video.currentSrc.startsWith(new URL(HIGH_QUALITY_VIDEO_ROOT, document.baseURI).href))) {
+      video.src = compatibleClipUrl(activeDirection.current)
+      video.load()
+      if (!reduceMotion && shouldPlay) void video.play().catch(() => {})
+      return
+    }
+    setFailed(true)
+  }, [reduceMotion, shouldPlay])
 
   useEffect(() => {
     const video = videoRef.current

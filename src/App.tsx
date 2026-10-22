@@ -32,7 +32,6 @@ const navigation = [
   ['Projects', '/projects'],
   ['Credentials', '/credentials'],
   ['Achievements', '/achievements'],
-  ['Contact', '/contact'],
 ] as const
 
 function Header() {

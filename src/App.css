@@ -1345,6 +1345,14 @@ body[data-dance-cat="on"] .pixel-cat { display:none; opacity:0; }
   .site-footer .pixel-cat-companion { display: none; }
 }
 
+/* Keep the decorative cat centered in the mobile contact card and the hero
+   content close to the fixed header without changing the desktop composition. */
+@media (max-width: 767px) {
+  .hero-cinematic { padding-top: calc(72px + max(12px, env(safe-area-inset-top))); }
+  .hero-inner { padding-block: 0; }
+  .mobile-model-stage { margin-top: 12px; }
+}
+
 /* Contact: keep the introduction and action card balanced side by side. */
 .page-contact {
   display: grid;
@@ -1374,6 +1382,6 @@ body[data-dance-cat="on"] .pixel-cat { display:none; opacity:0; }
 @media (max-width: 767px) {
   .page-contact > .contact-hero h1 { font-size: clamp(2rem, 8.5vw, 2.75rem); }
   .page-contact .contact-panel { display: flex; flex-direction: column; gap: 14px; padding: 20px; }
-  .page-contact .contact-card-cat { width: 104px; height: 104px; align-self: flex-end; margin: -8px 4px -2px 0; }
+  .page-contact .contact-card-cat { width: 104px; height: 104px; align-self: center; margin: 0 auto; }
   .page-contact .contact-methods { width: 100%; }
 }
